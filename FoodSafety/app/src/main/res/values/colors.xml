@@ -3,7 +3,15 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
-
+        
+    
+    <color name="txt_important_black_51">#333333</color>
+    <color name="txt_auxiliary_gray">#999999</color>
+    <color name="txt_hint_input_gray_191">#bfbfbf</color>
+<!--
+    <color name="color_blue_btn">#95D5FB</color>
+-->
+    <color name="color_blue_btn">#3FB3F8</color>
+    <color name="white">#ffffff</color>
 
 </resources>

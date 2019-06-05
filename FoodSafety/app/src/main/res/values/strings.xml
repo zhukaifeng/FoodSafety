@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">食品安全</string>
 
-
+    <string name="txt_login_input_phone">请输入手机号</string>
+    <string name="txt_login_input_pwd">请输入密码</string>
+    <string name="txt_login_input_code">请输入验证码</string>
+    <string name="txt_login_getcode">获取验证码</string>
+    <string name="txt_login">登录</string>
+    <string name="txt_forget_pwd">忘记密码</string>
+    <string name="txt_stu_regist">学员注册</string>
 
 
 </resources>
