@@ -12,6 +12,7 @@
     <color name="color_blue_btn">#95D5FB</color>
 -->
     <color name="color_blue_btn">#3FB3F8</color>
+    <color name="color_blue_elevation">#95D5FB</color>
     <color name="white">#ffffff</color>
 
 </resources>

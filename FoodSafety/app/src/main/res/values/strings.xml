@@ -8,6 +8,8 @@
     <string name="txt_login">登录</string>
     <string name="txt_forget_pwd">忘记密码</string>
     <string name="txt_stu_regist">学员注册</string>
-
+    <string name="txt_policy"><u>我已阅读并同意《用户隐私相关政策》</u></string>
+    <string name="send">%1$ds后重发</string>
+    <string name="get_msg_code">重发</string>
 
 </resources>
