@@ -28,5 +28,13 @@
     <string name="txt_know">知道了</string>
     <string name="txt_regist_sucess">注册成功</string>
     <string name="txt_regist_sucess_content">默认登录密码为123456，登录成功后可以修改密码。</string>
+    <string name="txt_manager_people">泰州市食品安全管理人员</string>
+    <string name="txt_online_policy">在线培训服务平台用户隐私相关政策</string>
+    <string name="txt_read_policy">我已阅读并同意此协议</string>
+    <string name="txt_agree">同意</string>
+    <string name="txt_not_agree">不同意</string>
+
+
+
 
 </resources>

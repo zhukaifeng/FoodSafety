@@ -36,6 +36,12 @@
         <activity
             android:name=".login.RegistCompleteActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.PolicyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".home.MenuActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

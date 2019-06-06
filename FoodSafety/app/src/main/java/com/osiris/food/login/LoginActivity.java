@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
+import com.osiris.food.home.MenuActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,7 +42,7 @@ public class LoginActivity extends BaseActivity {
 	}
 
 
-	@OnClick({R.id.tv_send, R.id.btn_login, R.id.tv_forget_pwd, R.id.tv_regist})
+	@OnClick({R.id.tv_send, R.id.btn_login, R.id.tv_forget_pwd, R.id.tv_regist,R.id.tv_policy})
 	void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.tv_send:
@@ -49,7 +50,8 @@ public class LoginActivity extends BaseActivity {
 				break;
 			case R.id.btn_login:
 
-
+				Intent intent2 = new Intent(this, MenuActivity.class);
+				startActivity(intent2);
 				break;
 			case R.id.tv_forget_pwd:
 
@@ -59,6 +61,10 @@ public class LoginActivity extends BaseActivity {
 				Intent intent = new Intent(this,RegistActivity.class);
 				startActivity(intent);
 
+				break;
+			case R.id.tv_policy:
+				Intent intent1 = new Intent(this,PolicyActivity.class);
+				startActivity(intent1);
 				break;
 		}
 	}

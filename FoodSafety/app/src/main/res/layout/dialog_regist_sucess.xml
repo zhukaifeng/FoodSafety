@@ -9,8 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp182"
-        android:layout_marginLeft="@dimen/dp47"
-        android:layout_marginRight="@dimen/dp47"
+        android:layout_marginLeft="@dimen/dp30"
+        android:layout_marginRight="@dimen/dp30"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -43,8 +43,8 @@
             android:text="@string/txt_regist_sucess_content"
             android:layout_below="@+id/view_line"
             android:layout_marginTop="@dimen/dp21"
-            android:layout_marginLeft="@dimen/dp30"
-            android:layout_marginRight="@dimen/dp30"
+            android:layout_marginLeft="@dimen/dp15"
+            android:layout_marginRight="@dimen/dp15"
             android:textColor="@color/txt_important_black_51"
             />
 
