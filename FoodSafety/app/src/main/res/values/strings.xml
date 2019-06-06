@@ -11,5 +11,22 @@
     <string name="txt_policy"><u>我已阅读并同意《用户隐私相关政策》</u></string>
     <string name="send">%1$ds后重发</string>
     <string name="get_msg_code">重发</string>
+    <string name="txt_regist_input_name">请输入姓名</string>
+    <string name="txt_regist_input_sex">请输入性别</string>
+    <string name="txt_document_type">证件类型</string>
+    <string name="txt_document_num">请输入证件号码</string>
+    <string name="txt_input_mail">请输入邮箱</string>
+    <string name="txt_input_eduction">请输入学历</string>
+    <string name="txt_next">下一步</string>
+    <string name="txt_regist_industry">行业类型</string>
+    <string name="txt_regist_post">担任岗位</string>
+    <string name="txt_input_company_name">请输入单位名称</string>
+    <string name="txt_input_company_phone">请输入单位电话</string>
+    <string name="txt_input_company_location">单位所在省及城市（例：江苏省南京市）</string>
+    <string name="txt_input_company_detail_location">单位所在街道及详细地址</string>
+    <string name="txt_regist">注册</string>
+    <string name="txt_know">知道了</string>
+    <string name="txt_regist_sucess">注册成功</string>
+    <string name="txt_regist_sucess_content">默认登录密码为123456，登录成功后可以修改密码。</string>
 
 </resources>

@@ -30,8 +30,12 @@
             android:name="com.google.android.actions"
             android:resource="@xml/network_security_config" />
 
-
-
+        <activity
+            android:name=".login.RegistActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".login.RegistCompleteActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

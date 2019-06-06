@@ -77,7 +77,11 @@
                 android:textSize="@dimen/sp14"/>
 
         </LinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp1"
+            android:background="@color/gray_line_e3"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp50"
@@ -103,7 +107,11 @@
 
 
         </LinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp1"
+            android:background="@color/gray_line_e3"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp50"
@@ -148,6 +156,13 @@
                 android:layout_marginBottom="@dimen/dp15"
                 android:layout_toLeftOf="@+id/tv_send"
                 android:background="@color/txt_hint_input_gray_191"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp1"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp3"
+                android:background="@color/gray_line_e3"
+                />
         </RelativeLayout>
 
 

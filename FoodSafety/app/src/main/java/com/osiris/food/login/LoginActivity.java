@@ -1,5 +1,6 @@
 package com.osiris.food.login;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.CheckBox;
@@ -55,7 +56,8 @@ public class LoginActivity extends BaseActivity {
 
 				break;
 			case R.id.tv_regist:
-
+				Intent intent = new Intent(this,RegistActivity.class);
+				startActivity(intent);
 
 				break;
 		}
