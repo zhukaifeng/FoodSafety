@@ -9,6 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.osiris.food.event.DefaultEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment  {
@@ -24,6 +29,12 @@ public abstract class BaseFragment extends Fragment  {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Nullable
@@ -112,5 +123,22 @@ public abstract class BaseFragment extends Fragment  {
         Intent intent = new Intent(context, clazz);
         intent.putExtras(bundle);
         getActivity().startActivityForResult(intent, requestCode);
+    }
+
+    protected void postEvent(Object obj) {
+        EventBus.getDefault().post(obj);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    @Subscribe
+    public void defaultEventHandler(DefaultEvent event) {
+        // not handle
     }
 }

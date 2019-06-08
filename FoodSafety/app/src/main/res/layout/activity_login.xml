@@ -172,10 +172,12 @@
 
     <Button
         android:id="@+id/btn_login"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="@dimen/dp305"
-        android:layout_height="@dimen/dp40"
+        android:layout_height="@dimen/dp55"
         android:layout_marginTop="@dimen/dp32"
-        android:background="@drawable/bg_round_blue_btn"
+        android:background="@drawable/bg_button"
+        android:paddingBottom="@dimen/dp4"
         android:text="@string/txt_login"
         android:textColor="@color/white"
         android:textSize="@dimen/sp16"/>

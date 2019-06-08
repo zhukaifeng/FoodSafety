@@ -79,7 +79,7 @@ public class NetRequest {
                                  listener.requestSuccess(tag, response);
 
 
-//                                 if (TextUtils.isEmpty(response)) {
+//                                 if (TextUti.isEmpty(response)) {
 //                                     listener.requestFailure(tag, -2, "");
 //                                     return;
 //                                 }
@@ -108,7 +108,7 @@ public class NetRequest {
 //
 //                    @Override
 //                    public void onResponse(String response, int id) {
-//                        if (TextUtils.isEmpty(response)) {
+//                        if (TextUti.isEmpty(response)) {
 //                            listener.requestFailure(tag, -2, "");
 //                            return;
 //                        }

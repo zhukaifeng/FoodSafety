@@ -14,7 +14,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.osiris.food.event.DefaultEvent;
 import com.osiris.food.utils.MyActivityUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.ButterKnife;
 
@@ -45,6 +49,7 @@ public abstract class BaseActivity extends FragmentActivity {
         }
 
         setContentView(getLayoutResId());
+        EventBus.getDefault().register(this);
         ButterKnife.bind(this);
         MyActivityUtils.addActivity(this);
         init();
@@ -65,6 +70,7 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         MyActivityUtils.removeActivity(this);
+        EventBus.getDefault().unregister(this);
     }
 
     public abstract int getLayoutResId();
@@ -141,5 +147,14 @@ public abstract class BaseActivity extends FragmentActivity {
         msg.setData(bundle);
         msg.what = mWhat;
         mHandler.sendMessage(msg);
+    }
+
+    protected void postEvent(Object obj) {
+        EventBus.getDefault().post(obj);
+    }
+
+    @Subscribe
+    public void defaultEventHandler(DefaultEvent event) {
+        // not handle
     }
 }

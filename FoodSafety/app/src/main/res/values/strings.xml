@@ -35,6 +35,73 @@
     <string name="txt_not_agree">不同意</string>
 
 
+    <string name="txt_title_mine">我的</string>
+    <string name="txt_title_mine_order">我的订单</string>
+    <string name="txt_title_mine_score">我的积分</string>
+    <string name="txt_title_mine_study">我的学习</string>
+    <string name="txt_title_mine_certificate">我的证书</string>
+    <string name="txt_title_mine_notification">我的通知</string>
+    <string name="txt_title_mine_contract">联系我们</string>
+    <string name="txt_title_mine_setting">设   置</string>
+    <string name="txt_system_notification">系统公告</string>
+    <string name="txt_course_name">主讲：%1$s</string>
+    <string name="txt_course_time">课程时长：%1$s</string>
+    <string name="txt_course_time_look">已观看时长：%1$s</string>
+    <string name="txt_hotline">客服热线</string>
+    <string name="txt_company_page">公司主页</string>
+    <string name="txt_company_location">公司地址</string>
+    <string name="txt_traffic_guide">交通指南</string>
+    <string name="txt_account_safety">账号与安全</string>
+    <string name="txt_new_notification">新消息通知</string>
+    <string name="txt_privacy">隐私</string>
+    <string name="txt_custom">通用</string>
+    <string name="txt_app_version">食品安全培训</string>
+    <string name="txt_exit_login">退出登录</string>
+
+
+    <string name="txt_choose_auth">选择实名认证方式</string>
+    <string name="txt_auth_card">身份证认证</string>
+    <string name="txt_auth_third">第三方认证</string>
+    <string name="txt_auth_card_desc">本过程需要本人完成，\n准备好身份证~</string>
+    <string name="txt_auth_third_desc">本过程需要本人完成，\n若实名即可认证~</string>
+    <string name="txt_input_real_name">请输入真实姓名</string>
+    <string name="txt_input_cer_type">请输入证件类型（例：身份证）</string>
+    <string name="txt_auth_identity_note">注：请确认是您本人，验证后不可更改</string>
+    <string name="txt_confirn_commit">确认并提交</string>
+    <string name="txt_totle_auth">身份认证</string>
+    <string name="txt_commit_auth_complete">您提交的认证资料已通过考核</string>
+    <string name="txt_commit_auth_success">实名认证成功</string>
+    <string name="txt_commit_auth">实名认证</string>
+    <string name="txt_return">返回</string>
+    <string name="txt_hint">提示</string>
+    <string name="txt_hint_continue_edu">您好，您的在线考试尚未完成，并且在线考试分数达60分或以上，才能进行申请继续教育盖章！</string>
+    <string name="txt_cancel">返回</string>
+    <string name="txt_confirm">确定</string>
+    <string name="txt_train_record">培训记录</string>
+    <string name="txt_select_course_name">课程名称：</string>
+    <string name="txt_pay_count">金额</string>
+    <string name="txt_pay_order_id">订单号</string>
+    <string name="txt_pay_wechat">微信支付</string>
+    <string name="txt_pay_ali">支付宝支付</string>
+    <string name="txt_payment">付款</string>
+    <string name="txt_payment_count">应付金额：¥%1$s</string>
+    <string name="txt_payment_confirm">确认支付</string>
+    <string name="txt_input_document_num">请输入身份证号码</string>
+    <string name="txt_input_document_name">请输入证书名称</string>
+    <string name="txt_cer_detail">证书详情页</string>
+    <string name="txt_cer_content_detail">点击右侧图标上传证书，\n请保持图片清晰及完整，\n避免出现照片模糊、闪光\n强烈以及光线偏暗等情况。</string>
+    <string name="cancel">取消</string>
+    <string name="commit">提交</string>
+    <string name="txt_title_train_apply">申请面授培训认定</string>
+    <string name="policy_regulation">政策法规</string>
+    <string name="city_dynamic">创城动态</string>
+    <string name="industry_information">行业资讯</string>
+    <string name="latest_news">最新动态</string>
+    <string name="score_detail">积分明细</string>
+    <string name="score_rule">积分规则如下：</string>
+    <string name="score_explam">积分说明</string>
+    <string name="score_answer">答：</string>
+    <string name="score_question">问：</string>
 
 
 </resources>

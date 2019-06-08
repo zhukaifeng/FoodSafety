@@ -1,5 +1,6 @@
 package com.osiris.food.login;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.home.MenuActivity;
+import com.osiris.food.view.dialog.ContinueEduDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,7 +57,7 @@ public class LoginActivity extends BaseActivity {
 				break;
 			case R.id.tv_forget_pwd:
 
-
+				//showDialog();
 				break;
 			case R.id.tv_regist:
 				Intent intent = new Intent(this,RegistActivity.class);
@@ -85,6 +87,19 @@ public class LoginActivity extends BaseActivity {
 
 			}
 		}.start();
+	}
+
+
+	private void showDialog() {
+		ContinueEduDialog.Builder preventBuilder = new ContinueEduDialog.Builder(this);
+		preventBuilder.setPositiveButton(new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				dialogInterface.dismiss();
+			}
+		});
+
+		preventBuilder.create().show();
 	}
 
 
