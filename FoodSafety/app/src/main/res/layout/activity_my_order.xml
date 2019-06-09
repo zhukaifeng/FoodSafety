@@ -8,16 +8,6 @@
 
     <include layout="@layout/layout_title"/>
 
-    <com.liang.widget.JTabLayout
-        android:id="@+id/tabLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp53"
-        app:jDividerColor="@android:color/holo_orange_dark"
-        app:jDividerHeight="40dp"
-        app:jDividerWidth="1dp"
-        app:jTabMode="fixed"
-        app:jTabTextColor="@color/gray_line_e3" />
-
 
 
 </LinearLayout>

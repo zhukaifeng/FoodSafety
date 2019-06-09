@@ -99,7 +99,7 @@ public class MenuActivity extends BaseActivity {
 		img_exam.setImageResource(tabName.equals(FRAGMENT_EXAM) ? R.drawable
 				.home_exam_pressed : R.drawable.home_exam_normal);
 		img_mine.setImageResource(tabName.equals(FRAGMENT_MINE) ? R.drawable
-				.home_mine_pressed : R.drawable.home_exam_normal);
+				.home_mine_pressed : R.drawable.home_mine_normal);
 	}
 
 

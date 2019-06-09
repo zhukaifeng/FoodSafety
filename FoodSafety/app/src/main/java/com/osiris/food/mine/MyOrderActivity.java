@@ -8,6 +8,9 @@ public class MyOrderActivity extends BaseActivity {
 
 
 
+
+
+
 	@Override
 	public int getLayoutResId() {
 		return R.layout.activity_my_order;
@@ -17,5 +20,12 @@ public class MyOrderActivity extends BaseActivity {
 	public void init() {
 
 
+
 	}
+
+
+
+
+
+
 }

@@ -1,4 +1,4 @@
-package com.osiris.food.home.fragment;
+package com.osiris.food.edu;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,17 +7,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.osiris.food.R;
-import com.osiris.food.base.BaseFragment;
-import com.osiris.food.exam.adapter.ExamAdapter;
+import com.osiris.food.base.BaseActivity;
+import com.osiris.food.edu.adapter.ApplyEduAdapter;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class ExamFragment extends BaseFragment {
-
+public class ApplyEduActivity extends BaseActivity {
 
 	@BindView(R.id.rl_back)
 	RelativeLayout rl_back;
@@ -27,26 +27,24 @@ public class ExamFragment extends BaseFragment {
 	RecyclerView rv_data;
 
 	private List<String> dataList = new ArrayList<>();
-	private ExamAdapter dataAdapter = new ExamAdapter(dataList);
+	private ApplyEduAdapter dataAdapter = new ApplyEduAdapter(dataList);
 
 
 	@Override
-	protected int setLayout() {
-		return R.layout.fragmnent_exam;
+	public int getLayoutResId() {
+		return R.layout.activity_apply_edu;
 	}
 
 	@Override
-	protected void initView() {
+	public void init() {
+		tv_title.setText(getString(R.string.apply_continue_eduction));
 
-		tv_title.setText(getString(R.string.exam));
-		rl_back.setVisibility(View.GONE);
-
+		dataList.add("0");
 		dataList.add("1");
 		dataList.add("2");
 		dataList.add("3");
 
-
-		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
+		rv_data.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 		rv_data.setAdapter(dataAdapter);
 		dataAdapter.notifyDataSetChanged();
 
@@ -60,8 +58,13 @@ public class ExamFragment extends BaseFragment {
 
 	}
 
-	@Override
-	protected void initData() {
 
+	@OnClick({R.id.rl_back})
+	void onClick(View v){
+		switch (v.getId()){
+			case R.id.rl_back:
+				finish();
+				break;
+		}
 	}
 }

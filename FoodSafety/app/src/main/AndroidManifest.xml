@@ -91,11 +91,17 @@
         <activity
             android:name=".train.ApplyTrainingActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".train.TrainingContentActivity"
+            android:screenOrientation="portrait"/>
+
 
         <activity
             android:name=".payment.PayActivity"
             android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".edu.ApplyEduActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 
