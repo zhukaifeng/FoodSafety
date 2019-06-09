@@ -66,6 +66,8 @@
         <activity
             android:name=".mine.ScoreRuleActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".mine.PersonInfoActivity"
+                  android:screenOrientation="portrait"/>
         <activity
             android:name=".authentication.AuthenticationChooseActivity"
             android:screenOrientation="portrait"/>
@@ -82,6 +84,10 @@
         <activity
             android:name=".train.TrainRecordActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".train.FaceTraingActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".train.ApplyTrainingActivity"
             android:screenOrientation="portrait"/>

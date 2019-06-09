@@ -57,6 +57,10 @@
         android:layout_marginBottom="@dimen/dp28"
         >
 
+        <RelativeLayout
+            android:id="@+id/rl_personal_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/dp63"
@@ -87,6 +91,7 @@
             android:layout_toRightOf="@+id/tv_name"
             android:background="@drawable/bg_default_white_qr"
             />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="@dimen/dp96"

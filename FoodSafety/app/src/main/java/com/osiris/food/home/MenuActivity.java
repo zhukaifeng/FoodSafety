@@ -10,6 +10,7 @@ import com.osiris.food.base.BaseFragment;
 import com.osiris.food.event.FragmentChangeEvent;
 import com.osiris.food.home.fragment.ApplyFragment;
 import com.osiris.food.home.fragment.CityNewsFragment;
+import com.osiris.food.home.fragment.ExamFragment;
 import com.osiris.food.home.fragment.HomeFragment;
 import com.osiris.food.home.fragment.IndustryInformationFragment;
 import com.osiris.food.home.fragment.MineFragment;
@@ -161,7 +162,7 @@ public class MenuActivity extends BaseActivity {
 
 					break;
 				case FRAGMENT_EXAM:
-					fragment = new ApplyFragment();
+					fragment = new ExamFragment();
 					break;
 				case FRAGMENT_MINE:
 					fragment = new MineFragment();

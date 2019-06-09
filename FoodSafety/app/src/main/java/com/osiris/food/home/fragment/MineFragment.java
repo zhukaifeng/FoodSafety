@@ -13,6 +13,7 @@ import com.osiris.food.mine.MyCertificationActivity;
 import com.osiris.food.mine.MyNotificationActivity;
 import com.osiris.food.mine.MyOrderActivity;
 import com.osiris.food.mine.MyStudyActivity;
+import com.osiris.food.mine.PersonInfoActivity;
 import com.osiris.food.mine.ScoreRuleActivity;
 import com.osiris.food.mine.SettingActivity;
 
@@ -53,7 +54,8 @@ public class MineFragment extends BaseFragment {
 
 	}
 
-	@OnClick({R.id.rl_mine_order,R.id.rl_mine_score,R.id.rl_mine_study,R.id.rl_mine_certificate,R.id.rl_mine_notification,R.id.rl_mine_contract,R.id.rl_mine_setting})
+	@OnClick({R.id.rl_mine_order,R.id.rl_mine_score,R.id.rl_mine_study,R.id.rl_mine_certificate,
+			R.id.rl_mine_notification,R.id.rl_mine_contract,R.id.rl_mine_setting,R.id.rl_personal_info})
 	void onClick(View v){
 		switch (v.getId()){
 			case R.id.rl_mine_order:
@@ -84,6 +86,11 @@ public class MineFragment extends BaseFragment {
 			case R.id.rl_mine_setting:
 				Intent intent7 = new Intent(getActivity(), SettingActivity.class);
 				startActivity(intent7);
+
+				break;
+			case R.id.rl_personal_info:
+				Intent intent8 = new Intent(getActivity(), PersonInfoActivity.class);
+				startActivity(intent8);
 
 				break;
 		}

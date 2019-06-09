@@ -102,6 +102,26 @@
     <string name="score_explam">积分说明</string>
     <string name="score_answer">答：</string>
     <string name="score_question">问：</string>
+    <string name="exam">考试</string>
+    <string name="exam_subject_count">道题</string>
+    <string name="exam_subject_history">历史最高分：</string>
+    <string name="training_description">一、使用说明及范围</string>
+    <string name="training_operation">二、操作流程说明</string>
+    <string name="training_examine">三、审核说明</string>
+    <string name="training_face_title">面授培训认定说明</string>
+    <string name="avatar">头像</string>
+    <string name="nick_name">昵称</string>
+    <string name="sex">性别</string>
+    <string name="birthday">出生日期</string>
+    <string name="write_not">未填写</string>
+    <string name="study_num">学号</string>
+    <string name="phone_num">手机号码</string>
+    <string name="location">地区</string>
+    <string name="work_status">工作状态</string>
+    <string name="pseronal_check">个人实名认证</string>
+    <string name="auth_not">未认证</string>
+    <string name="qr_card">二维码名片</string>
+    <string name="personal_info">个人资料</string>
 
 
 </resources>
