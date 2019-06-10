@@ -15,6 +15,7 @@ import com.osiris.food.home.fragment.HomeFragment;
 import com.osiris.food.home.fragment.IndustryInformationFragment;
 import com.osiris.food.home.fragment.MineFragment;
 import com.osiris.food.home.fragment.PoliccyRegualationFragment;
+import com.osiris.food.home.fragment.StudyFragment;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -158,7 +159,7 @@ public class MenuActivity extends BaseActivity {
 					fragment = new ApplyFragment();
 					break;
 				case FRAGMENT_STUDY:
-					fragment = new ApplyFragment();
+					fragment = new StudyFragment();
 
 					break;
 				case FRAGMENT_EXAM:

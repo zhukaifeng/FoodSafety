@@ -130,6 +130,13 @@
     <string name="level">级别：</string>
     <string name="project_num">项目编号：</string>
     <string name="apply">申请</string>
-
+    <string name="study">学习</string>
+    <string name="food_safe_train">食品安全管理人员培训</string>
+    <string name="apply_record">申请记录</string>
+    <string name="training_record">培训记录</string>
+    <string name="face_training_check">面授培训认定</string>
+    <string name="confirm_note"><u>认定说明</u></string>
+    <string name="public_class">公共课程</string>
+    <string name="major_class">专业课程</string>
 
 </resources>
