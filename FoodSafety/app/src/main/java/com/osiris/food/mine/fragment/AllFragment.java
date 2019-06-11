@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
-import com.osiris.food.mine.adapter.NotificationAdapter;
 import com.osiris.food.mine.adapter.OrderAllAdapter;
 import com.osiris.food.utils.TextUti;
 
@@ -29,13 +28,13 @@ public class AllFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        dataList.add(TextUti.ToDBC("恭喜您，系统已为您生成学籍，学籍编号20190410678"));
-        dataList.add(TextUti.ToDBC("恭喜您，系统已为您生成学籍，学籍编号20190410678"));
-        dataList.add(TextUti.ToDBC("恭喜您，系统已为您生成学籍，学籍编号20190410678"));
-        dataList.add(TextUti.ToDBC("恭喜您，系统已为您生成学籍，学籍编号20190410678"));
-        dataList.add(TextUti.ToDBC("恭喜您，系统已为您生成学籍，学籍编号20190410678"));
-        dataList.add(TextUti.ToDBC("恭喜您，系统已为您生成学籍，学籍编号20190410678"));
-        dataList.add(TextUti.ToDBC("恭喜您，系统已为您生成学籍，学籍编号20190410678"));
+        dataList.add(TextUti.ToDBC("2017~2018年度食品安全中级培训课程"));
+        dataList.add(TextUti.ToDBC("2017~2018年度食品安全中级培训课程"));
+        dataList.add(TextUti.ToDBC("2017~2018年度食品安全中级培训课程"));
+        dataList.add(TextUti.ToDBC("2017~2018年度食品安全中级培训课程"));
+        dataList.add(TextUti.ToDBC("2017~2018年度食品安全中级培训课程"));
+        dataList.add(TextUti.ToDBC("2017~2018年度食品安全中级培训课程"));
+        dataList.add(TextUti.ToDBC("2017~2018年度食品安全中级培训课程"));
 
         rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
         rv_data.setAdapter(dataAdapter);

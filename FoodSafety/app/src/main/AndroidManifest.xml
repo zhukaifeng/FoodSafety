@@ -102,6 +102,8 @@
         <activity
             android:name=".edu.ApplyEduActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".exam.ExamAnswersActivity"
+                  android:screenOrientation="portrait"/>
 
     </application>
 

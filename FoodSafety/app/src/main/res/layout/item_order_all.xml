@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp90"
+        android:layout_height="@dimen/dp70"
         >
 
 
@@ -19,17 +19,7 @@
             android:src="@color/color_blue_btn"
             />
 
-        <com.osiris.food.view.widget.CustomTextView
-            android:id="@+id/tv_notification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dp78"
-            android:layout_marginLeft="@dimen/dp13"
-            android:textSize="@dimen/sp14"
-            android:layout_toRightOf="@+id/civ_point"
-            android:textColor="@color/txt_important_black_51"
-            />
+
 
         <View
             android:layout_width="@dimen/dp1"
@@ -46,36 +36,57 @@
             android:layout_marginLeft="@dimen/dp41"
             android:background="@color/gray_line_e3"
             />
-
-        <RelativeLayout
-            android:id="@+id/rl_date"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp78"
-            android:layout_below="@+id/tv_notification"
-            android:layout_marginTop="@dimen/dp5"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/civ_point"
+            android:orientation="vertical"
             >
-
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
+            <com.osiris.food.view.widget.CustomTextView
+                android:id="@+id/tv_notification"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp50"
                 android:layout_marginLeft="@dimen/dp13"
-                android:text="2019-06-07"
-                android:textColor="@color/txt_hint_input_gray_153"
+                android:textSize="@dimen/sp14"
+                android:layout_toRightOf="@+id/civ_point"
+                android:textColor="@color/txt_important_black_51"
                 />
-
-            <TextView
-                android:id="@+id/tv_notification_type"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/rl_date"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/dp13"
-                android:text="@string/txt_system_notification"
-                android:textColor="@color/txt_hint_input_gray_153"/>
-        </RelativeLayout>
+                android:layout_marginRight="@dimen/dp50"
+                android:layout_below="@+id/tv_notification"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_toRightOf="@+id/civ_point"
+                >
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp13"
+                    android:text="2019-06-07"
+                    android:textColor="@color/txt_hint_input_gray_153"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_notification_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/dp13"
+                    android:text="@string/txt_system_notification"
+                    android:textColor="@color/txt_hint_input_gray_153"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
 
         <View
             android:layout_width="match_parent"

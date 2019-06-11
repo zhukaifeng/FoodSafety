@@ -35,7 +35,7 @@ public class OrderAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notification, parent,false);//解决宽度不能铺满
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order_all, parent,false);//解决宽度不能铺满
 
 		return new NotificationHolder(view,myItemClickListener);
 	}

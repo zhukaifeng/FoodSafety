@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/layout_title"/>
+
+
+    <LinearLayout
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp40"
+            android:background="#F4F4F4"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp20"
+                android:text="2018~2019年度食品安全管理员初级考试"
+                android:textColor="@color/txt_important_black_51"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_total"
+                android:text="1"
+                android:textColor="@color/color_blue_btn"
+
+                />
+
+
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp24"
+                android:text="/24"
+                android:textColor="@color/txt_important_black_51"
+                />
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp30"
+            android:layout_marginBottom="@dimen/dp30"
+            android:text="餐饮服务提供者要建立保证餐饮食品安全的各项制度，配备经考核合格的(     ) "
+            android:textColor="@color/txt_important_black_51"
+            />
+
+
+        <LinearLayout
+            android:id="@+id/linear_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_marginRight="@dimen/dp30"
+            android:orientation="horizontal"
+            >
+
+            <CheckBox
+                android:id="@+id/checkbox_a"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_checkbox_a"
+                android:button="@null"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_answer_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp15"
+                android:text="食品检验员"
+                android:textColor="@color/txt_important_black_51"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_marginRight="@dimen/dp30"
+            android:orientation="horizontal"
+            >
+
+            <CheckBox
+                android:id="@+id/checkbox_b"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_checkbox_b"
+                android:button="@null"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_answer_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp15"
+                android:text="食品检验员"
+                android:textColor="@color/txt_important_black_51"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_marginRight="@dimen/dp30"
+            android:orientation="horizontal"
+            >
+
+            <CheckBox
+                android:id="@+id/checkbox_c"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_checkbox_c"
+                android:button="@null"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_answer_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp15"
+                android:text="食品检验员"
+                android:textColor="@color/txt_important_black_51"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_marginTop="@dimen/dp30"
+            android:layout_marginRight="@dimen/dp30"
+            android:orientation="horizontal"
+            >
+
+            <CheckBox
+                android:id="@+id/checkbox_d"
+                android:layout_width="@dimen/dp25"
+                android:layout_height="@dimen/dp25"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_checkbox_d"
+                android:button="@null"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_answer_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp15"
+                android:text="食品检验员"
+                android:textColor="@color/txt_important_black_51"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp70"
+        >
+        
+        
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="match_parent">
+           <TextView
+               android:layout_width="@dimen/dp141"
+               android:layout_height="@dimen/dp50"
+               android:background="@drawable/bg_updaown_btn"
+               android:text="@string/topic_question"
+               android:layout_centerInParent="true"
+               android:gravity="center"
+               android:textSize="@dimen/sp15"
+               android:textColor="@color/txt_important_black_51"
+               />
+           
+       </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="@dimen/dp141"
+                android:layout_height="@dimen/dp50"
+                android:background="@drawable/bg_updaown_btn"
+                android:text="@string/next_question"
+                android:textColor="@color/txt_important_black_51"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/sp15"
+                android:gravity="center"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

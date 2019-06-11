@@ -1,5 +1,6 @@
 package com.osiris.food.home.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
+import com.osiris.food.exam.ExamAnswersActivity;
 import com.osiris.food.exam.adapter.ExamAdapter;
 import com.osiris.food.view.widget.MyItemClickListener;
 
@@ -53,6 +55,9 @@ public class ExamFragment extends BaseFragment {
 		dataAdapter.setOnItemClick(new MyItemClickListener() {
 			@Override
 			public void onItemClick(View view, int position) {
+
+				Intent intent = new Intent(getActivity(), ExamAnswersActivity.class);
+				startActivity(intent);
 
 			}
 		});

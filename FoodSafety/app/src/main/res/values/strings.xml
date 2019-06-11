@@ -141,5 +141,8 @@
     <string name="all">全部</string>
     <string name="paid">已缴费</string>
     <string name="unpaid">未缴费</string>
+    <string name="topic_question">上一题</string>
+    <string name="next_question">下一题</string>
+    <string name="exam_answer">考试答题</string>
 
 </resources>
