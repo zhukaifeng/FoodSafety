@@ -17,7 +17,7 @@
     <color name="bg_gray_238">#EEEEEE</color>
     <color name="red">#FF0000</color>
     <color name="transparent">#00000000</color>
-
+    <color name="gray_220">#DCDCDC</color>
 
     <!--
         <color name="color_blue_btn">#95D5FB</color>
