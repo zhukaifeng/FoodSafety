@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.mine.adapter.NotificationAdapter;
+import com.osiris.food.mine.adapter.OrderAllAdapter;
 import com.osiris.food.utils.TextUti;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class AllFragment extends BaseFragment {
     RecyclerView rv_data;
 
     private List<String> dataList = new ArrayList<>();
-    private NotificationAdapter dataAdapter = new NotificationAdapter(dataList);
+    private OrderAllAdapter dataAdapter = new OrderAllAdapter(dataList);
 
     @Override
     protected int setLayout() {
