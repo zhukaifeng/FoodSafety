@@ -14,8 +14,8 @@ import com.osiris.food.mine.MyNotificationActivity;
 import com.osiris.food.mine.MyOrderActivity;
 import com.osiris.food.mine.MyStudyActivity;
 import com.osiris.food.mine.PersonInfoActivity;
-import com.osiris.food.mine.ScoreRuleActivity;
 import com.osiris.food.mine.SettingActivity;
+import com.osiris.food.mine.StudyScoreActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,7 +63,7 @@ public class MineFragment extends BaseFragment {
 				startActivity(intent);
 				break;
 			case R.id.rl_mine_score:
-				Intent intent2 = new Intent(getActivity(), ScoreRuleActivity.class);
+				Intent intent2 = new Intent(getActivity(), StudyScoreActivity.class);
 				startActivity(intent2);
 				break;
 			case R.id.rl_mine_study:

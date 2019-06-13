@@ -144,5 +144,8 @@
     <string name="topic_question">上一题</string>
     <string name="next_question">下一题</string>
     <string name="exam_answer">考试答题</string>
+    <string name="study_score">学习积分</string>
+
+
 
 </resources>

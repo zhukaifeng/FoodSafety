@@ -10,6 +10,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import java.io.File;
 import java.util.Map;
 
+import me.jessyan.autosize.utils.LogUtils;
 import okhttp3.Call;
 import okhttp3.MediaType;
 
@@ -27,17 +28,20 @@ public class NetRequest {
                 .post()
                 .url(url)
                 .params(paramMap)
-                .addHeader("Content-Type", "application/json")
-
+                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+             //   .addHeader("client_ip","127.0.0.1")
+//                .addHeader("timestamp","1468206824")
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
+                        LogUtils.d("zkf Exception" + e.getMessage());
                         listener.requestFailure(tag, -2, "");
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
+                        LogUtils.d("zkf response:" + response);
                         if (TextUtils.isEmpty(response)) {
                             listener.requestFailure(tag, -2, "");
                             return;
@@ -51,6 +55,7 @@ public class NetRequest {
                             }
 
                         } else {
+                            LogUtils.d("zkf Exception111");
                             listener.requestFailure(tag, baseBean.getError(), baseBean.getMsg());
                         }
                     }
