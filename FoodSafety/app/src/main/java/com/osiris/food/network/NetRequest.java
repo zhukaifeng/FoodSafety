@@ -45,8 +45,10 @@ public class NetRequest {
                         if (TextUtils.isEmpty(response)) {
                             listener.requestFailure(tag, -2, "");
                             return;
+                        }else {
+                            listener.requestSuccess(tag, response);
                         }
-                        BaseBean baseBean = JsonUtils.deserialize(response, BaseBean.class);
+                        /*BaseBean baseBean = JsonUtils.deserialize(response, BaseBean.class);
                         if (baseBean.getError() == 200) {
                             if (baseBean.getInfo() == null) {
                                 listener.requestSuccess(tag, "");
@@ -57,7 +59,7 @@ public class NetRequest {
                         } else {
                             LogUtils.d("zkf Exception111");
                             listener.requestFailure(tag, baseBean.getError(), baseBean.getMsg());
-                        }
+                        }*/
                     }
                 });
     }

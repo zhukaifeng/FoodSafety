@@ -3,16 +3,24 @@ package com.osiris.food.login;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
+import com.osiris.food.home.MenuActivity;
+import com.osiris.food.model.Login;
 import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.GlobalParams;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
+import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.view.dialog.ContinueEduDialog;
 
 import java.util.HashMap;
@@ -50,7 +58,7 @@ public class LoginActivity extends BaseActivity {
 	}
 
 
-	@OnClick({R.id.tv_send, R.id.btn_login, R.id.tv_forget_pwd, R.id.tv_regist,R.id.tv_policy})
+	@OnClick({R.id.tv_send, R.id.btn_login, R.id.tv_forget_pwd, R.id.tv_regist, R.id.tv_policy})
 	void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.tv_send:
@@ -62,20 +70,18 @@ public class LoginActivity extends BaseActivity {
 				login();
 
 
-//				Intent intent2 = new Intent(this, MenuActivity.class);
-//				startActivity(intent2);
 				break;
 			case R.id.tv_forget_pwd:
 
 				//showDialog();
 				break;
 			case R.id.tv_regist:
-				Intent intent = new Intent(this,RegistActivity.class);
+				Intent intent = new Intent(this, RegistActivity.class);
 				startActivity(intent);
 
 				break;
 			case R.id.tv_policy:
-				Intent intent1 = new Intent(this,PolicyActivity.class);
+				Intent intent1 = new Intent(this, PolicyActivity.class);
 				startActivity(intent1);
 				break;
 		}
@@ -83,34 +89,44 @@ public class LoginActivity extends BaseActivity {
 
 	private void login() {
 
-		String url = ApiRequestTag.API_HOST+ "/api/v1/login";
-
-		/*JsonObject json = new JsonObject();
-		json.addProperty("phone","18370894190");
-		json.addProperty("password","123456");
-
-		HttpManager.postNotoken(url, json, this, new HttpManager.OnResponse<Object>() {
-			@Override
-			public Object analyseResult(String body) {
-				LogUtils.d("zkf return data:" + body);
-
-				return null;
-			}
-
-			@Override
-			public void onSuccess(Object result) {
-
-			}
-		});*/
+		String url = ApiRequestTag.API_HOST + "/api/v1/login";
 
 
 		Map<String, String> paramMap = new HashMap<>();
-		paramMap.put("phone","18370894190");
-		paramMap.put("password","123456");
-		NetRequest.request(url,ApiRequestTag.LOGIN,paramMap, new NetRequestResultListener() {
+
+
+		if (!TextUtils.isEmpty(edt_phone.getText())){
+			paramMap.put("phone", edt_phone.getText().toString());
+		}else {
+			Toast.makeText(this,"请输入手机号",Toast.LENGTH_SHORT).show();
+		}
+
+		if (!TextUtils.isEmpty(edt_pwd.getText())){
+			paramMap.put("password", edt_pwd.getText().toString());
+		}else {
+			Toast.makeText(this,"请输入密码",Toast.LENGTH_SHORT).show();
+		}
+
+
+//		paramMap.put("phone", "18370894190");
+//		paramMap.put("password", "123456");
+		NetRequest.request(url, ApiRequestTag.LOGIN, paramMap, new NetRequestResultListener() {
 					@Override
 					public void requestSuccess(int tag, String successResult) {
-						LogUtils.d("zkf return data:" + successResult);
+						JsonParser parser = new JsonParser();
+						JsonObject json = parser.parse(successResult).getAsJsonObject();
+						Login data = JsonUtils.fromJson(json, Login.class);
+
+						if (null != data) {
+							GlobalParams.token_type = data.getToken_type();
+							GlobalParams.access_token = data.getAccess_token();
+							GlobalParams.expires_in = data.getExpires_in();
+							GlobalParams.refresh_token = data.getRefresh_token();
+
+							Intent intent2 = new Intent(LoginActivity.this, MenuActivity.class);
+							startActivity(intent2);
+						}
+
 					}
 
 					@Override
@@ -119,9 +135,6 @@ public class LoginActivity extends BaseActivity {
 					}
 				}
 		);
-
-
-
 
 
 	}

@@ -1,0 +1,49 @@
+package com.osiris.food.model;
+
+public class Login {
+
+
+	/**
+	 * token_type : Bearer
+	 * expires_in : 1296000
+	 * access_token : eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjExOTEyY2Q4YzA5NTAxNzYxMDAzMWU0NDVmNGQ4NWRkNzMxNjBjMjdhNGY5ZWU2MjQyMjYxMjI4MTBmNjIzMzljYTk2MWI1ZWZlZDVjNDkyIn0.eyJhdWQiOiIyIiwianRpIjoiMTE5MTJjZDhjMDk1MDE3NjEwMDMxZTQ0NWY0ZDg1ZGQ3MzE2MGMyN2E0ZjllZTYyNDIyNjEyMjgxMGY2MjMzOWNhOTYxYjVlZmVkNWM0OTIiLCJpYXQiOjE1NjA0Mzg2MjQsIm5iZiI6MTU2MDQzODYyNCwiZXhwIjoxNTYxNzM0NjI0LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.DPb2ME-43PfBM5R83Qf57XX1wGwHL4sbvsjX5B0HSIiUBLXRmFEzpUIzSTQQUEWXU5w863yh1V-QQpH36wzJvkjIxlDu1ROl-ZPOtb-o2SDkOwL65hob1j6Lr1qiaR-_dNdHyZGSLzlqqGnU4AKevQucKDpFmnChjPP2uPJHFgr9eHffs0E8ajjp9f-IlH-1ZkVY7K-MjSDPWxRaZDIrjciFwrR-vj3rd8h7OtDDpPcW5TCJGR8gMDUDs35c1WIIgSL1r_c0dnlD0uoA6WHnYQQThRp_vZLifEuXta9l7nBe35dh_a4TFfve-A3LIU-iozSKIyoYk_g2lC5M4AP7gSDyhTZWnQWDpVe8DRx5BllO44KRkfq059ph5NmCGuJX2-UU_U9OVqPlvVnGIsppE0bxqp4Agw2aDH25qA4AaocGgXesL7rQYoqxYSkJdFRQwUkO8bBN6ziqnOIaCTQ6bvZZO5yyiDbXoVMJ1E0sj7Etk5WntAzziCMCma-SLT1kEhtmD_oIYNPOw2TsgwAQAPtrMXU1-wr7HoSfk_21PL1Z_83BzpB97lJ_5C3bOtiBbJUmEZFm7EerbP9W_N4poyuezp25WShFvlaMtAJKM8JeLGrfWV2F2yqdsDUGlzbiNXVPpWkEVWp2P-xOHzaQtpBEJQKfzDqsGTLQDFpBawo
+	 * refresh_token : def502004039e7c8048a13173db76a926619e6e0b9f6222211e20bbdffb001f16fbe1c321533cc9447fa81ca60b23c07ba16582487d7d48f7db766361214e7cb0f2d6d3383cef6115d63f9c95015828faff09f4be673ddb2fabe030e08d1187d094e9a32ed7221766c097fdbc99c7c1a2308c975ef3a7baf8303bdcaa70e47f8bef3f3e4da650015370f5d5947d8656b381e42bd07c522f1823c53e979ccf64d50b4fbd09d33a654287bfb9a3b965fdf964b968f91fac9aea30265a3b99023e726d341b442449a1a18c85f739b6ec485c6343788e4e573e0f7af3e274930d7daf13b0d5359dd1cea470edf5e4a0eb5100c67d736b6afa4042622820159292d50700893a3bc808e0f25b14515b653b4a604a2a251f56d78997283689cc378b7aebd861217b67fc0ca5a6548d17a4eabc7babd712a50eb71e05d45ec55ad11a85d0e8aa5786388607b903437cd82fa6631023b563eb6208ed1e86cb92e5972de30e349e9d9
+	 */
+
+	private String token_type;
+	private int expires_in;
+	private String access_token;
+	private String refresh_token;
+
+	public String getToken_type() {
+		return token_type;
+	}
+
+	public void setToken_type(String token_type) {
+		this.token_type = token_type;
+	}
+
+	public int getExpires_in() {
+		return expires_in;
+	}
+
+	public void setExpires_in(int expires_in) {
+		this.expires_in = expires_in;
+	}
+
+	public String getAccess_token() {
+		return access_token;
+	}
+
+	public void setAccess_token(String access_token) {
+		this.access_token = access_token;
+	}
+
+	public String getRefresh_token() {
+		return refresh_token;
+	}
+
+	public void setRefresh_token(String refresh_token) {
+		this.refresh_token = refresh_token;
+	}
+}
