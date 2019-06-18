@@ -1,12 +1,16 @@
 package com.osiris.food.home.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.mine.adapter.StudyAdapter;
 import com.osiris.food.model.StudyCourse;
+import com.osiris.food.train.TrainContentLookActivity;
+import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +53,13 @@ public class PublicCourseFragment extends BaseFragment {
 		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
 		rv_data.setAdapter(dataAdapter);
 		dataAdapter.notifyDataSetChanged();
+		dataAdapter.setOnItemClick(new MyItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				Intent intent = new Intent(getActivity(), TrainContentLookActivity.class);
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override

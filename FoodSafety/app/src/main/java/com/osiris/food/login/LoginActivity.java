@@ -67,8 +67,9 @@ public class LoginActivity extends BaseActivity {
 			case R.id.btn_login:
 
 
-				login();
-
+			//	login();
+				Intent intent2 = new Intent(LoginActivity.this, MenuActivity.class);
+				startActivity(intent2);
 
 				break;
 			case R.id.tv_forget_pwd:

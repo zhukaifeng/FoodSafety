@@ -5,11 +5,10 @@
 
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
 
     <application
@@ -96,6 +95,12 @@
         <activity
             android:name=".train.TrainingContentActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".train.TrainContentLookActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+           />
         <activity
             android:name=".payment.PayActivity"
             android:screenOrientation="portrait"/>

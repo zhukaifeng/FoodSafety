@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+
+    <include layout="@layout/layout_title"/>
+
+
+
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+        android:id="@+id/videoplayer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <com.osiris.food.view.PagerSlidingTabStrip
+        android:id="@+id/tab_strip"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:background="#F0F0F0"
+        android:layout_below="@+id/view_line"
+        app:pstsDividerColor="#F0F0F0"
+        app:pstsIndicatorColor="@color/color_blue_btn"
+        app:pstsIndicatorHeight="@dimen/dp2"
+        app:pstsIndicatorMarginLeft="@dimen/dp30"
+        app:pstsIndicatorMarginRight="@dimen/dp30"
+        app:pstsUnderlineColor="#F0F0F0"
+        app:pstsShouldExpand="true"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+
+</LinearLayout>

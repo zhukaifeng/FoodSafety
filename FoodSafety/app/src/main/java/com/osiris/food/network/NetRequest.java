@@ -29,14 +29,11 @@ public class NetRequest {
                 .url(url)
                 .params(paramMap)
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
-             //   .addHeader("client_ip","127.0.0.1")
-//                .addHeader("timestamp","1468206824")
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        LogUtils.d("zkf Exception" + e.getMessage());
-                        listener.requestFailure(tag, -2, "");
+                        listener.requestFailure(tag, -2,e.getLocalizedMessage());
                     }
 
                     @Override
