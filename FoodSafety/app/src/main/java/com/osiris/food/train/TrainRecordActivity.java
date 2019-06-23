@@ -6,11 +6,19 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
+import com.osiris.food.model.TrainRecord;
+import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.NetRequest;
+import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.train.adapter.TrainRecordAdapter;
+import com.osiris.food.utils.JsonUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,7 +35,7 @@ public class TrainRecordActivity extends BaseActivity {
 	RecyclerView rv_data;
 
 
-	private List<String> dataList = new ArrayList<>();
+	private List<TrainRecord.DataBean> dataList = new ArrayList<>();
 	private TrainRecordAdapter dataAdapter = new TrainRecordAdapter(dataList);
 
 	@Override
@@ -38,10 +46,6 @@ public class TrainRecordActivity extends BaseActivity {
 	@Override
 	public void init() {
 
-		dataList.add("1");
-		dataList.add("2");
-		dataList.add("3");
-		dataList.add("4");
 
 
 		tv_title.setText(getString(R.string.txt_train_record));
@@ -50,7 +54,7 @@ public class TrainRecordActivity extends BaseActivity {
 		rv_data.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 		rv_data.setAdapter(dataAdapter);
 		dataAdapter.notifyDataSetChanged();
-
+		getTrainRecords();
 
 	}
 
@@ -63,6 +67,40 @@ public class TrainRecordActivity extends BaseActivity {
 				finish();
 				break;
 		}
+	}
+
+
+	private void getTrainRecords(){
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/lessons/record";
+
+		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				if (json.get("code").getAsInt() == 200){
+					TrainRecord.DataBean[] data = JsonUtils.fromJson(
+							json.get("data").getAsJsonArray(), TrainRecord.DataBean[].class);
+					if (dataList.size()>0) {
+						dataList.clear();
+					}
+					dataList.addAll(Arrays.asList(data));
+					dataAdapter.notifyDataSetChanged();
+
+				}
+
+
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+
+			}
+		});
+
+
 	}
 
 

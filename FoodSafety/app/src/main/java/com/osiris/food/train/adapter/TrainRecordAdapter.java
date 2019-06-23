@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.TrainRecord;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ public class TrainRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<TrainRecord.DataBean> dataList = new ArrayList<>();
 
 
-	public TrainRecordAdapter(List<String> dataList) {
+	public TrainRecordAdapter(List<TrainRecord.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<TrainRecord.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -87,8 +88,13 @@ public class TrainRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			}
 		}
 
-		public void bindData(String data){
-
+		public void bindData(TrainRecord.DataBean data){
+			tv_term.setText(data.getSchool_year());
+			tv_train_name.setText(data.getName());
+			tv_look_time.setText(data.getVisited());
+			tv_total_time.setText(data.getTime());
+			tv_complete_time.setText(data.getTask_time());
+			tv_train_time.setText(data.getFace_teaching());
 
 		}
 	}

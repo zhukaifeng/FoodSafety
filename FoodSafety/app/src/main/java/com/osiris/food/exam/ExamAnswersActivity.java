@@ -1,8 +1,10 @@
 package com.osiris.food.exam;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -81,10 +83,75 @@ public class ExamAnswersActivity extends BaseActivity {
 		mExamId = getIntent().getIntExtra("exam_id", 0);
 		getData();
 
+		checkboxA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				checkboxB.setChecked(false);
+				checkboxC.setChecked(false);
+				checkboxD.setChecked(false);
+				if (isChecked) {
+					checkboxA.setChecked(true);
+					dataList.get(position).setSelectAnswer("A");
+				}else {
+					checkboxA.setChecked(false);
+					dataList.get(position).setSelectAnswer("");
+				}
+
+			}
+		});
+		checkboxB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				checkboxA.setChecked(false);
+				checkboxC.setChecked(false);
+				checkboxD.setChecked(false);
+				if (isChecked) {
+					checkboxB.setChecked(true);
+					dataList.get(position).setSelectAnswer("B");
+				}else {
+					checkboxB.setChecked(false);
+					dataList.get(position).setSelectAnswer("");
+				}
+
+			}
+		});
+		checkboxC.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				checkboxB.setChecked(false);
+				checkboxA.setChecked(false);
+				checkboxD.setChecked(false);
+				if (isChecked) {
+					checkboxC.setChecked(true);
+					dataList.get(position).setSelectAnswer("C");
+				}else {
+					checkboxC.setChecked(false);
+					dataList.get(position).setSelectAnswer("");
+				}
+
+			}
+		});
+		checkboxD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				checkboxB.setChecked(false);
+				checkboxC.setChecked(false);
+				checkboxA.setChecked(false);
+				if (isChecked) {
+					checkboxD.setChecked(true);
+					dataList.get(position).setSelectAnswer("D");
+				}else {
+					checkboxD.setChecked(false);
+					dataList.get(position).setSelectAnswer("");
+				}
+
+			}
+		});
+
 
 	}
 
-	@OnClick({R.id.rl_back,R.id.tv_last_question,R.id.tv_next_question})
+	@OnClick({R.id.rl_back, R.id.tv_last_question, R.id.tv_next_question})
 	void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.rl_back:
@@ -92,29 +159,113 @@ public class ExamAnswersActivity extends BaseActivity {
 				break;
 			case R.id.tv_last_question:
 				position--;
-				if (position<0){
-					return;
+				tvCurrent.setText(String.valueOf(position+1));
+				if (position < 0) {
+					break;
+				} else {
+					tvSubject.setText(dataList.get(position).getQuestion());
+
+					LogUtils.d("zkf position ");
+					LogUtils.d("zkf  ddsdsd:" + dataList.get(position).getSelectAnswer());
+					if (!TextUtils.isEmpty(dataList.get(position).getSelectAnswer())){
+						LogUtils.d("swwwsss");
+
+						if (dataList.get(position).getSelectAnswer().contains("A")){
+							checkboxA.setChecked(true);
+						}
+						if (dataList.get(position).getSelectAnswer().contains("B")){
+							checkboxB.setChecked(true);
+						}
+						if (dataList.get(position).getSelectAnswer().contains("C")){
+							LogUtils.d("ssss");
+							checkboxC.setChecked(true);
+						}
+						if (dataList.get(position).getSelectAnswer().contains("D")){
+							checkboxD.setChecked(true);
+						}
+					}
+
+					switch (dataList.get(position).getSelect().size()) {
+						case 0:
+							break;
+						case 1:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							linearB.setVisibility(View.GONE);
+							linearC.setVisibility(View.GONE);
+							linearD.setVisibility(View.GONE);
+							break;
+						case 2:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							linearC.setVisibility(View.GONE);
+							linearD.setVisibility(View.GONE);
+							break;
+						case 3:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+							linearD.setVisibility(View.GONE);
+							break;
+						case 4:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+							tvAnswerD.setText(dataList.get(position).getSelect().get(3));
+							break;
+					}
 				}
 
 
-				tvSubject.setText(dataList.get(position).getAnswer());
-				tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-				tvAnswerB.setText(dataList.get(position).getSelect().get(1));
-				tvAnswerC.setText(dataList.get(position).getSelect().get(2));
-				tvAnswerD.setText(dataList.get(position).getSelect().get(3));
 				break;
 			case R.id.tv_next_question:
 
-				position ++;
-				if (position>dataList.size()){
-					return;
+				position++;
+				tvCurrent.setText(String.valueOf(position+1));
+				if (position < dataList.size()) {
+					if (!TextUtils.isEmpty(dataList.get(position).getSelectAnswer())){
+						if (dataList.get(position).getSelectAnswer().contains("A")){
+							checkboxA.setChecked(true);
+						}
+						if (dataList.get(position).getSelectAnswer().contains("B")){
+							checkboxB.setChecked(true);
+						}
+						if (dataList.get(position).getSelectAnswer().contains("C")){
+							checkboxC.setChecked(true);
+						}
+						if (dataList.get(position).getSelectAnswer().contains("D")){
+							checkboxD.setChecked(true);
+						}
+					}
+					tvSubject.setText(dataList.get(position).getQuestion());
+					switch (dataList.get(position).getSelect().size()) {
+						case 0:
+							break;
+						case 1:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							linearB.setVisibility(View.GONE);
+							linearC.setVisibility(View.GONE);
+							linearD.setVisibility(View.GONE);
+							break;
+						case 2:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							linearC.setVisibility(View.GONE);
+							linearD.setVisibility(View.GONE);
+							break;
+						case 3:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+							linearD.setVisibility(View.GONE);
+							break;
+						case 4:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+							tvAnswerD.setText(dataList.get(position).getSelect().get(3));
+							break;
+					}
 				}
-				tvSubject.setText(dataList.get(position).getAnswer());
-				tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-				tvAnswerB.setText(dataList.get(position).getSelect().get(1));
-				tvAnswerC.setText(dataList.get(position).getSelect().get(2));
-				tvAnswerD.setText(dataList.get(position).getSelect().get(3));
-
 
 
 				break;
@@ -127,7 +278,7 @@ public class ExamAnswersActivity extends BaseActivity {
 			return;
 
 		String url = ApiRequestTag.API_HOST + "/api/v1/papers/" + mExamId;
-		NetRequest.requestNoParam(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
 
@@ -140,16 +291,41 @@ public class ExamAnswersActivity extends BaseActivity {
 						dataList.clear();
 					}
 
-					String title = JsonUtils.fromJson(json.get("data").getAsJsonObject().get("name").getAsString(),String.class);
+					String title = JsonUtils.fromJson(json.get("data").getAsJsonObject().get("name").getAsString(), String.class);
 					tv_exam_title.setText(title);
 
 					dataList.addAll(Arrays.asList(data));
+					tvTotal.setText("/" +String.valueOf(dataList.size()));
 
-					tvSubject.setText(dataList.get(position).getAnswer());
-					tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-					tvAnswerB.setText(dataList.get(position).getSelect().get(1));
-					tvAnswerC.setText(dataList.get(position).getSelect().get(2));
-					tvAnswerD.setText(dataList.get(position).getSelect().get(3));
+					tvSubject.setText(dataList.get(position).getQuestion());
+					switch (dataList.get(position).getSelect().size()) {
+						case 0:
+							break;
+						case 1:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							linearB.setVisibility(View.GONE);
+							linearC.setVisibility(View.GONE);
+							linearD.setVisibility(View.GONE);
+							break;
+						case 2:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							linearC.setVisibility(View.GONE);
+							linearD.setVisibility(View.GONE);
+							break;
+						case 3:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+							linearD.setVisibility(View.GONE);
+							break;
+						case 4:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+							tvAnswerD.setText(dataList.get(position).getSelect().get(3));
+							break;
+					}
 
 
 				}

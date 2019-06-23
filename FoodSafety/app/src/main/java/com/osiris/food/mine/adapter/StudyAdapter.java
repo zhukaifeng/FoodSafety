@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.osiris.food.R;
-import com.osiris.food.model.StudyCourse;
+import com.osiris.food.model.MyStudy;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -22,14 +22,14 @@ public class StudyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<StudyCourse> dataList = new ArrayList<>();
+	private List<MyStudy.DataBean> dataList = new ArrayList<>();
 
 
-	public StudyAdapter(List<StudyCourse> dataList) {
+	public StudyAdapter(List<MyStudy.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<StudyCourse> dataList) {
+	public void setDataList(List<MyStudy.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -87,11 +87,11 @@ public class StudyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 			}
 		}
 
-		public void bindData(StudyCourse data){
-			tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name),data.getCourseName()));
-			tv_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time),data.getCourseTime()));
-			tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look),data.getCourseLook()));
-			tv_date.setText(data.getStartTime()+"-"+data.getEndTime());
+		public void bindData(MyStudy.DataBean data){
+			tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name),data.getName()));
+			tv_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time),data.getTime()));
+			tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look),data.getStart_time()));
+			tv_date.setText(data.getStart_time()+"-"+data.getEnd_time());
 		}
 	}
 

@@ -86,7 +86,7 @@ public class ExamFragment extends BaseFragment {
 
 		String url = ApiRequestTag.API_HOST + "/api/v1/papers";
 
-		NetRequest.requestNoParam(url, ApiRequestTag.REQUEST_DATA,  new NetRequestResultListener() {
+		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA,  new NetRequestResultListener() {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.OrderList;
 import com.osiris.food.view.widget.CustomTextView;
 import com.osiris.food.view.widget.MyItemClickListener;
 
@@ -21,14 +22,14 @@ public class OrderAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<OrderList.DataBean> dataList = new ArrayList<>();
 
 
-	public OrderAllAdapter(List<String> dataList) {
+	public OrderAllAdapter(List<OrderList.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<OrderList.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -83,14 +84,15 @@ public class OrderAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 			}
 		}
 
-		public void bindData(String data){
+		public void bindData(OrderList.DataBean data){
 
 			if (getLayoutPosition() ==0){
 				view_top.setVisibility(View.GONE);
 			}else {
 				view_top.setVisibility(View.VISIBLE);
 			}
-			tv_notification.setText(data);
+			tv_notification.setText(data.getName());
+			tv_date.setText(data.getCreated_at());
 		}
 	}
 

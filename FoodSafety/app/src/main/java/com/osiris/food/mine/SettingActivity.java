@@ -26,6 +26,7 @@ public class SettingActivity extends BaseActivity {
 
 	@Override
 	public void init() {
+		tv_title.setText("设置");
 
 	}
 

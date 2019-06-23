@@ -75,7 +75,7 @@ public class ApplyEduAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 			super(itemView);
 			ButterKnife.bind(this, itemView);
 			this.myItemClickListener = myItemClickListener;
-			itemView.setOnClickListener(this);
+			tv_apply.setOnClickListener(this);
 		}
 
 		@Override

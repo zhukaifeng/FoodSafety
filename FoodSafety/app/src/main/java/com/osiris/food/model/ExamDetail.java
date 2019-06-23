@@ -50,7 +50,7 @@ public class ExamDetail {
 		private int id;
 		private String name;
 		private QuestionsBean questions;
-		private List<List<QuestionItemsBean>> question_items;
+		private List<QuestionItemsBean> question_items;
 
 		public int getId() {
 			return id;
@@ -76,11 +76,11 @@ public class ExamDetail {
 			this.questions = questions;
 		}
 
-		public List<List<QuestionItemsBean>> getQuestion_items() {
+		public List<QuestionItemsBean> getQuestion_items() {
 			return question_items;
 		}
 
-		public void setQuestion_items(List<List<QuestionItemsBean>> question_items) {
+		public void setQuestion_items(List<QuestionItemsBean> question_items) {
 			this.question_items = question_items;
 		}
 
@@ -154,6 +154,15 @@ public class ExamDetail {
 			private String answer;
 			private String type;
 			private List<String> select;
+			private String selectAnswer;
+
+			public String getSelectAnswer() {
+				return selectAnswer;
+			}
+
+			public void setSelectAnswer(String selectAnswer) {
+				this.selectAnswer = selectAnswer;
+			}
 
 			public int getId() {
 				return id;

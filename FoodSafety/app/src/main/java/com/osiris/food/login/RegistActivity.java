@@ -8,7 +8,11 @@ import android.widget.Toast;
 
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
+import com.osiris.food.model.CloseEvent;
 import com.osiris.food.network.ApiRequestTag;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,19 +57,19 @@ public class RegistActivity extends BaseActivity {
 						TextUtils.isEmpty(edt_phone.getText().toString()) || TextUtils.isEmpty(edt_document.getText().toString()) ||
 						TextUtils.isEmpty(edt_document_num.getText().toString()) || TextUtils.isEmpty(edt_mail.getText().toString()) ||
 						TextUtils.isEmpty(edt_eduction.getText().toString())) {
-					Toast.makeText(this,"请填写完整",Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, "请填写完整", Toast.LENGTH_SHORT).show();
 					return;
 				}
 
 
 				Intent intent = new Intent(this, RegistCompleteActivity.class);
-				intent.putExtra("name",edt_name.getText().toString());
-				intent.putExtra("sex",edt_sex.getText().toString());
-				intent.putExtra("phone",edt_phone.getText().toString());
-				intent.putExtra("document",edt_document.getText().toString());
-				intent.putExtra("document_num",edt_document_num.getText().toString());
-				intent.putExtra("mail",edt_mail.getText().toString());
-				intent.putExtra("eduction",edt_eduction.getText().toString());
+				intent.putExtra("name", edt_name.getText().toString());
+				intent.putExtra("sex", edt_sex.getText().toString());
+				intent.putExtra("phone", edt_phone.getText().toString());
+				intent.putExtra("document", edt_document.getText().toString());
+				intent.putExtra("document_num", edt_document_num.getText().toString());
+				intent.putExtra("mail", edt_mail.getText().toString());
+				intent.putExtra("eduction", edt_eduction.getText().toString());
 
 				startActivity(intent);
 				break;
@@ -132,6 +136,12 @@ public class RegistActivity extends BaseActivity {
 		} else {
 			paramMap.put("gender", edt_sex.getText().toString());
 		}
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onGetMessage(CloseEvent closeEvent) {
+		finish();
+
 	}
 
 

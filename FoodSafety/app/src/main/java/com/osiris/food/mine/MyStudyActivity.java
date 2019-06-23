@@ -11,16 +11,19 @@ import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.mine.adapter.StudyAdapter;
-import com.osiris.food.model.StudyCourse;
+import com.osiris.food.model.MyStudy;
 import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
+import com.osiris.food.utils.JsonUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.autosize.utils.LogUtils;
 
 public class MyStudyActivity extends BaseActivity {
 
@@ -31,7 +34,7 @@ public class MyStudyActivity extends BaseActivity {
 	@BindView(R.id.rv_data)
 	RecyclerView rv_data;
 
-	private List<StudyCourse> dataList = new ArrayList<>();
+	private List<MyStudy.DataBean> dataList = new ArrayList<>();
 	private StudyAdapter dataAdapter = new StudyAdapter(dataList);
 
 
@@ -46,21 +49,10 @@ public class MyStudyActivity extends BaseActivity {
 
 		tv_title.setText(getString(R.string.txt_title_mine_study));
 
-//		主讲：食品安全
-//		2018-01-01至2019-01-01
-//		课程时长：3分21秒
-//		已观看时长：0分0秒
-		dataList.add(new StudyCourse("食品安全","2018-01-01","2019-01-01","3分21秒","0分0秒"));
-		dataList.add(new StudyCourse("食品安全","2018-01-01","2019-01-01","3分21秒","0分0秒"));
-		dataList.add(new StudyCourse("食品安全","2018-01-01","2019-01-01","3分21秒","0分0秒"));
-
-
-
-
 		rv_data.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 		rv_data.setAdapter(dataAdapter);
 		dataAdapter.notifyDataSetChanged();
-
+		getStudySataDetail();
 
 	//	getTodayScoreDetail();
 
@@ -79,22 +71,27 @@ public class MyStudyActivity extends BaseActivity {
 
 
 
-	private void getTodayScoreDetail() {
+	private void getStudySataDetail() {
 
-		String url = ApiRequestTag.API_HOST + "/api/v1/tasks";
+		String url = ApiRequestTag.API_HOST + "/api/v1/users/learning";
 
-		NetRequest.requestNoParam(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
+				LogUtils.d("zkf adsdadd:" + successResult);
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
-				/*if (json.get("code").getAsInt() == 200) {
-					if (null != json.get("data").getAsJsonObject().get("user_point").getAsString()) {
-						String score = json.get("data").getAsJsonObject().get("user_point").getAsString();
-						tv_study_score.setText("学习积分 " + score);
+				if (json.get("code").getAsInt() == 200) {
+					MyStudy.DataBean[] data = JsonUtils.fromJson(
+							json.get("data").getAsJsonArray(), MyStudy.DataBean[].class);
+					if (dataList.size()>0) {
+						dataList.clear();
 					}
+					dataList.addAll(Arrays.asList(data));
+					dataAdapter.notifyDataSetChanged();
 
-				}*/
+
+				}
 			}
 
 			@Override

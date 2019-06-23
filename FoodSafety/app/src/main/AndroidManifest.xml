@@ -113,6 +113,8 @@
         <activity
             android:name=".mine.StudyScoreActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".mine.ChangeInfoActivity"
+                  android:screenOrientation="portrait"/>
 
     </application>
 

@@ -8,7 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.Certification;
 import com.osiris.food.view.widget.MyItemClickListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +23,14 @@ public class CerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<Certification.DataBean> dataList = new ArrayList<>();
 
 
-	public CerAdapter(List<String> dataList) {
+	public CerAdapter(List<Certification.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<Certification.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -80,10 +82,12 @@ public class CerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 			}
 		}
 
-		public void bindData(String data){
+		public void bindData(Certification.DataBean data){
 
-
-			tv_cer_name.setText(data);
+			Picasso.with(itemView.getContext())
+					.load(data.getThumb())
+					.into(iv_cer);
+			tv_cer_name.setText(data.getName());
 		}
 	}
 

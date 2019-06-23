@@ -19,4 +19,15 @@
 
 
 
+    <TextView
+        android:id="@+id/tv_nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="没有数据"
+        android:visibility="gone"
+        android:textColor="@color/txt_important_black_51"
+        android:textSize="@dimen/sp30"
+        android:gravity="center"
+        />
+
 </LinearLayout>

@@ -87,7 +87,6 @@ public class CityNewsFragment extends BaseFragment {
 		NetRequest.requestParamWithToken(url, REQUEST_DATA,paramMap, new NetRequestResultListener() {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
-				LogUtils.d("zkf   fdffff  2222222:" + successResult);
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
 				if (json.get("code").getAsInt() == 200){

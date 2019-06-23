@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="学                       年："
+                    android:text="学                      年："
                     android:textColor="@color/txt_important_black_51"
                     android:textSize="@dimen/sp12"
                     />
