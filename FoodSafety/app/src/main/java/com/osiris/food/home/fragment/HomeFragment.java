@@ -6,20 +6,31 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.event.FragmentChangeEvent;
 import com.osiris.food.home.adapter.HomeNewsAdapter;
+import com.osiris.food.model.Message;
+import com.osiris.food.model.PolicyList;
+import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.NetRequest;
+import com.osiris.food.network.NetRequestResultListener;
+import com.osiris.food.utils.JsonUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.autosize.utils.LogUtils;
 
 import static com.osiris.food.home.MenuActivity.FRAGMENT_INFORMATION;
 import static com.osiris.food.home.MenuActivity.FRAGMENT_NEWS;
 import static com.osiris.food.home.MenuActivity.FRAGMENT_POLICY;
+import static com.osiris.food.network.ApiRequestTag.REQUEST_DATA;
 
 public class HomeFragment extends BaseFragment {
 
@@ -34,7 +45,7 @@ public class HomeFragment extends BaseFragment {
 	ImageView iv_title_pic;
 
 
-	private List<String> dataList = new ArrayList<>();
+	private List<PolicyList.DataBeanX.DataBean> dataList = new ArrayList<>();
 	private HomeNewsAdapter dataAdapter = new HomeNewsAdapter(dataList);
 
 
@@ -46,10 +57,6 @@ public class HomeFragment extends BaseFragment {
 	@Override
 	protected void initView() {
 
-		dataList.add("1");
-		dataList.add("2");
-		dataList.add("3");
-		dataList.add("4");
 
 		tv_title.setText("泰州市海陵区食品安全培训");
 		tv_news_title.setSelected(true);
@@ -58,12 +65,13 @@ public class HomeFragment extends BaseFragment {
 		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 		rv_data.setAdapter(dataAdapter);
 		dataAdapter.notifyDataSetChanged();
+		getData();
+		getMessage();
 
 	}
 
 	@Override
 	protected void initData() {
-
 	}
 
 
@@ -83,4 +91,76 @@ public class HomeFragment extends BaseFragment {
 				break;
 		}
 	}
+
+
+
+
+
+	private void getData() {
+		String url = ApiRequestTag.API_HOST + "/api/v1/contents";
+
+		NetRequest.requestNoParamWithToken(url, REQUEST_DATA, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				if (json.get("code").getAsInt() == 200){
+					PolicyList.DataBeanX.DataBean[] data = JsonUtils.fromJson(
+							json.get("data").getAsJsonObject().get("data").getAsJsonArray(), PolicyList.DataBeanX.DataBean[].class);
+					if (dataList.size()>0) {
+						dataList.clear();
+					}
+
+					dataList.addAll(Arrays.asList(data));
+					dataAdapter.notifyDataSetChanged();
+				}
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+				LogUtils.d("zkf code :" + code);
+
+
+			}
+		});
+
+
+
+	}
+
+	private void getMessage(){
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/messages/carousel";
+
+		NetRequest.requestNoParamWithToken(url, REQUEST_DATA, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				if (json.get("code").getAsInt() == 200){
+					Message.DataBean[] dataBeans = JsonUtils.fromJson(json.get("data").getAsJsonArray(), Message.DataBean[].class);
+					List<Message.DataBean> list = new ArrayList<>();
+					list.addAll(Arrays.asList(dataBeans));
+					if (list.size()>0){
+						String msg = list.get(0).getSubject();
+						tv_news_title.setText(msg);
+					}
+				}
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+				LogUtils.d("zkf code :" + code);
+
+
+			}
+		});
+
+
+
+	}
+
+
+
+
 }

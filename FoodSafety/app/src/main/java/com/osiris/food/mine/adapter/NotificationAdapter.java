@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.Notification;
 import com.osiris.food.view.widget.CustomTextView;
 import com.osiris.food.view.widget.MyItemClickListener;
 
@@ -21,14 +22,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<Notification.DataBean> dataList = new ArrayList<>();
 
 
-	public NotificationAdapter(List<String> dataList) {
+	public NotificationAdapter(List<Notification.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<Notification.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -83,14 +84,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 			}
 		}
 
-		public void bindData(String data){
+		public void bindData(Notification.DataBean data){
 
 			if (getLayoutPosition() ==0){
 				view_top.setVisibility(View.GONE);
 			}else {
 				view_top.setVisibility(View.VISIBLE);
 			}
-			tv_notification.setText(data);
+			tv_notification.setText(data.getSubject());
+			tv_date.setText(data.getCreated_at());
+			tv_notification_type.setText(data.getType());
 		}
 	}
 

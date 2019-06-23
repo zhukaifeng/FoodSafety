@@ -1,12 +1,14 @@
 package com.osiris.food.mine.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.ScoreDetail;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -20,14 +22,14 @@ public class ScoreDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<ScoreDetail.DataBean> dataList = new ArrayList<>();
 
 
-	public ScoreDetailAdapter(List<String> dataList) {
+	public ScoreDetailAdapter(List<ScoreDetail.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<ScoreDetail.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -79,7 +81,16 @@ public class ScoreDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			}
 		}
 
-		public void bindData(String data){
+		public void bindData(ScoreDetail.DataBean data){
+			if (!TextUtils.isEmpty(data.getTask_name())){
+				tv_score_type.setText(data.getTask_name());
+			}
+			if (!TextUtils.isEmpty(data.getCreated_at())){
+				tv_score_date.setText(data.getCreated_at());
+			}
+				tv_score_count.setText("+ "+ data.getScore());
+
+
 
 		}
 	}

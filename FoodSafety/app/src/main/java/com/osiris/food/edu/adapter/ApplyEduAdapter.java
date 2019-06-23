@@ -1,12 +1,14 @@
 package com.osiris.food.edu.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.EduList;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -20,14 +22,14 @@ public class ApplyEduAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<EduList.DataBean> dataList = new ArrayList<>();
 
 
-	public ApplyEduAdapter(List<String> dataList) {
+	public ApplyEduAdapter(List<EduList.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<EduList.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -83,9 +85,20 @@ public class ApplyEduAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 			}
 		}
 
-		public void bindData(String data) {
+		public void bindData(EduList.DataBean data) {
 
-
+			if (!TextUtils.isEmpty(data.getName())){
+				tv_title.setText(data.getName());
+			}
+			if (!TextUtils.isEmpty(data.getLesson_no())){
+				tv_project_id.setText(data.getName());
+			}
+			if (!TextUtils.isEmpty(data.getPrice())){
+				tv_price.setText(data.getPrice());
+			}
+			if (!TextUtils.isEmpty(data.getLevel())){
+				tv_level.setText(data.getLevel());
+			}
 
 		}
 	}

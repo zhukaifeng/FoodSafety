@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.mine.adapter.ScoreRuleAdapter;
+import com.osiris.food.model.ScoreDesc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ScoreRuleActivity extends BaseActivity {
 	RecyclerView rv_data;
 
 
-	private List<String> dataList = new ArrayList<>();
+	private List<ScoreDesc> dataList = new ArrayList<>();
 	private ScoreRuleAdapter dataAdapter = new ScoreRuleAdapter(dataList);
 
 	@Override
@@ -40,11 +41,10 @@ public class ScoreRuleActivity extends BaseActivity {
 		tv_title.setText(getString(R.string.score_explam));
 
 
-		dataList.add("1");
-		dataList.add("1");
-		dataList.add("1");
-		dataList.add("1");
-		dataList.add("1");
+		dataList.add(new ScoreDesc("问：什么是学习积分？","答：学习积分是用户通过在“食品安全培训”学习平台完成指定行为获得的积分奖励。"));
+		dataList.add(new ScoreDesc("问：谁能获得学习积分？","答：所有“食品安全培训”学习平台的注册用户。"));
+		dataList.add(new ScoreDesc("问：如何获得学习积分？","答：完成指定的获得该行为对应的积分。"));
+
 
 
 

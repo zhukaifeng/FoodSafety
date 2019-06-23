@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.mine.ConnectUsActivity;
@@ -16,9 +18,15 @@ import com.osiris.food.mine.MyStudyActivity;
 import com.osiris.food.mine.PersonInfoActivity;
 import com.osiris.food.mine.SettingActivity;
 import com.osiris.food.mine.StudyScoreActivity;
+import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.GlobalParams;
+import com.osiris.food.network.NetRequest;
+import com.osiris.food.network.NetRequestResultListener;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.autosize.utils.LogUtils;
 
 public class MineFragment extends BaseFragment {
 
@@ -37,8 +45,6 @@ public class MineFragment extends BaseFragment {
 	ImageView iv_qr;
 
 
-
-
 	@Override
 	protected int setLayout() {
 		return R.layout.fragmnent_mine;
@@ -46,18 +52,25 @@ public class MineFragment extends BaseFragment {
 
 	@Override
 	protected void initView() {
+		tv_name.setText(GlobalParams.user_name);
+		Picasso.with(getActivity())
+				.load(GlobalParams.avatar)
+				.into(iv_avatar);
+
+		getTotalScore();
 
 	}
 
 	@Override
 	protected void initData() {
 
+
 	}
 
-	@OnClick({R.id.rl_mine_order,R.id.rl_mine_score,R.id.rl_mine_study,R.id.rl_mine_certificate,
-			R.id.rl_mine_notification,R.id.rl_mine_contract,R.id.rl_mine_setting,R.id.rl_personal_info})
-	void onClick(View v){
-		switch (v.getId()){
+	@OnClick({R.id.rl_mine_order, R.id.rl_mine_score, R.id.rl_mine_study, R.id.rl_mine_certificate,
+			R.id.rl_mine_notification, R.id.rl_mine_contract, R.id.rl_mine_setting, R.id.rl_personal_info})
+	void onClick(View v) {
+		switch (v.getId()) {
 			case R.id.rl_mine_order:
 				Intent intent = new Intent(getActivity(), MyOrderActivity.class);
 				startActivity(intent);
@@ -95,6 +108,36 @@ public class MineFragment extends BaseFragment {
 				break;
 		}
 	}
+
+
+	private void getTotalScore() {
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/users/points";
+
+		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				if (json.get("code").getAsInt() == 200) {
+					if (null != json.get("data").getAsJsonObject().get("user_point").getAsString()) {
+						String score = json.get("data").getAsJsonObject().get("user_point").getAsString();
+						tv_study_score.setText("学习积分 " + score);
+					}
+
+				}
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+				LogUtils.d("zkf code111:" + code);
+			}
+		});
+
+	}
+
+
+
 
 
 }

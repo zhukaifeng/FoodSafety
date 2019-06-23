@@ -1,12 +1,14 @@
 package com.osiris.food.exam.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.ExamList;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -15,34 +17,34 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ExamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ExamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<ExamList.DataBean> dataList = new ArrayList<>();
 
 
-	public ExamAdapter(List<String> dataList) {
+	public ExamAdapter(List<ExamList.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<ExamList.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exam_list, parent,false);//解决宽度不能铺满
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_exam_list, parent, false);//解决宽度不能铺满
 
-		return new ExamHolder(view,myItemClickListener);
+		return new ExamHolder(view, myItemClickListener);
 	}
 
 	@Override
 	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-		((ExamHolder)holder).bindData(dataList.get(position));
+		((ExamHolder) holder).bindData(dataList.get(position));
 
 	}
 
@@ -52,8 +54,7 @@ public class ExamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 	}
 
 
-
-	class ExamHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+	class ExamHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
 		@BindView(R.id.tv_exam_name)
@@ -62,27 +63,35 @@ public class ExamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 		TextView tv_subject_num;
 		@BindView(R.id.tv_history_score)
 		TextView tv_history_score;
-
-
+		@BindView(R.id.tv_count)
+		TextView tv_count;
 
 
 		private MyItemClickListener myItemClickListener;
 
-		public ExamHolder(View itemView,MyItemClickListener myItemClickListener) {
+		public ExamHolder(View itemView, MyItemClickListener myItemClickListener) {
 			super(itemView);
-			ButterKnife.bind(this,itemView);
+			ButterKnife.bind(this, itemView);
 			this.myItemClickListener = myItemClickListener;
 			itemView.setOnClickListener(this);
 		}
 
 		@Override
 		public void onClick(View v) {
-			if (null != myItemClickListener){
-				myItemClickListener.onItemClick(itemView,getLayoutPosition());
+			if (null != myItemClickListener) {
+				myItemClickListener.onItemClick(itemView, getLayoutPosition());
 			}
 		}
 
-		public void bindData(String data){
+		public void bindData(ExamList.DataBean data) {
+
+			if (!TextUtils.isEmpty(data.getName())) {
+				tv_exam_name.setText(data.getName());
+			}
+
+			tv_count.setText(String.valueOf(data.getHistory_score()));
+
+			tv_subject_num.setText(String.valueOf(data.getQuestion_numbers()));
 
 
 
@@ -90,7 +99,7 @@ public class ExamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 	}
 
 
-	public void setOnItemClick(MyItemClickListener myItemClickListener){
+	public void setOnItemClick(MyItemClickListener myItemClickListener) {
 		this.myItemClickListener = myItemClickListener;
 	}
 }

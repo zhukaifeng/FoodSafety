@@ -1,6 +1,7 @@
 package com.osiris.food.home.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.PolicyList;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -21,14 +23,14 @@ public class PolicyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<PolicyList.DataBeanX.DataBean> dataList = new ArrayList<>();
 
 
-	public PolicyAdapter(List<String> dataList) {
+	public PolicyAdapter(List<PolicyList.DataBeanX.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<PolicyList.DataBeanX.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -84,7 +86,16 @@ public class PolicyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 			}
 		}
 
-		public void bindData(String data){
+		public void bindData(PolicyList.DataBeanX.DataBean data){
+			if (!TextUtils.isEmpty(data.getTitle())){
+				tv_news_name.setText(data.getTitle());
+			}
+			if (!TextUtils.isEmpty(data.getCategory_name())){
+				tv_news_type.setText(data.getCategory_name());
+			}
+			if (!TextUtils.isEmpty(data.getCreated_at())){
+				tv_news_date.setText(data.getCreated_at().substring(0,10));
+			}
 
 
 		}

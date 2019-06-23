@@ -67,9 +67,9 @@ public class LoginActivity extends BaseActivity {
 			case R.id.btn_login:
 
 
-			//	login();
-				Intent intent2 = new Intent(LoginActivity.this, MenuActivity.class);
-				startActivity(intent2);
+				login();
+				//Intent intent2 = new Intent(LoginActivity.this, MenuActivity.class);
+				//startActivity(intent2);
 
 				break;
 			case R.id.tv_forget_pwd:
@@ -94,16 +94,21 @@ public class LoginActivity extends BaseActivity {
 
 
 		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("phone","18370894190");
+		paramMap.put("password","123456");
 
 
 		if (!TextUtils.isEmpty(edt_phone.getText())){
-			paramMap.put("phone", edt_phone.getText().toString());
+			//paramMap.put("phone", edt_phone.getText().toString());
+			paramMap.put("phone","18370894190");
 		}else {
 			Toast.makeText(this,"请输入手机号",Toast.LENGTH_SHORT).show();
 		}
 
 		if (!TextUtils.isEmpty(edt_pwd.getText())){
-			paramMap.put("password", edt_pwd.getText().toString());
+			//paramMap.put("password", edt_pwd.getText().toString());
+			paramMap.put("password","123456");
+
 		}else {
 			Toast.makeText(this,"请输入密码",Toast.LENGTH_SHORT).show();
 		}
@@ -119,10 +124,12 @@ public class LoginActivity extends BaseActivity {
 						Login data = JsonUtils.fromJson(json, Login.class);
 
 						if (null != data) {
-							GlobalParams.token_type = data.getToken_type();
-							GlobalParams.access_token = data.getAccess_token();
-							GlobalParams.expires_in = data.getExpires_in();
-							GlobalParams.refresh_token = data.getRefresh_token();
+							GlobalParams.token_type = data.getData().getToken_type();
+							GlobalParams.access_token = data.getData().getAccess_token();
+							GlobalParams.expires_in = data.getData().getExpires_in();
+							GlobalParams.refresh_token = data.getData().getRefresh_token();
+							GlobalParams.user_id = data.getData().getId();
+							GlobalParams.user_name = data.getData().getName();
 
 							Intent intent2 = new Intent(LoginActivity.this, MenuActivity.class);
 							startActivity(intent2);

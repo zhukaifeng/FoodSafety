@@ -6,10 +6,15 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.mine.adapter.StudyAdapter;
 import com.osiris.food.model.StudyCourse;
+import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.NetRequest;
+import com.osiris.food.network.NetRequestResultListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +61,9 @@ public class MyStudyActivity extends BaseActivity {
 		rv_data.setAdapter(dataAdapter);
 		dataAdapter.notifyDataSetChanged();
 
+
+	//	getTodayScoreDetail();
+
 	}
 
 
@@ -67,4 +75,36 @@ public class MyStudyActivity extends BaseActivity {
 				break;
 		}
 	}
+
+
+
+
+	private void getTodayScoreDetail() {
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/tasks";
+
+		NetRequest.requestNoParam(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				/*if (json.get("code").getAsInt() == 200) {
+					if (null != json.get("data").getAsJsonObject().get("user_point").getAsString()) {
+						String score = json.get("data").getAsJsonObject().get("user_point").getAsString();
+						tv_study_score.setText("学习积分 " + score);
+					}
+
+				}*/
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+
+			}
+		});
+
+	}
+
+
+
 }

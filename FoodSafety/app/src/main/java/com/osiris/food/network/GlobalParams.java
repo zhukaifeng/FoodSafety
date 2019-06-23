@@ -6,6 +6,15 @@ public final class GlobalParams {
     public static int expires_in;
     public static String access_token;
     public static String refresh_token;
-
+    public static int user_id;
+    public static String user_name;
+    public static String name;
+    public static String phone;
+    public static String avatar;
+    public static String gender;
+    public static String birthday;
+    public static String address;
+    public static String company;
+    public static int identity_card_type;
 
 }

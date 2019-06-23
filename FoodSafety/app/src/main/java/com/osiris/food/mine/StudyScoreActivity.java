@@ -8,12 +8,20 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.mine.adapter.StudyScoreAdapter;
+import com.osiris.food.model.ScoreList;
+import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.NetRequest;
+import com.osiris.food.network.NetRequestResultListener;
+import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,9 +42,12 @@ public class StudyScoreActivity extends BaseActivity {
 	RecyclerView rvData;
 	@BindView(R.id.tv_notification)
 	TextView tvNotification;
+	@BindView(R.id.tv_socre)
+	TextView tvScore;
+	@BindView(R.id.tv_today_score)
+	TextView tv_today_score;
 
-
-	private List<String> dataList = new ArrayList<>();
+	private List<ScoreList.DataBean> dataList = new ArrayList<>();
 	private StudyScoreAdapter dataAdapter = new StudyScoreAdapter(dataList);
 
 	@Override
@@ -50,11 +61,6 @@ public class StudyScoreActivity extends BaseActivity {
 		tvNotification.setSelected(true);
 
 
-		dataList.add("1");
-		dataList.add("1");
-		dataList.add("1");
-		dataList.add("1");
-		dataList.add("1");
 
 		rvData.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 		rvData.setAdapter(dataAdapter);
@@ -65,6 +71,9 @@ public class StudyScoreActivity extends BaseActivity {
 				LogUtils.d("zkf click");
 			}
 		});
+		getTodayScoreDetail();
+		getTotalScore();
+
 
 	}
 
@@ -93,4 +102,65 @@ public class StudyScoreActivity extends BaseActivity {
 				break;
 		}
 	}
+
+
+	private void getTodayScoreDetail() {
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/tasks";
+
+		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				if (json.get("code").getAsInt() == 200) {
+
+					ScoreList.DataBean[] dataBeans = JsonUtils.fromJson(json.get("data").getAsJsonArray(),ScoreList.DataBean[].class);
+					dataList.addAll(Arrays.asList(dataBeans));
+					dataAdapter.notifyDataSetChanged();
+					int totalScore = 0;
+					for (ScoreList.DataBean dataBean:dataList){
+						totalScore = dataBean.getMax_score() + totalScore;
+					}
+					tv_today_score.setText("今日已获取"+totalScore+"积分");
+
+				}
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+				LogUtils.d("zkf code:" + code);
+
+			}
+		});
+
+	}
+
+
+
+	private void getTotalScore() {
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/users/points";
+
+		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				if (json.get("code").getAsInt() == 200) {
+					if (null != json.get("data").getAsJsonObject().get("user_point").getAsString()) {
+						String score = json.get("data").getAsJsonObject().get("user_point").getAsString();
+						tvScore.setText("已有积分" + score);
+					}
+
+				}
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+			}
+		});
+
+	}
+
 }

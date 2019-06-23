@@ -25,6 +25,7 @@
 
 
             <TextView
+                android:id="@+id/tv_exam_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -227,6 +228,7 @@
            android:layout_weight="1"
            android:layout_height="match_parent">
            <TextView
+               android:id="@+id/tv_last_question"
                android:layout_width="@dimen/dp141"
                android:layout_height="@dimen/dp50"
                android:background="@drawable/bg_updaown_btn"
@@ -245,6 +247,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent">
             <TextView
+                android:id="@+id/tv_next_question"
                 android:layout_width="@dimen/dp141"
                 android:layout_height="@dimen/dp50"
                 android:background="@drawable/bg_updaown_btn"

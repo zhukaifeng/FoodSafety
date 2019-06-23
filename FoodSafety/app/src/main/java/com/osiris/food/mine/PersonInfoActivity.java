@@ -1,11 +1,13 @@
 package com.osiris.food.mine;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
+import com.osiris.food.network.GlobalParams;
 import com.osiris.food.view.CircleImageView;
 
 import butterknife.BindView;
@@ -45,13 +47,26 @@ public class PersonInfoActivity extends BaseActivity {
 	@Override
 	public void init() {
 		tv_title.setText(getString(R.string.personal_info));
+		if (!TextUtils.isEmpty(GlobalParams.birthday))
+			tv_birthday.setText(GlobalParams.birthday);
+		if (!TextUtils.isEmpty(GlobalParams.gender))
+			tv_sex.setText(GlobalParams.gender);
+		if (!TextUtils.isEmpty(GlobalParams.user_name))
+			tv_nick_name.setText(GlobalParams.user_name);
+		if (!TextUtils.isEmpty(GlobalParams.phone))
+			tv_phone_num.setText(GlobalParams.phone);
+		if (!TextUtils.isEmpty(GlobalParams.address))
+			tv_location.setText(GlobalParams.address);
+
+		tv_study_num.setText(String.valueOf(GlobalParams.identity_card_type));
+
 
 	}
 
 
-	@OnClick({R.id.rl_back,R.id.iv_avatar,R.id.rl_nick_name,
-			R.id.rl_sex,R.id.rl_birthday,R.id.rl_study_num,R.id.rl_phone,
-			R.id.rl_location,R.id.rl_work_status,R.id.rl_personal_check,R.id.rl_qr_card})
+	@OnClick({R.id.rl_back, R.id.iv_avatar, R.id.rl_nick_name,
+			R.id.rl_sex, R.id.rl_birthday, R.id.rl_study_num, R.id.rl_phone,
+			R.id.rl_location, R.id.rl_work_status, R.id.rl_personal_check, R.id.rl_qr_card})
 	void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.rl_back:

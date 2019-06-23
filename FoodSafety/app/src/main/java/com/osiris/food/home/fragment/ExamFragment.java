@@ -7,16 +7,25 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.exam.ExamAnswersActivity;
 import com.osiris.food.exam.adapter.ExamAdapter;
+import com.osiris.food.model.ExamList;
+import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.NetRequest;
+import com.osiris.food.network.NetRequestResultListener;
+import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import me.jessyan.autosize.utils.LogUtils;
 
 public class ExamFragment extends BaseFragment {
 
@@ -28,7 +37,8 @@ public class ExamFragment extends BaseFragment {
 	@BindView(R.id.rv_data)
 	RecyclerView rv_data;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<ExamList.DataBean> dataList = new ArrayList<>();
+
 	private ExamAdapter dataAdapter = new ExamAdapter(dataList);
 
 
@@ -43,10 +53,6 @@ public class ExamFragment extends BaseFragment {
 		tv_title.setText(getString(R.string.exam));
 		rl_back.setVisibility(View.GONE);
 
-		dataList.add("1");
-		dataList.add("2");
-		dataList.add("3");
-
 
 		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
 		rv_data.setAdapter(dataAdapter);
@@ -57,10 +63,13 @@ public class ExamFragment extends BaseFragment {
 			public void onItemClick(View view, int position) {
 
 				Intent intent = new Intent(getActivity(), ExamAnswersActivity.class);
+				intent.putExtra("exam_id",dataList.get(position).getId());
 				startActivity(intent);
 
 			}
 		});
+
+		getData();
 
 
 	}
@@ -69,4 +78,44 @@ public class ExamFragment extends BaseFragment {
 	protected void initData() {
 
 	}
+
+
+
+	private void getData(){
+
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/papers";
+
+		NetRequest.requestNoParam(url, ApiRequestTag.REQUEST_DATA,  new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				if (json.get("code").getAsInt() == 200){
+					ExamList.DataBean[] data = JsonUtils.fromJson(
+							json.get("data").getAsJsonArray(), ExamList.DataBean[].class);
+					if (dataList.size()>0) {
+						dataList.clear();
+					}
+
+					dataList.addAll(Arrays.asList(data));
+					dataAdapter.notifyDataSetChanged();
+				}
+
+
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+				LogUtils.d("zkf  code: " + code);
+			}
+		});
+
+
+
+
+	}
+
+
 }

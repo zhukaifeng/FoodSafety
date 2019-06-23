@@ -196,7 +196,6 @@
                     android:ellipsize="marquee"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:textColor="@color/txt_important_black_51"
-                    android:text="市场监管总局关于调整《食品经营许可证》式样部分"
                     />
 
 

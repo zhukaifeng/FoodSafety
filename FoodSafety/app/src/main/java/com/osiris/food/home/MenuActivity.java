@@ -4,6 +4,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.base.BaseFragment;
@@ -16,6 +18,12 @@ import com.osiris.food.home.fragment.IndustryInformationFragment;
 import com.osiris.food.home.fragment.MineFragment;
 import com.osiris.food.home.fragment.PoliccyRegualationFragment;
 import com.osiris.food.home.fragment.StudyFragment;
+import com.osiris.food.model.UserInfo;
+import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.GlobalParams;
+import com.osiris.food.network.NetRequest;
+import com.osiris.food.network.NetRequestResultListener;
+import com.osiris.food.utils.JsonUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -62,6 +70,7 @@ public class MenuActivity extends BaseActivity {
 	@Override
 	public void init() {
 		showFragment(currentFragment);
+		getUserInfo();
 
 	}
 
@@ -209,5 +218,44 @@ public class MenuActivity extends BaseActivity {
 		}*/
 
 	}
+
+
+	private void getUserInfo(){
+
+		String url = ApiRequestTag.API_HOST+"/api/v1/users/profile";
+
+
+		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				if (json.get("code").getAsInt() == 200){
+					UserInfo.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(),UserInfo.DataBean.class);
+					GlobalParams.user_name = dataBean.getName();
+					GlobalParams.phone = dataBean.getPhone();
+					GlobalParams.avatar = dataBean.getAvatar();
+					GlobalParams.gender = dataBean.getGender();
+					GlobalParams.birthday = dataBean.getBirthday();
+					GlobalParams.address = dataBean.getAddress();
+					GlobalParams.company = dataBean.getCompany();
+					GlobalParams.identity_card_type = dataBean.getIdentity_card_type();
+					LogUtils.d("zkf GlobalParams.user_name:" + GlobalParams.user_name);
+					LogUtils.d("zkf GlobalParams.avatar:" + GlobalParams.avatar);
+
+				}
+
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+
+			}
+		});
+
+
+	}
+
+
 
 }

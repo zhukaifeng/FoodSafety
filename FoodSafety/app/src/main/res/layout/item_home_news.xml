@@ -30,9 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/iv_news_pic"
             android:layout_marginLeft="@dimen/dp20"
-            android:layout_marginRight="@dimen/dp11"
             android:layout_marginTop="@dimen/dp20"
             android:textColor="@color/txt_important_black_51"
+            android:layout_marginRight="@dimen/dp11"
+            android:breakStrategy="simple"
             android:text="泰州市政协副主席、市场监督局局长接听12345热线市民来电"
 
             />

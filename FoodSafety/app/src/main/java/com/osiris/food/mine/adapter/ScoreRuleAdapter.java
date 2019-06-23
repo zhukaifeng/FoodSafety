@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.ScoreDesc;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ public class ScoreRuleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<ScoreDesc> dataList = new ArrayList<>();
 
 
-	public ScoreRuleAdapter(List<String> dataList) {
+	public ScoreRuleAdapter(List<ScoreDesc> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<ScoreDesc> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -78,11 +79,10 @@ public class ScoreRuleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			}
 		}
 
-		public void bindData(String data){
+		public void bindData(ScoreDesc data){
 
-
-			/* <string name="score_answer">答：</string>
-    <string name="score_question">问：</string>*/
+			tv_question.setText(data.getQuestion());
+			tv_answer.setText(data.getAnswer());
 
 		}
 	}
