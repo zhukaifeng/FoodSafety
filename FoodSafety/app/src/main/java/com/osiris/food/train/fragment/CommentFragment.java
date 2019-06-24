@@ -2,6 +2,7 @@ package com.osiris.food.train.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -9,9 +10,15 @@ import android.widget.LinearLayout;
 
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
+import com.osiris.food.model.VideoDetailBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import me.jessyan.autosize.utils.LogUtils;
@@ -19,138 +26,133 @@ import me.jessyan.autosize.utils.LogUtils;
 public class CommentFragment extends BaseFragment {
 
 
-	@BindView(R.id.main_commentList_elv)
-	ExpandableListView mCommentExLV;
-	@BindView(R.id.linear_replay)
-	LinearLayout linear_replay;
-	private CommentExListViewAdapter mCommentExListViewAdapter;
-	private ArrayList<CommentItem> mCommentItemList;
-	private AlertDialog mCommentEditDialog;
+    @BindView(R.id.main_commentList_elv)
+    ExpandableListView mCommentExLV;
+    @BindView(R.id.linear_replay)
+    LinearLayout linear_replay;
+    private CommentExListViewAdapter mCommentExListViewAdapter;
+    private ArrayList<CommentItem> mCommentItemList = new ArrayList<>();
+    private AlertDialog mCommentEditDialog;
 
 
-	@Override
-	protected int setLayout() {
-		return R.layout.fragment_commentl;
-	}
+    @Override
+    protected int setLayout() {
+        return R.layout.fragment_commentl;
+    }
 
-	@Override
-	protected void initView() {
+    @Override
+    protected void initView() {
 
+        mCommentExListViewAdapter = new CommentExListViewAdapter(mContext, mCommentItemList);
+        mCommentExLV.setAdapter(mCommentExListViewAdapter);
+        mCommentExLV.setGroupIndicator(null);
+        mCommentExLV.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
 
-		initTestCommentItemList();
-		mCommentExListViewAdapter = new CommentExListViewAdapter(mContext, mCommentItemList);
-		mCommentExLV.setAdapter(mCommentExListViewAdapter);
-		mCommentExLV.setGroupIndicator(null);
-		mCommentExLV.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-			@Override
-			public boolean onGroupClick(ExpandableListView parent, View v,
-			                            int groupPosition, long id) {
-
-				LogUtils.d("zkf add replay");
+                LogUtils.d("zkf add replay");
 
 
-				v.setClickable(true);
-				return true;
-			}
-		});
-		mCommentExLV.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-				LogUtils.d("zkf add child");
-				return false;
-			}
-		});
+                v.setClickable(true);
+                return true;
+            }
+        });
+        mCommentExLV.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                LogUtils.d("zkf add child");
+                return false;
+            }
+        });
 
 
-		expandAllGroup();
+        expandAllGroup();
 
 
-		createCommentEditDialog();
-	}
+        createCommentEditDialog();
+    }
 
-	private void expandAllGroup() {
-		// 默认展开每一个分组
-		for (int i = 0; i < mCommentExListViewAdapter.getGroupCount(); i++) {
-			mCommentExLV.expandGroup(i);
-		}
-	}
+    private void expandAllGroup() {
+        // 默认展开每一个分组
+        for (int i = 0; i < mCommentExListViewAdapter.getGroupCount(); i++) {
+            mCommentExLV.expandGroup(i);
+        }
+    }
 
-	@Override
-	protected void initData() {
+    @Override
+    protected void initData() {
 
-	}
+    }
 
+    private void createCommentEditDialog() {
+        View commentInputView = getLayoutInflater().inflate(R.layout.dialog_comment, null);
+        final EditText commentEdit = (EditText) commentInputView.findViewById(R.id.dialogComment_commentContentInput_edt);
 
-	private void initTestCommentItemList() {
-		mCommentItemList = new ArrayList<CommentItem>();
-		//测试数据
-		CommentItem tempCommentItem = new CommentItem(R.drawable.bg_login_icon, "王尼玛1", "12:30", "这是测试评论内容", null);
-		mCommentItemList.add(tempCommentItem);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("请输入内容");
+        builder.setView(commentInputView);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-		ArrayList<SubCommentItem> subCommentItems = new ArrayList<SubCommentItem>();
-		SubCommentItem tempSubCommentItem = new SubCommentItem(R.drawable.bg_login_icon, "小尼玛1", "这是子测试评论内容1");
-		subCommentItems.add(tempSubCommentItem);
-		tempSubCommentItem = new SubCommentItem(R.drawable.bg_login_icon, "小尼玛2", "这是子测试评论内容2");
-		subCommentItems.add(tempSubCommentItem);
-		tempSubCommentItem = new SubCommentItem(R.drawable.bg_login_icon, "小尼玛3", "这是子测试评论内容3");
-		subCommentItems.add(tempSubCommentItem);
-		tempCommentItem = new CommentItem(R.drawable.bg_login_icon, "王尼玛2", "18:30", "这是测试评论内容2", subCommentItems);
+            }
+        });
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-		mCommentItemList.add(tempCommentItem);
-		mCommentItemList.add(tempCommentItem);
-		mCommentItemList.add(tempCommentItem);
-		mCommentItemList.add(tempCommentItem);
-		mCommentItemList.add(tempCommentItem);
-	}
+                String commentContent = commentEdit.getText().toString().trim();
+                CommentItem commentItem = new CommentItem(R.drawable.bg_login_icon, "当前用户名", getCurrentDateTime(), commentContent, null);
+                if (!commentContent.equals("")) {
+                    mCommentItemList.add(commentItem);
 
-	private void createCommentEditDialog() {
-		View commentInputView = getLayoutInflater().inflate(R.layout.dialog_comment, null);
-		final EditText commentEdit = (EditText) commentInputView.findViewById(R.id.dialogComment_commentContentInput_edt);
+                    mCommentExListViewAdapter.notifyDataSetChanged();
+                    expandAllGroup();
+                }
+            }
+        });
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-		builder.setTitle("请输入内容");
-		builder.setView(commentInputView);
-		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
+        mCommentEditDialog = builder.create();
+    }
 
-			}
-		});
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
+    private String getCurrentDateTime() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
 
-				String commentContent = commentEdit.getText().toString().trim();
-				CommentItem commentItem = new CommentItem(R.drawable.bg_login_icon, "当前用户名", getCurrentDateTime(), commentContent, null);
-				if (!commentContent.equals("")) {
-					mCommentItemList.add(commentItem);
+        return year + "-" + convertNumToString(month) + "-" + convertNumToString(day) + " " + convertNumToString(hour) + ":" + convertNumToString(minute) + ":" + second;
+    }
 
-					mCommentExListViewAdapter.notifyDataSetChanged();
-					expandAllGroup();
-				}
-			}
-		});
+    private String convertNumToString(int num) {
+        if (num < 10) {
+            return "0" + num;
+        } else {
+            return "" + num;
+        }
+    }
 
-		mCommentEditDialog = builder.create();
-	}
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void initVideoDetailView(VideoDetailBean videoDetailBean) {
+        initTestCommentItemList(videoDetailBean);
+    }
 
-	private String getCurrentDateTime() {
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH) + 1;
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		int hour = calendar.get(Calendar.HOUR_OF_DAY);
-		int minute = calendar.get(Calendar.MINUTE);
-		int second = calendar.get(Calendar.SECOND);
-
-		return year + "-" + convertNumToString(month) + "-" + convertNumToString(day) + " " + convertNumToString(hour) + ":" + convertNumToString(minute) + ":" + second;
-	}
-
-	private String convertNumToString(int num) {
-		if (num < 10) {
-			return "0" + num;
-		} else {
-			return "" + num;
-		}
-	}
+    private void initTestCommentItemList(VideoDetailBean videoDetailBean) {
+        mCommentItemList.clear();
+        //mCommentItemList = new ArrayList<CommentItem>();
+        List<VideoDetailBean.DataBean.CommentsBean> commentsBeans = videoDetailBean.getData().getComments();
+        if (commentsBeans != null && commentsBeans.size() > 0) {
+            for (int i = 0; i < commentsBeans.size(); i++) {
+                VideoDetailBean.DataBean.CommentsBean bean = commentsBeans.get(i);
+                CommentItem tempCommentItem = new CommentItem(R.drawable.bg_login_icon,
+                        bean.getOwner().getName(), bean.getCreated_at(), bean.getContent(), null);
+                mCommentItemList.add(tempCommentItem);
+            }
+        }
+        mCommentExListViewAdapter.notifyDataSetChanged();
+    }
 }

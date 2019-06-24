@@ -59,6 +59,8 @@ public class MajorCourseFragment extends BaseFragment {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), TrainContentLookActivity.class);
+                intent.putExtra("v_id", dataList.get(position).getId());
+                intent.putExtra("pic", dataList.get(position).getThumb());
                 startActivity(intent);
             }
         });

@@ -155,20 +155,20 @@ public class ExamAnswersActivity extends BaseActivity {
 				break;
 			case R.id.tv_last_question:
 				position--;
-				checkboxA.setChecked(false);
-				checkboxB.setChecked(false);
-				checkboxC.setChecked(false);
-				checkboxD.setChecked(false);
-				linearA.setVisibility(View.VISIBLE);
-				linearB.setVisibility(View.VISIBLE);
-				linearC.setVisibility(View.VISIBLE);
-				linearD.setVisibility(View.VISIBLE);
-				tvCurrent.setText(String.valueOf(position+1));
 				if (position < 0) {
+					position++;
 					break;
 				} else {
+					tvCurrent.setText(String.valueOf(position+1));
 					tvSubject.setText(dataList.get(position).getQuestion());
-
+					checkboxA.setChecked(false);
+					checkboxB.setChecked(false);
+					checkboxC.setChecked(false);
+					checkboxD.setChecked(false);
+					linearA.setVisibility(View.VISIBLE);
+					linearB.setVisibility(View.VISIBLE);
+					linearC.setVisibility(View.VISIBLE);
+					linearD.setVisibility(View.VISIBLE);
 					LogUtils.d("zkf position ");
 					LogUtils.d("zkf  ddsdsd:" + dataList.get(position).getSelectAnswer());
 					if (!TextUtils.isEmpty(dataList.get(position).getSelectAnswer())){
@@ -224,16 +224,18 @@ public class ExamAnswersActivity extends BaseActivity {
 			case R.id.tv_next_question:
 
 				position++;
-				checkboxA.setChecked(false);
-				checkboxB.setChecked(false);
-				checkboxC.setChecked(false);
-				checkboxD.setChecked(false);
-				linearA.setVisibility(View.VISIBLE);
-				linearB.setVisibility(View.VISIBLE);
-				linearC.setVisibility(View.VISIBLE);
-				linearD.setVisibility(View.VISIBLE);
-				tvCurrent.setText(String.valueOf(position+1));
+
 				if (position < dataList.size()) {
+					checkboxA.setChecked(false);
+					checkboxB.setChecked(false);
+					checkboxC.setChecked(false);
+					checkboxD.setChecked(false);
+					linearA.setVisibility(View.VISIBLE);
+					linearB.setVisibility(View.VISIBLE);
+					linearC.setVisibility(View.VISIBLE);
+					linearD.setVisibility(View.VISIBLE);
+					tvCurrent.setText(String.valueOf(position+1));
+					tvSubject.setText(dataList.get(position).getQuestion());
 					if (!TextUtils.isEmpty(dataList.get(position).getSelectAnswer())){
 						if (dataList.get(position).getSelectAnswer().contains("A")){
 							checkboxA.setChecked(true);
@@ -247,36 +249,39 @@ public class ExamAnswersActivity extends BaseActivity {
 						if (dataList.get(position).getSelectAnswer().contains("D")){
 							checkboxD.setChecked(true);
 						}
+						switch (dataList.get(position).getSelect().size()) {
+							case 0:
+								break;
+							case 1:
+								tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+								linearB.setVisibility(View.GONE);
+								linearC.setVisibility(View.GONE);
+								linearD.setVisibility(View.GONE);
+								break;
+							case 2:
+								tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+								tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+								linearC.setVisibility(View.GONE);
+								linearD.setVisibility(View.GONE);
+								break;
+							case 3:
+								tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+								tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+								tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+								linearD.setVisibility(View.GONE);
+								break;
+							case 4:
+								tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+								tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+								tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+								tvAnswerD.setText(dataList.get(position).getSelect().get(3));
+								break;
+						}
+					}else {
+						position--;
+						break;
 					}
-					tvSubject.setText(dataList.get(position).getQuestion());
-					switch (dataList.get(position).getSelect().size()) {
-						case 0:
-							break;
-						case 1:
-							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-							linearB.setVisibility(View.GONE);
-							linearC.setVisibility(View.GONE);
-							linearD.setVisibility(View.GONE);
-							break;
-						case 2:
-							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
-							linearC.setVisibility(View.GONE);
-							linearD.setVisibility(View.GONE);
-							break;
-						case 3:
-							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
-							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
-							linearD.setVisibility(View.GONE);
-							break;
-						case 4:
-							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
-							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
-							tvAnswerD.setText(dataList.get(position).getSelect().get(3));
-							break;
-					}
+
 				}
 
 
