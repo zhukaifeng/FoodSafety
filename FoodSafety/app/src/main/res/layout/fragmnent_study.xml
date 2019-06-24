@@ -75,6 +75,9 @@
                     android:layout_marginTop="@dimen/dp22"
                     android:layout_marginRight="@dimen/dp40"
                     android:layout_marginBottom="@dimen/dp22"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+
                     >
 
 

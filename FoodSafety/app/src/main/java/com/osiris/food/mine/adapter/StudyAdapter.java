@@ -1,6 +1,7 @@
 package com.osiris.food.mine.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.osiris.food.R;
 import com.osiris.food.model.MyStudy;
 import com.osiris.food.view.widget.MyItemClickListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +94,13 @@ public class StudyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 			tv_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time),data.getTime()));
 			tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look),data.getStart_time()));
 			tv_date.setText(data.getStart_time()+"-"+data.getEnd_time());
+			if (!TextUtils.isEmpty(data.getThumb())){
+				Picasso.with(itemView.getContext())
+						.load(data.getThumb())
+						.into(iv_cover);
+			}
+
+
 		}
 	}
 

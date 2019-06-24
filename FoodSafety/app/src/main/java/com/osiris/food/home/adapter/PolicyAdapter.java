@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.osiris.food.R;
 import com.osiris.food.model.PolicyList;
 import com.osiris.food.view.widget.MyItemClickListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +97,9 @@ public class PolicyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 			if (!TextUtils.isEmpty(data.getCreated_at())){
 				tv_news_date.setText(data.getCreated_at().substring(0,10));
 			}
-
+			Picasso.with(itemView.getContext())
+					.load(data.getThumb())
+					.into(iv_news_pic);
 
 		}
 	}

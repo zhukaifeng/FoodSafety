@@ -1,5 +1,6 @@
 package com.osiris.food.home;
 
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.osiris.food.network.GlobalParams;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
+import com.osiris.food.view.IBackInterface;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -34,7 +36,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.autosize.utils.LogUtils;
 
-public class MenuActivity extends BaseActivity {
+public class MenuActivity extends BaseActivity implements IBackInterface {
 
 	@BindView(R.id.img_apply)
 	ImageView img_apply;
@@ -256,6 +258,21 @@ public class MenuActivity extends BaseActivity {
 
 	}
 
+	private Fragment fragment;
+	@Override
+	public void setSelectedFragment(Fragment fragment) {
+		this.fragment = fragment;
+	}
 
+	@Override
+	public void onBackPressed() {
+		if (fragment != null && ((CityNewsFragment) fragment).onBackPressed()) {
+			//实现具体的点击效果
+		} else if (fragment != null && ((PoliccyRegualationFragment) fragment).onBackPressed()){
+
+		}else if (fragment != null && ((IndustryInformationFragment) fragment).onBackPressed()){
+
+		}
+	}
 
 }

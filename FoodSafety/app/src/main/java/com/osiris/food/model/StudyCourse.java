@@ -2,13 +2,19 @@ package com.osiris.food.model;
 
 public class StudyCourse {
 
-
-
 	private String courseName;
 	private String startTime;
 	private String endTime;
 	private String courseTime;
 	private String courseLook;
+	private String category;
+	private String thumb;
+	private int lessonId;
+	private int id;
+
+	public StudyCourse() {
+
+	}
 
 	public StudyCourse(String courseName, String startTime, String endTime, String courseTime, String courseLook) {
 		this.courseName = courseName;
@@ -16,6 +22,38 @@ public class StudyCourse {
 		this.endTime = endTime;
 		this.courseTime = courseTime;
 		this.courseLook = courseLook;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getThumb() {
+		return thumb;
+	}
+
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
+	}
+
+	public int getLessonId() {
+		return lessonId;
+	}
+
+	public void setLessonId(int lessonId) {
+		this.lessonId = lessonId;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCourseName() {

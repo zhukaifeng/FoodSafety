@@ -94,7 +94,6 @@ public class ExamAnswersActivity extends BaseActivity {
 					dataList.get(position).setSelectAnswer("A");
 				}else {
 					checkboxA.setChecked(false);
-					dataList.get(position).setSelectAnswer("");
 				}
 
 			}
@@ -110,7 +109,6 @@ public class ExamAnswersActivity extends BaseActivity {
 					dataList.get(position).setSelectAnswer("B");
 				}else {
 					checkboxB.setChecked(false);
-					dataList.get(position).setSelectAnswer("");
 				}
 
 			}
@@ -126,7 +124,6 @@ public class ExamAnswersActivity extends BaseActivity {
 					dataList.get(position).setSelectAnswer("C");
 				}else {
 					checkboxC.setChecked(false);
-					dataList.get(position).setSelectAnswer("");
 				}
 
 			}
@@ -142,7 +139,6 @@ public class ExamAnswersActivity extends BaseActivity {
 					dataList.get(position).setSelectAnswer("D");
 				}else {
 					checkboxD.setChecked(false);
-					dataList.get(position).setSelectAnswer("");
 				}
 
 			}
@@ -159,6 +155,14 @@ public class ExamAnswersActivity extends BaseActivity {
 				break;
 			case R.id.tv_last_question:
 				position--;
+				checkboxA.setChecked(false);
+				checkboxB.setChecked(false);
+				checkboxC.setChecked(false);
+				checkboxD.setChecked(false);
+				linearA.setVisibility(View.VISIBLE);
+				linearB.setVisibility(View.VISIBLE);
+				linearC.setVisibility(View.VISIBLE);
+				linearD.setVisibility(View.VISIBLE);
 				tvCurrent.setText(String.valueOf(position+1));
 				if (position < 0) {
 					break;
@@ -220,6 +224,14 @@ public class ExamAnswersActivity extends BaseActivity {
 			case R.id.tv_next_question:
 
 				position++;
+				checkboxA.setChecked(false);
+				checkboxB.setChecked(false);
+				checkboxC.setChecked(false);
+				checkboxD.setChecked(false);
+				linearA.setVisibility(View.VISIBLE);
+				linearB.setVisibility(View.VISIBLE);
+				linearC.setVisibility(View.VISIBLE);
+				linearD.setVisibility(View.VISIBLE);
 				tvCurrent.setText(String.valueOf(position+1));
 				if (position < dataList.size()) {
 					if (!TextUtils.isEmpty(dataList.get(position).getSelectAnswer())){

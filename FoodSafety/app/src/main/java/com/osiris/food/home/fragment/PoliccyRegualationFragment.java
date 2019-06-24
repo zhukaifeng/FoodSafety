@@ -53,6 +53,11 @@ public class PoliccyRegualationFragment extends BaseFragment {
 		}
 	}
 
+	public boolean onBackPressed() {
+		postEvent(new FragmentChangeEvent(FRAGMENT_HOME));
+		return true;
+	}
+
 
 	@Override
 	protected int setLayout() {

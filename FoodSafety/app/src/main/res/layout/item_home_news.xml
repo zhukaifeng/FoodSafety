@@ -15,6 +15,7 @@
             android:id="@+id/iv_news_pic"
             android:layout_width="@dimen/dp75"
             android:layout_height="@dimen/dp57"
+            android:scaleType="fitXY"
             android:layout_alignParentRight="true"
             android:background="@color/color_blue_btn"
             android:layout_marginTop="@dimen/dp18"

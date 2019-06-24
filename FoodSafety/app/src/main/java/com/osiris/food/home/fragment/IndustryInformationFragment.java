@@ -53,7 +53,10 @@ public class IndustryInformationFragment extends BaseFragment {
 				break;
 		}
 	}
-
+	public boolean onBackPressed() {
+		postEvent(new FragmentChangeEvent(FRAGMENT_HOME));
+		return true;
+	}
 
 	@Override
 	protected int setLayout() {

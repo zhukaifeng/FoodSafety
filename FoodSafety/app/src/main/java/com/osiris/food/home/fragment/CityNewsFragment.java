@@ -17,6 +17,7 @@ import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
+import com.osiris.food.view.IBackInterface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +44,7 @@ public class CityNewsFragment extends BaseFragment {
 
 	private List<PolicyList.DataBeanX.DataBean> dataList = new ArrayList<>();
 	private CityNewsAdapter dataAdapter = new CityNewsAdapter(dataList);
+	private IBackInterface backInterface;
 
 
 	@OnClick({R.id.rl_back})
@@ -55,6 +57,8 @@ public class CityNewsFragment extends BaseFragment {
 	}
 
 
+
+
 	@Override
 	protected int setLayout() {
 		return R.layout.activity_city_news;
@@ -62,7 +66,8 @@ public class CityNewsFragment extends BaseFragment {
 
 	@Override
 	protected void initView() {
-
+		backInterface = (IBackInterface)getActivity();
+		backInterface.setSelectedFragment(this);//将fragment传递到Activity中
 
 		tv_title.setText(getString(R.string.city_dynamic));
 
@@ -76,7 +81,10 @@ public class CityNewsFragment extends BaseFragment {
 	protected void initData() {
 
 	}
-
+	public boolean onBackPressed() {
+		postEvent(new FragmentChangeEvent(FRAGMENT_HOME));
+		return true;
+	}
 	private void getData() {
 		String url = ApiRequestTag.API_HOST + "/api/v1/contents";
 

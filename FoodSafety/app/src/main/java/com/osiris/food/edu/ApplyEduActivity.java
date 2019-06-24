@@ -1,5 +1,6 @@
 package com.osiris.food.edu;
 
+import android.content.DialogInterface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
+import com.osiris.food.view.dialog.ContinueEduDialog;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.autosize.utils.LogUtils;
 
 public class ApplyEduActivity extends BaseActivity {
 
@@ -55,6 +58,8 @@ public class ApplyEduActivity extends BaseActivity {
 		dataAdapter.setOnItemClick(new MyItemClickListener() {
 			@Override
 			public void onItemClick(View view, int position) {
+				LogUtils.d("zkf dasda click :" + position);
+				showDialog();
 
 			}
 		});
@@ -102,5 +107,15 @@ public class ApplyEduActivity extends BaseActivity {
 
 	}
 
+	private void showDialog() {
+		ContinueEduDialog.Builder preventBuilder = new ContinueEduDialog.Builder(this);
+		preventBuilder.setPositiveButton(new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				dialogInterface.dismiss();
+			}
+		});
 
+		preventBuilder.create().show();
+	}
 }
