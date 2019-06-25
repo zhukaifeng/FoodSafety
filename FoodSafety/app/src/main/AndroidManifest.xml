@@ -14,6 +14,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:name=".base.App"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -101,7 +102,6 @@
             android:name=".train.TrainContentLookActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"
            />
         <activity
             android:name=".payment.PayActivity"
@@ -117,7 +117,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".mine.ChangeInfoActivity"
                   android:screenOrientation="portrait"/>
-
+        <activity android:name=".mine.QRCodeActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".home.ContentDetailActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -102,18 +102,43 @@ public class StudyScoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 			if (data.getName().contains("每日首次登录")){
 				tv_detail.setText("登录 "+"+"+data.getScore()+"/次 | 已获"+
 						data.getMax_score()+"分/上线"+1+"分");
+				if (data.getScore() == data.getMax_score()){
+					tvBtnType.setText("已完成");
+				}else {
+					tvBtnType.setText("去登录");
+				}
 			}else if (data.getName().contains("阅读文章")){
 				tv_detail.setText("阅读 "+"+"+data.getScore()+"/次 | 已获"+
 						data.getMax_score()+"分/上线"+1+"分");
+				if (data.getScore() == data.getMax_score()){
+					tvBtnType.setText("已完成");
+				}else {
+					tvBtnType.setText("去看看");
+				}
 			} else if (data.getName().contains("观看视频")){
 				tv_detail.setText("观看 "+"+"+data.getScore()+"/次 | 已获"+
 						data.getMax_score()+"分/上线"+1+"分");
+				if (data.getScore() == data.getMax_score()){
+					tvBtnType.setText("已完成");
+				}else {
+					tvBtnType.setText("去看看");
+				}
 			}else if (data.getName().contains("文章学习市场")){
 				tv_detail.setText("学习 "+"+"+data.getScore()+"/次 | 已获"+
 						data.getMax_score()+"分/上线"+1+"分");
+				if (data.getScore() == data.getMax_score()){
+					tvBtnType.setText("已完成");
+				}else {
+					tvBtnType.setText("去学习");
+				}
 			}else if (data.getName().contains("视频学习市场")){
 				tv_detail.setText("学习 "+"+"+data.getScore()+"/次 | 已获"+
 						data.getMax_score()+"分/上线"+1+"分");
+				if (data.getScore() == data.getMax_score()){
+					tvBtnType.setText("已完成");
+				}else {
+					tvBtnType.setText("去学习");
+				}
 			}
 
 

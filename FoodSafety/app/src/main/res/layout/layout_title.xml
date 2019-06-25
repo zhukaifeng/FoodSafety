@@ -37,6 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textSize="@dimen/sp16"
             />
 

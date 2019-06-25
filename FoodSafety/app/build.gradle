@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 28
@@ -17,6 +18,10 @@ android {
         }
     }
     buildToolsVersion '28.0.3'
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
@@ -40,7 +45,8 @@ dependencies {
     implementation 'com.github.open-android:JieCaoVideoPlayer:0.1.0'
     implementation 'me.biubiubiu.justifytext:library:1.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
-
+    implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.3.0'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 

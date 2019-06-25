@@ -2,7 +2,6 @@ package com.osiris.food.train.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -12,7 +11,6 @@ import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.model.VideoDetailBean;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 

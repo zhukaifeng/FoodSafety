@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.base.BaseFragment;
+import com.osiris.food.event.ExitEvent;
 import com.osiris.food.event.FragmentChangeEvent;
 import com.osiris.food.home.fragment.ApplyFragment;
 import com.osiris.food.home.fragment.CityNewsFragment;
@@ -189,7 +190,6 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 					fragment = new IndustryInformationFragment();
 					break;
 			}
-			LogUtils.d("zkf put fragmentName:" + fragmentName);
 			homePageFragmentMap.put(fragmentName, fragment);
 		}
 		return fragment;
@@ -273,6 +273,12 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 		}else if (fragment != null && ((IndustryInformationFragment) fragment).onBackPressed()){
 
 		}
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onExitMessage(ExitEvent exitEvent) {
+
+		finish();
 	}
 
 }

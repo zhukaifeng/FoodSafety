@@ -1,5 +1,6 @@
 package com.osiris.food.home.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,12 +12,14 @@ import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.event.FragmentChangeEvent;
+import com.osiris.food.home.ContentDetailActivity;
 import com.osiris.food.home.adapter.PolicyAdapter;
 import com.osiris.food.model.PolicyList;
 import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
+import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,6 +75,14 @@ public class PoliccyRegualationFragment extends BaseFragment {
 		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
 		rv_data.setAdapter(dataAdapter);
 		dataAdapter.notifyDataSetChanged();
+		dataAdapter.setOnItemClick(new MyItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				Intent intent = new Intent(getActivity(), ContentDetailActivity.class);
+				intent.putExtra("id",dataList.get(position).getId());
+				startActivity(intent);
+			}
+		});
 		getData();
 	}
 
@@ -116,7 +127,6 @@ public class PoliccyRegualationFragment extends BaseFragment {
 
 
 	}
-
 
 
 

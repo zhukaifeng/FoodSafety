@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
+import com.osiris.food.event.ExitEvent;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,7 +49,8 @@ public class SettingActivity extends BaseActivity {
 
 				break;
 			case R.id.btn_exit:
-
+				postEvent(new ExitEvent());
+				finish();
 				break;
 		}
 	}

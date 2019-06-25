@@ -137,6 +137,8 @@ public class PersonInfoActivity extends BaseActivity {
 			case R.id.rl_personal_check:
 				break;
 			case R.id.rl_qr_card:
+				Intent intent5 = new Intent(this,QRCodeActivity.class);
+				startActivity(intent5);
 				break;
 		}
 	}

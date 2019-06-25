@@ -46,7 +46,7 @@
                 android:layout_height="@dimen/dp63"
                 android:layout_marginLeft="@dimen/dp25"
                 android:layout_marginTop="@dimen/dp13"
-                android:background="@color/color_blue_btn"
+                android:background="@drawable/ic_place"
 
                 />
 

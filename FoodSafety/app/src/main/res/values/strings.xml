@@ -148,6 +148,7 @@
     <string name="detail">详情</string>
     <string name="comments">评论(%1$s)</string>
     <string name="send_replay">发送</string>
+    <string name="recover">回复：</string>
 
 
 </resources>

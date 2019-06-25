@@ -8,12 +8,14 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.model.ExamDetail;
+import com.osiris.food.model.ExamLocal;
 import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
@@ -26,6 +28,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.Realm;
+import io.realm.RealmResults;
 import me.jessyan.autosize.utils.LogUtils;
 
 public class ExamAnswersActivity extends BaseActivity {
@@ -66,10 +70,21 @@ public class ExamAnswersActivity extends BaseActivity {
 	LinearLayout linearD;
 	@BindView(R.id.tv_exam_title)
 	TextView tv_exam_title;
+	@BindView(R.id.tv_right_answer)
+	TextView tv_right_answer;
+	@BindView(R.id.tv_answer_result)
+	TextView tv_answer_result;
+	@BindView(R.id.tv_next_question)
+	TextView tv_next_question;
+	@BindView(R.id.tv_last_question)
+	TextView tv_last_question;
 
 	private int mExamId = 0;
 	private List<ExamDetail.DataBean.QuestionItemsBean> dataList = new ArrayList<>();
 	private int position = 0;
+
+	private boolean answered;
+	private Realm mRealm;
 
 	@Override
 	public int getLayoutResId() {
@@ -81,18 +96,67 @@ public class ExamAnswersActivity extends BaseActivity {
 
 		tv_title.setText(getString(R.string.exam_answer));
 		mExamId = getIntent().getIntExtra("exam_id", 0);
+		mRealm = Realm.getDefaultInstance();
+
+		 RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).findAll();
+
+		for (ExamLocal u : userRealmResults) {
+			if (u.getExamId() == mExamId){
+				tv_answer_result.setVisibility(View.VISIBLE);
+				tv_right_answer.setVisibility(View.VISIBLE);
+				checkboxA.setClickable(false);
+				checkboxB.setClickable(false);
+				checkboxC.setClickable(false);
+				checkboxD.setClickable(false);
+				answered = true;
+			}
+
+
+		}
+
+		//String arrayStr = preferences.getString("exam","");
+		/*if (!TextUtils.isEmpty(arrayStr)){
+			JsonParser parser = new JsonParser();
+			JsonArray json = parser.parse(arrayStr).getAsJsonArray();
+			Integer[] array = JsonUtils.fromJson(json,Integer[].class);
+			List<Integer> list = Arrays.asList(array);
+			for (Integer integer:list){
+
+				if (integer == mExamId){
+					tv_answer_result.setVisibility(View.VISIBLE);
+					tv_right_answer.setVisibility(View.VISIBLE);
+					checkboxA.setClickable(false);
+					checkboxB.setClickable(false);
+					checkboxC.setClickable(false);
+					checkboxD.setClickable(false);
+					answered = true;
+				}
+
+
+			}
+		}*/
+
+
+
+
 		getData();
 
 		checkboxA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				checkboxB.setChecked(false);
-				checkboxC.setChecked(false);
-				checkboxD.setChecked(false);
+				if (dataList.get(position).getAnswer().length()==1){
+					checkboxB.setChecked(false);
+					checkboxC.setChecked(false);
+					checkboxD.setChecked(false);
+				}
+
 				if (isChecked) {
 					checkboxA.setChecked(true);
 					dataList.get(position).setSelectAnswer("A");
-				}else {
+					if (position == (dataList.size() - 1)) {
+						tv_next_question.setText("提交");
+					}
+				} else {
 					checkboxA.setChecked(false);
 				}
 
@@ -101,13 +165,20 @@ public class ExamAnswersActivity extends BaseActivity {
 		checkboxB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				checkboxA.setChecked(false);
-				checkboxC.setChecked(false);
-				checkboxD.setChecked(false);
+				if (dataList.get(position).getAnswer().length()==1){
+					checkboxA.setChecked(false);
+					checkboxC.setChecked(false);
+					checkboxD.setChecked(false);
+				}
+
+
 				if (isChecked) {
 					checkboxB.setChecked(true);
 					dataList.get(position).setSelectAnswer("B");
-				}else {
+					if (position == (dataList.size() - 1)) {
+						tv_next_question.setText("提交");
+					}
+				} else {
 					checkboxB.setChecked(false);
 				}
 
@@ -116,13 +187,19 @@ public class ExamAnswersActivity extends BaseActivity {
 		checkboxC.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				checkboxB.setChecked(false);
-				checkboxA.setChecked(false);
-				checkboxD.setChecked(false);
+				if (dataList.get(position).getAnswer().length()==1){
+					checkboxB.setChecked(false);
+					checkboxA.setChecked(false);
+					checkboxD.setChecked(false);
+				}
+
 				if (isChecked) {
 					checkboxC.setChecked(true);
 					dataList.get(position).setSelectAnswer("C");
-				}else {
+					if (position == (dataList.size() - 1)) {
+						tv_next_question.setText("提交");
+					}
+				} else {
 					checkboxC.setChecked(false);
 				}
 
@@ -131,13 +208,18 @@ public class ExamAnswersActivity extends BaseActivity {
 		checkboxD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				checkboxB.setChecked(false);
-				checkboxC.setChecked(false);
-				checkboxA.setChecked(false);
+				if (dataList.get(position).getAnswer().length()==1){
+					checkboxB.setChecked(false);
+					checkboxC.setChecked(false);
+					checkboxA.setChecked(false);
+				}
 				if (isChecked) {
 					checkboxD.setChecked(true);
 					dataList.get(position).setSelectAnswer("D");
-				}else {
+					if (position == (dataList.size() - 1)) {
+						tv_next_question.setText("提交");
+					}
+				} else {
 					checkboxD.setChecked(false);
 				}
 
@@ -147,7 +229,7 @@ public class ExamAnswersActivity extends BaseActivity {
 
 	}
 
-	@OnClick({R.id.rl_back, R.id.tv_last_question, R.id.tv_next_question})
+	@OnClick({R.id.rl_back, R.id.tv_last_question, R.id.tv_next_question, R.id.rl_submit})
 	void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.rl_back:
@@ -157,9 +239,11 @@ public class ExamAnswersActivity extends BaseActivity {
 				position--;
 				if (position < 0) {
 					position++;
+					Toast.makeText(this,"当前是第一题",Toast.LENGTH_SHORT).show();
 					break;
 				} else {
-					tvCurrent.setText(String.valueOf(position+1));
+					tv_next_question.setText("下一题");
+					tvCurrent.setText(String.valueOf(position + 1));
 					tvSubject.setText(dataList.get(position).getQuestion());
 					checkboxA.setChecked(false);
 					checkboxB.setChecked(false);
@@ -171,21 +255,85 @@ public class ExamAnswersActivity extends BaseActivity {
 					linearD.setVisibility(View.VISIBLE);
 					LogUtils.d("zkf position ");
 					LogUtils.d("zkf  ddsdsd:" + dataList.get(position).getSelectAnswer());
-					if (!TextUtils.isEmpty(dataList.get(position).getSelectAnswer())){
-						LogUtils.d("swwwsss");
-
-						if (dataList.get(position).getSelectAnswer().contains("A")){
+					if (!TextUtils.isEmpty(dataList.get(position).getSelectAnswer())) {
+						if (dataList.get(position).getSelectAnswer().contains("A")) {
 							checkboxA.setChecked(true);
 						}
-						if (dataList.get(position).getSelectAnswer().contains("B")){
+						if (dataList.get(position).getSelectAnswer().contains("B")) {
 							checkboxB.setChecked(true);
 						}
-						if (dataList.get(position).getSelectAnswer().contains("C")){
-							LogUtils.d("ssss");
+						if (dataList.get(position).getSelectAnswer().contains("C")) {
 							checkboxC.setChecked(true);
 						}
-						if (dataList.get(position).getSelectAnswer().contains("D")){
+						if (dataList.get(position).getSelectAnswer().contains("D")) {
 							checkboxD.setChecked(true);
+						}
+					}
+
+
+					if (answered){
+
+
+						RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).findAll();
+						for (ExamLocal u : userRealmResults) {
+							if (u.getAnswerId() == dataList.get(position).getId()){
+
+								String answer = u.getSelectAnswer();
+								tv_right_answer.setText("正确答案："+u.getAnswer());
+								LogUtils.d("zkf answer:!!!" + u.getAnswer());
+
+
+								if (answer.contains("A")){
+									checkboxA.setChecked(true);
+								}
+								if (answer.contains("B")){
+									checkboxB.setChecked(true);
+								}
+								if (answer.contains("C")){
+									checkboxC.setChecked(true);
+								}
+								if (answer.contains("D")){
+									checkboxD.setChecked(true);
+								}
+
+							}
+
+
+						}
+
+
+						String answer = "";
+						if (checkboxA.isChecked()){
+							if (TextUtils.isEmpty(answer)){
+								answer = "A";
+							}
+						}
+						if (checkboxB.isChecked()){
+							if (TextUtils.isEmpty(answer)&& !answer.equals("")){
+								answer = answer+"|B";
+							}else {
+								answer = "B";
+							}
+
+						}
+						if (checkboxC.isChecked()&& !answer.equals("")){
+							if (TextUtils.isEmpty(answer)){
+								answer = answer+"|C";
+							}else {
+								answer = "C";
+							}
+						}
+						if (checkboxD.isChecked()){
+							if (TextUtils.isEmpty(answer)&& !answer.equals("")){
+								answer = answer+"|D";
+							}else {
+								answer = "D";
+							}
+						}
+						if (answer.equals(dataList.get(position).getAnswer())){
+							tv_answer_result.setText("回答正确");
+						}else {
+							tv_answer_result.setText("回答错误");
 						}
 					}
 
@@ -226,6 +374,8 @@ public class ExamAnswersActivity extends BaseActivity {
 				position++;
 
 				if (position < dataList.size()) {
+
+
 					checkboxA.setChecked(false);
 					checkboxB.setChecked(false);
 					checkboxC.setChecked(false);
@@ -234,59 +384,171 @@ public class ExamAnswersActivity extends BaseActivity {
 					linearB.setVisibility(View.VISIBLE);
 					linearC.setVisibility(View.VISIBLE);
 					linearD.setVisibility(View.VISIBLE);
-					tvCurrent.setText(String.valueOf(position+1));
+					tvCurrent.setText(String.valueOf(position + 1));
 					tvSubject.setText(dataList.get(position).getQuestion());
-					if (!TextUtils.isEmpty(dataList.get(position).getSelectAnswer())){
-						if (dataList.get(position).getSelectAnswer().contains("A")){
+					switch (dataList.get(position).getSelect().size()) {
+						case 0:
+							break;
+						case 1:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							linearB.setVisibility(View.GONE);
+							linearC.setVisibility(View.GONE);
+							linearD.setVisibility(View.GONE);
+							break;
+						case 2:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							linearC.setVisibility(View.GONE);
+							linearD.setVisibility(View.GONE);
+							break;
+						case 3:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+							linearD.setVisibility(View.GONE);
+							break;
+						case 4:
+							tvAnswerA.setText(dataList.get(position).getSelect().get(0));
+							tvAnswerB.setText(dataList.get(position).getSelect().get(1));
+							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
+							tvAnswerD.setText(dataList.get(position).getSelect().get(3));
+							break;
+					}
+					if (!TextUtils.isEmpty(dataList.get(position).getSelectAnswer())) {
+						if (dataList.get(position).getSelectAnswer().contains("A")) {
 							checkboxA.setChecked(true);
 						}
-						if (dataList.get(position).getSelectAnswer().contains("B")){
+						if (dataList.get(position).getSelectAnswer().contains("B")) {
 							checkboxB.setChecked(true);
 						}
-						if (dataList.get(position).getSelectAnswer().contains("C")){
+						if (dataList.get(position).getSelectAnswer().contains("C")) {
 							checkboxC.setChecked(true);
 						}
-						if (dataList.get(position).getSelectAnswer().contains("D")){
+						if (dataList.get(position).getSelectAnswer().contains("D")) {
 							checkboxD.setChecked(true);
 						}
-						switch (dataList.get(position).getSelect().size()) {
-							case 0:
-								break;
-							case 1:
-								tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-								linearB.setVisibility(View.GONE);
-								linearC.setVisibility(View.GONE);
-								linearD.setVisibility(View.GONE);
-								break;
-							case 2:
-								tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-								tvAnswerB.setText(dataList.get(position).getSelect().get(1));
-								linearC.setVisibility(View.GONE);
-								linearD.setVisibility(View.GONE);
-								break;
-							case 3:
-								tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-								tvAnswerB.setText(dataList.get(position).getSelect().get(1));
-								tvAnswerC.setText(dataList.get(position).getSelect().get(2));
-								linearD.setVisibility(View.GONE);
-								break;
-							case 4:
-								tvAnswerA.setText(dataList.get(position).getSelect().get(0));
-								tvAnswerB.setText(dataList.get(position).getSelect().get(1));
-								tvAnswerC.setText(dataList.get(position).getSelect().get(2));
-								tvAnswerD.setText(dataList.get(position).getSelect().get(3));
-								break;
+
+					}
+					if (answered){
+						RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).findAll();
+						for (ExamLocal u : userRealmResults) {
+							if (u.getAnswerId() == dataList.get(position).getId()){
+
+								String answer = u.getSelectAnswer();
+								tv_right_answer.setText("正确答案："+u.getAnswer());
+								LogUtils.d("zkf answer:" + u.getAnswer());
+
+								if (answer.contains("A")){
+									checkboxA.setChecked(true);
+								}
+								if (answer.contains("B")){
+									checkboxB.setChecked(true);
+								}
+								if (answer.contains("C")){
+									checkboxC.setChecked(true);
+								}
+								if (answer.contains("D")){
+									checkboxD.setChecked(true);
+								}
+
+							}
+
+
 						}
+						String answer = "";
+						if (checkboxA.isChecked()){
+							if (TextUtils.isEmpty(answer)){
+								answer = "A";
+							}
+						}
+						if (checkboxB.isChecked()){
+							if (TextUtils.isEmpty(answer)&& !answer.equals("")){
+								answer = answer+"|B";
+							}else {
+								answer = "B";
+							}
+
+						}
+						if (checkboxC.isChecked()&& !answer.equals("")){
+							if (TextUtils.isEmpty(answer)){
+								answer = answer+"|C";
+							}else {
+								answer = "C";
+							}
+						}
+						if (checkboxD.isChecked()){
+							if (TextUtils.isEmpty(answer)&& !answer.equals("")){
+								answer = answer+"|D";
+							}else {
+								answer = "D";
+							}
+						}
+						LogUtils.d("zkf answer:" + answer);
+						LogUtils.d("zkf dataList.get(position).getAnswer():" + dataList.get(position).getAnswer());
+						if (answer.equals(dataList.get(position).getAnswer())){
+							tv_answer_result.setText("回答正确");
+						}else {
+							tv_answer_result.setText("回答错误");
+						}
+
+					}
+				} else {
+					position--;
+					if (tv_next_question.getText().toString().equals("提交")) {
+						LogUtils.d("zkf 提交");
+						if (!answered){
+							mRealm.beginTransaction();
+
+							for (ExamDetail.DataBean.QuestionItemsBean data: dataList){
+
+								ExamLocal examlocal = mRealm.createObject(ExamLocal.class);
+								examlocal.setExamId(mExamId);
+								examlocal.setAnswer(data.getAnswer());
+								examlocal.setSelectAnswer(data.getSelectAnswer());
+								examlocal.setAnswerId(data.getId());
+							}
+							mRealm.commitTransaction();
+							Toast.makeText(this,"答题结束，请返回查看答题结果",Toast.LENGTH_SHORT).show();
+							finish();
+
+						}else {
+							Toast.makeText(this,"此试卷已经做完",Toast.LENGTH_SHORT).show();
+
+						}
+
+
+
+
 					}else {
-						position--;
-						break;
+						Toast.makeText(this,"当前是最后一题",Toast.LENGTH_SHORT).show();
 					}
 
+
+					break;
 				}
 
 
 				break;
+			case R.id.rl_submit:
+
+				break;
 		}
+	}
+
+	private void saveAttToDBWithPic(ExamDetail.DataBean.QuestionItemsBean data) {
+
+
+		runOnUiThread(new Runnable(){
+			@Override
+			public void run() {
+				mRealm.executeTransaction(new Realm.Transaction() {
+					@Override
+					public void execute(Realm realm) {
+
+					}
+				});
+			}
+		});
 	}
 
 
@@ -312,7 +574,7 @@ public class ExamAnswersActivity extends BaseActivity {
 					tv_exam_title.setText(title);
 
 					dataList.addAll(Arrays.asList(data));
-					tvTotal.setText("/" +String.valueOf(dataList.size()));
+					tvTotal.setText("/" + String.valueOf(dataList.size()));
 
 					tvSubject.setText(dataList.get(position).getQuestion());
 					switch (dataList.get(position).getSelect().size()) {
@@ -342,6 +604,66 @@ public class ExamAnswersActivity extends BaseActivity {
 							tvAnswerC.setText(dataList.get(position).getSelect().get(2));
 							tvAnswerD.setText(dataList.get(position).getSelect().get(3));
 							break;
+					}
+
+					if (answered){
+						RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).findAll();
+						for (ExamLocal u : userRealmResults) {
+							if (u.getAnswerId() == dataList.get(position).getId()){
+
+								String answer1 = u.getSelectAnswer();
+								tv_right_answer.setText("正确答案："+u.getAnswer());
+
+								if (answer1.contains("A")){
+									checkboxA.setChecked(true);
+								}
+								if (answer1.contains("B")){
+									checkboxB.setChecked(true);
+								}
+								if (answer1.contains("C")){
+									checkboxC.setChecked(true);
+								}
+								if (answer1.contains("D")){
+									checkboxD.setChecked(true);
+								}
+								String answer = "";
+								if (checkboxA.isChecked()){
+									if (TextUtils.isEmpty(answer)){
+										answer = "A";
+									}
+								}
+								if (checkboxB.isChecked()){
+									if (TextUtils.isEmpty(answer)&& !answer.equals("")){
+										answer = answer+"|B";
+									}else {
+										answer = "B";
+									}
+
+								}
+								if (checkboxC.isChecked()&& !answer.equals("")){
+									if (TextUtils.isEmpty(answer)){
+										answer = answer+"|C";
+									}else {
+										answer = "C";
+									}
+								}
+								if (checkboxD.isChecked()){
+									if (TextUtils.isEmpty(answer)&& !answer.equals("")){
+										answer = answer+"|D";
+									}else {
+										answer = "D";
+									}
+								}
+								if (answer.equals(dataList.get(position).getAnswer())){
+									tv_answer_result.setText("回答正确");
+								}else {
+									tv_answer_result.setText("回答错误");
+								}
+
+							}
+
+
+						}
 					}
 
 

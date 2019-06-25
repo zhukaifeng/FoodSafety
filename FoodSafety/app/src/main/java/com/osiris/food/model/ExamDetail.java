@@ -2,13 +2,13 @@ package com.osiris.food.model;
 
 import java.util.List;
 
-public class ExamDetail {
+public class ExamDetail  {
 
 
 	/**
 	 * status : success
 	 * code : 200
-	 * data : {"id":1,"name":"2018～2019年度食品安全管理员初级考试","questions":{"DXT":"1","MDXT":"2","BDXT":"3","PDT":"4","JDT":null},"question_items":[[{"id":1,"question":"根据增值税法律制度的规定，下列各项中，应按照\u201c销售服务 \u2014\u2014建筑服务\u201d税目计缴增值税的是（）。（2017年）","select":["平整土地","出售住宅","出租办公楼","转让土地使用权"],"answer":"A","type":"1"}],[{"id":2,"question":"根据增值税法律制度的规定，下列行为中，应按照\u201c销售不动 产\u201d税目计缴增值税的是（）。（2017年）","select":["将建筑物广告位出租给其他单位用于发布广告","销售底商（建筑物底层商铺）","转让高速公路经营权","转让国有土地使用权"],"answer":"A|D|","type":"2"}],[{"id":3,"question":"根据增值税法律制度的规定，下列各项中，应按照\u201c销售服务 \u2014\u2014建筑服务\u201d税目计缴增值税的是（）。（2017年）","select":["平整土地","出售住宅","出租办公楼","转让土地使用权"],"answer":"A|B|C|D||","type":"3"}],[{"id":4,"question":"餐饮服务提供者要建立保证餐饮食品安全的各项制度，配备经考核合格的（）","select":["对","错"],"answer":"B","type":"4"}]]}
+	 * data : {"id":4,"name":"2018～2019年度食品安全管理员高 级考试","questions":{"DXT":"1,2,3,4,5,6,7,8","MDXT":"3,11","BDXT":"0","PDT":"0","JDT":"0"},"question_items":[{"id":1,"question":"以下哪类因素是食物中中毒的主要原因？","select":["化学性危害和物理性危害","细菌和病毒","寄生虫和霉菌"],"answer":"B","type":"1"},{"id":2,"question":"大部分餐饮食品中能够实际运用的控制食品中细菌生长繁殖最有效的措施是：","select":["控制时间和温度","控制PH和氧气","控制温度和水分活性"],"answer":"B","type":"2"},{"id":3,"question":"根据增值税法律制度的规定，下列各项中，应按照\u201c销售服务 \u2014\u2014建筑服务\u201d税目计缴增值税的是（）。（2017年）","select":["平整土地","出售住宅","出租办公楼","转让土地使用权"],"answer":"A|B|C|D|","type":"3"},{"id":4,"question":"餐饮服务提供者要建立保证餐饮食品安全的各项制度，配备经考核合格的（）","select":["对","错"],"answer":"B","type":"4"},{"id":5,"question":"违反《食品安全法》规定，构成犯罪的，依法追究  （）","select":["  道德谴责 ","民事责任","刑事责任  "],"answer":"A","type":"1"},{"id":6,"question":"以下哪类因素是食物中中毒的主要原因？","select":["化学性危害和物理性危害","细菌和病毒","寄生虫和霉菌"],"answer":"B","type":"1"},{"id":7,"question":"以下哪种食物最可能引起亚硝酸盐食物中毒？","select":["变质的鱼肉","制作不当的腌肉，肴肉","霉变的花生"],"answer":"B","type":"1"},{"id":8,"question":"大部分餐饮食品中能够实际运用的控制食品中细菌生长繁殖最有效的措施是：","select":["控制时间和温度","控制PH和氧气","控制温度和水分活性"],"answer":"A","type":"1"},{"id":3,"question":"根据增值税法律制度的规定，下列各项中，应按照\u201c销售服务 \u2014\u2014建筑服务\u201d税目计缴增值税的是（）。（2017年）","select":["平整土地","出售住宅","出租办公楼","转让土地使用权"],"answer":"A|B|C|D|","type":"3"},{"id":11,"question":"常见的能够产生芽孢的致病菌包括：","select":["&nbsp;肉毒梭菌","蜡样芽孢杆菌","沙门菌","产气荚膜杆菌"],"answer":"A|B|D|","type":"2"}]}
 	 */
 
 	private String status;
@@ -41,10 +41,10 @@ public class ExamDetail {
 
 	public static class DataBean {
 		/**
-		 * id : 1
-		 * name : 2018～2019年度食品安全管理员初级考试
-		 * questions : {"DXT":"1","MDXT":"2","BDXT":"3","PDT":"4","JDT":null}
-		 * question_items : [[{"id":1,"question":"根据增值税法律制度的规定，下列各项中，应按照\u201c销售服务 \u2014\u2014建筑服务\u201d税目计缴增值税的是（）。（2017年）","select":["平整土地","出售住宅","出租办公楼","转让土地使用权"],"answer":"A","type":"1"}],[{"id":2,"question":"根据增值税法律制度的规定，下列行为中，应按照\u201c销售不动 产\u201d税目计缴增值税的是（）。（2017年）","select":["将建筑物广告位出租给其他单位用于发布广告","销售底商（建筑物底层商铺）","转让高速公路经营权","转让国有土地使用权"],"answer":"A|D|","type":"2"}],[{"id":3,"question":"根据增值税法律制度的规定，下列各项中，应按照\u201c销售服务 \u2014\u2014建筑服务\u201d税目计缴增值税的是（）。（2017年）","select":["平整土地","出售住宅","出租办公楼","转让土地使用权"],"answer":"A|B|C|D||","type":"3"}],[{"id":4,"question":"餐饮服务提供者要建立保证餐饮食品安全的各项制度，配备经考核合格的（）","select":["对","错"],"answer":"B","type":"4"}]]
+		 * id : 4
+		 * name : 2018～2019年度食品安全管理员高 级考试
+		 * questions : {"DXT":"1,2,3,4,5,6,7,8","MDXT":"3,11","BDXT":"0","PDT":"0","JDT":"0"}
+		 * question_items : [{"id":1,"question":"以下哪类因素是食物中中毒的主要原因？","select":["化学性危害和物理性危害","细菌和病毒","寄生虫和霉菌"],"answer":"B","type":"1"},{"id":2,"question":"大部分餐饮食品中能够实际运用的控制食品中细菌生长繁殖最有效的措施是：","select":["控制时间和温度","控制PH和氧气","控制温度和水分活性"],"answer":"B","type":"2"},{"id":3,"question":"根据增值税法律制度的规定，下列各项中，应按照\u201c销售服务 \u2014\u2014建筑服务\u201d税目计缴增值税的是（）。（2017年）","select":["平整土地","出售住宅","出租办公楼","转让土地使用权"],"answer":"A|B|C|D|","type":"3"},{"id":4,"question":"餐饮服务提供者要建立保证餐饮食品安全的各项制度，配备经考核合格的（）","select":["对","错"],"answer":"B","type":"4"},{"id":5,"question":"违反《食品安全法》规定，构成犯罪的，依法追究  （）","select":["  道德谴责 ","民事责任","刑事责任  "],"answer":"A","type":"1"},{"id":6,"question":"以下哪类因素是食物中中毒的主要原因？","select":["化学性危害和物理性危害","细菌和病毒","寄生虫和霉菌"],"answer":"B","type":"1"},{"id":7,"question":"以下哪种食物最可能引起亚硝酸盐食物中毒？","select":["变质的鱼肉","制作不当的腌肉，肴肉","霉变的花生"],"answer":"B","type":"1"},{"id":8,"question":"大部分餐饮食品中能够实际运用的控制食品中细菌生长繁殖最有效的措施是：","select":["控制时间和温度","控制PH和氧气","控制温度和水分活性"],"answer":"A","type":"1"},{"id":3,"question":"根据增值税法律制度的规定，下列各项中，应按照\u201c销售服务 \u2014\u2014建筑服务\u201d税目计缴增值税的是（）。（2017年）","select":["平整土地","出售住宅","出租办公楼","转让土地使用权"],"answer":"A|B|C|D|","type":"3"},{"id":11,"question":"常见的能够产生芽孢的致病菌包括：","select":["&nbsp;肉毒梭菌","蜡样芽孢杆菌","沙门菌","产气荚膜杆菌"],"answer":"A|B|D|","type":"2"}]
 		 */
 
 		private int id;
@@ -86,18 +86,18 @@ public class ExamDetail {
 
 		public static class QuestionsBean {
 			/**
-			 * DXT : 1
-			 * MDXT : 2
-			 * BDXT : 3
-			 * PDT : 4
-			 * JDT : null
+			 * DXT : 1,2,3,4,5,6,7,8
+			 * MDXT : 3,11
+			 * BDXT : 0
+			 * PDT : 0
+			 * JDT : 0
 			 */
 
 			private String DXT;
 			private String MDXT;
 			private String BDXT;
 			private String PDT;
-			private Object JDT;
+			private String JDT;
 
 			public String getDXT() {
 				return DXT;
@@ -131,21 +131,21 @@ public class ExamDetail {
 				this.PDT = PDT;
 			}
 
-			public Object getJDT() {
+			public String getJDT() {
 				return JDT;
 			}
 
-			public void setJDT(Object JDT) {
+			public void setJDT(String JDT) {
 				this.JDT = JDT;
 			}
 		}
 
-		public static class QuestionItemsBean {
+		public static class QuestionItemsBean{
 			/**
 			 * id : 1
-			 * question : 根据增值税法律制度的规定，下列各项中，应按照“销售服务 ——建筑服务”税目计缴增值税的是（）。（2017年）
-			 * select : ["平整土地","出售住宅","出租办公楼","转让土地使用权"]
-			 * answer : A
+			 * question : 以下哪类因素是食物中中毒的主要原因？
+			 * select : ["化学性危害和物理性危害","细菌和病毒","寄生虫和霉菌"]
+			 * answer : B
 			 * type : 1
 			 */
 

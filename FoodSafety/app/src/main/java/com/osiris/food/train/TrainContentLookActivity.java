@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.model.VideoDetailBean;
@@ -24,11 +23,15 @@ import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import fm.jiecao.jcvideoplayer_lib.JCUserAction;
 import fm.jiecao.jcvideoplayer_lib.JCUserActionStandard;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import me.jessyan.autosize.utils.LogUtils;
 
 public class TrainContentLookActivity extends BaseActivity {
 
@@ -67,6 +70,8 @@ public class TrainContentLookActivity extends BaseActivity {
         tab_strip.setTextSize((int) getResources().getDimension(R.dimen.sp16));
 
         JCVideoPlayer.setJcUserAction(new MyUserActionStandard());
+
+        uploadTask();
     }
 
     class MyUserActionStandard implements JCUserActionStandard {
@@ -128,10 +133,10 @@ public class TrainContentLookActivity extends BaseActivity {
     }
 
     private void getVideoDetail() {
-        //String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + mId;
-        String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + 2;
+        String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + mId;
+      //  String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + 2;
         Log.e("xzw", url);
-        NetRequest.requestNoParam(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+        NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
             @Override
             public void requestSuccess(int tag, String successResult) {
                 Log.e("xzw", successResult);
@@ -196,5 +201,39 @@ public class TrainContentLookActivity extends BaseActivity {
 
     }
 
+    //1登录2阅读文章3观看视频4文章学习市场5视频学习市场
+    private void uploadTask(){
 
+        String url = ApiRequestTag.API_HOST + "/api/v1/report/task";
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("task_id","3");
+
+        NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
+            @Override
+            public void requestSuccess(int tag, String successResult) {
+                LogUtils.d("zkf upload task successResult:" + successResult);
+            }
+
+            @Override
+            public void requestFailure(int tag, int code, String msg) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
 }

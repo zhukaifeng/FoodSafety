@@ -264,6 +264,7 @@ public class NetRequest {
                 .post()
                 .url(url)
                 .params(paramMap)
+                .addHeader("Authorization", "Bearer " + GlobalParams.access_token)
                 .addFile("file", file.getName(), file)
                 .build()
                 .execute(new StringCallback() {
@@ -274,11 +275,10 @@ public class NetRequest {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        BaseBean baseBean = JsonUtils.deserialize(response, BaseBean.class);
-                        if (baseBean.getError() == 0) {
-                            listener.requestSuccess(tag, baseBean.getMsg());
+                        if (TextUtils.isEmpty(response)) {
+                            listener.requestFailure(tag, -2, response);
                         } else {
-                            listener.requestFailure(tag, baseBean.getError(), baseBean.getMsg());
+                            listener.requestSuccess(tag, response);
                         }
                     }
                 });

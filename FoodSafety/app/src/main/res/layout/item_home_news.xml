@@ -17,7 +17,7 @@
             android:layout_height="@dimen/dp57"
             android:scaleType="fitXY"
             android:layout_alignParentRight="true"
-            android:background="@color/color_blue_btn"
+            android:background="@drawable/ic_place"
             android:layout_marginTop="@dimen/dp18"
             android:layout_marginRight="@dimen/dp18"
 
