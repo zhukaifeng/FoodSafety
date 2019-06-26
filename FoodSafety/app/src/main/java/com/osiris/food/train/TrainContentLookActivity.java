@@ -1,10 +1,16 @@
 package com.osiris.food.train;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,18 +29,14 @@ import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCUserAction;
 import fm.jiecao.jcvideoplayer_lib.JCUserActionStandard;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
-import me.jessyan.autosize.utils.LogUtils;
 
-public class TrainContentLookActivity extends BaseActivity {
-
+public class TrainContentLookActivity extends AppCompatActivity {
 
     @BindView(R.id.rl_back)
     RelativeLayout rlBack;
@@ -51,13 +53,20 @@ public class TrainContentLookActivity extends BaseActivity {
     private int mId;
     private String mPic;
 
-    @Override
-    public int getLayoutResId() {
-        return R.layout.activity_train_content_look;
-    }
+    private Context mActivity;
 
     @Override
-    public void init() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_train_content_look);
+        mActivity = this;
+        ButterKnife.bind(this);
+        //去掉标题栏（ActionBar实际上是设置在标题栏上的）
+
+        init();
+    }
+
+    private void init() {
         mId = getIntent().getIntExtra("v_id", 0);
         mPic = getIntent().getStringExtra("pic");
         Log.e("xzw", mId + "");
@@ -65,13 +74,18 @@ public class TrainContentLookActivity extends BaseActivity {
 
         title = new String[]{getResources().getString(R.string.detail), "评论"};
 
-        mViewPager.setAdapter(new myPagerAdapter(this.getSupportFragmentManager()));
+        mViewPager.setAdapter(new myPagerAdapter(getSupportFragmentManager()));
         tab_strip.setViewPager(mViewPager);
         tab_strip.setTextSize((int) getResources().getDimension(R.dimen.sp16));
 
         JCVideoPlayer.setJcUserAction(new MyUserActionStandard());
 
-        uploadTask();
+        rlBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     class MyUserActionStandard implements JCUserActionStandard {
@@ -134,9 +148,9 @@ public class TrainContentLookActivity extends BaseActivity {
 
     private void getVideoDetail() {
         String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + mId;
-      //  String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + 2;
+        //String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + 2;
         Log.e("xzw", url);
-        NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+        NetRequest.requestNoParam(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
             @Override
             public void requestSuccess(int tag, String successResult) {
                 Log.e("xzw", successResult);
@@ -163,7 +177,6 @@ public class TrainContentLookActivity extends BaseActivity {
     }
 
     private class myPagerAdapter extends FragmentPagerAdapter {
-
 
         VideoDetailFragment fragment1;
         CommentFragment fragment2;
@@ -201,39 +214,21 @@ public class TrainContentLookActivity extends BaseActivity {
 
     }
 
-    //1登录2阅读文章3观看视频4文章学习市场5视频学习市场
-    private void uploadTask(){
-
-        String url = ApiRequestTag.API_HOST + "/api/v1/report/task";
-        Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("task_id","3");
-
-        NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
-            @Override
-            public void requestSuccess(int tag, String successResult) {
-                LogUtils.d("zkf upload task successResult:" + successResult);
-            }
-
-            @Override
-            public void requestFailure(int tag, int code, String msg) {
-
-            }
-        });
-
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        JCVideoPlayer.releaseAllVideos();
-    }
-
     @Override
     public void onBackPressed() {
         if (JCVideoPlayer.backPress()) {
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            JCVideoPlayer.releaseAllVideos();
+        } catch (Exception e) {
+
+        }
     }
 }
