@@ -150,7 +150,7 @@ public class TrainContentLookActivity extends AppCompatActivity {
         String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + mId;
         //String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + 2;
         Log.e("xzw", url);
-        NetRequest.requestNoParam(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+        NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
             @Override
             public void requestSuccess(int tag, String successResult) {
                 Log.e("xzw", successResult);

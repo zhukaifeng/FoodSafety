@@ -122,7 +122,7 @@
     <string name="auth_not">未认证</string>
     <string name="qr_card">二维码名片</string>
     <string name="personal_info">个人资料</string>
-    <string name="apply_continue_eduction">申请继续教育</string>
+    <string name="apply_continue_eduction">食品安全初次申请</string>
     <string name="txt_hint_no_apply">您还没有申请记录</string>
     <string name="training_content">培训内容</string>
     <string name="choose_org">选择机构</string>
