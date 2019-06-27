@@ -36,6 +36,7 @@ public class RegistActivity extends BaseActivity {
 	EditText edt_mail;
 	@BindView(R.id.edt_eduction)
 	EditText edt_eduction;
+	private int positionId = -1;
 
 
 	@Override
@@ -45,6 +46,7 @@ public class RegistActivity extends BaseActivity {
 
 	@Override
 	public void init() {
+		positionId = getIntent().getIntExtra("identity",-1);
 
 	}
 
@@ -70,6 +72,7 @@ public class RegistActivity extends BaseActivity {
 				intent.putExtra("document_num", edt_document_num.getText().toString());
 				intent.putExtra("mail", edt_mail.getText().toString());
 				intent.putExtra("eduction", edt_eduction.getText().toString());
+				intent.putExtra("identity",positionId);
 
 				startActivity(intent);
 				break;

@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.IdentitySelect;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -21,14 +22,14 @@ public class IdentitySelectAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<IdentitySelect> dataList = new ArrayList<>();
 
 
-	public IdentitySelectAdapter(List<String> dataList) {
+	public IdentitySelectAdapter(List<IdentitySelect> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<IdentitySelect> dataList) {
 		this.dataList = dataList;
 	}
 
@@ -80,10 +81,15 @@ public class IdentitySelectAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 			}
 		}
 
-		public void bindData(String data){
+		public void bindData(IdentitySelect data){
 
 
-			tv_identity.setText(data);
+			tv_identity.setText(data.getName());
+			if (data.isSelect()){
+				checkbox_select.setChecked(true);
+			}else {
+				checkbox_select.setChecked(false);
+			}
 		}
 	}
 

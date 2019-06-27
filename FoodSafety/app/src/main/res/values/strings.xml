@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">食品安全</string>
+    <string name="app_name">食品安全培训</string>
 
     <string name="txt_login_input_phone">请输入手机号</string>
     <string name="txt_login_input_pwd">请输入密码</string>
@@ -138,6 +138,7 @@
     <string name="confirm_note"><u>认定说明</u></string>
     <string name="public_class">公共课程</string>
     <string name="major_class">专业课程</string>
+    <string name="policy_rule">法律法规</string>
     <string name="all">全部</string>
     <string name="paid">已缴费</string>
     <string name="unpaid">未缴费</string>

@@ -51,6 +51,7 @@ public class RegistCompleteActivity extends BaseActivity {
 	private String eduction;
 	private int princeId;
 	private int cityId;
+	private int positionId = -1;
 
 	private List<ProvinceDetail.DataBean> dataList = new ArrayList<>();
 	private List<ProvinceDetail.DataBean> dataCityList = new ArrayList<>();
@@ -70,6 +71,7 @@ public class RegistCompleteActivity extends BaseActivity {
 		document_num = getIntent().getStringExtra("document_num");
 		mail = getIntent().getStringExtra("mail");
 		eduction = getIntent().getStringExtra("eduction");
+		positionId = getIntent().getIntExtra("identity",-1);
 
 		getProvinceId();
 

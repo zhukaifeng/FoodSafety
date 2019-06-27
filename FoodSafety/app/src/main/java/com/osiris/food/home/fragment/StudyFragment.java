@@ -51,8 +51,9 @@ public class StudyFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        title = new String[]{getResources().getString(R.string.public_class), getResources().getString(R.string
-                .major_class)};
+        title = new String[]{getResources().getString(R.string.public_class),
+                getResources().getString(R.string.major_class),
+                getResources().getString(R.string.policy_rule)};
         mViewPager.setAdapter(new myPagerAdapter(getActivity().getSupportFragmentManager()));
         tab_strip.setViewPager(mViewPager);
         tab_strip.setTextSize((int) getResources().getDimension(R.dimen.sp16));
@@ -92,7 +93,8 @@ public class StudyFragment extends BaseFragment {
 
 
         PublicCourseFragment fragment1;
-        MajorCourseFragment fragment2;
+        PolicyRuleFragment fragment2;
+        MajorCourseFragment fragment3;
 
         public myPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -104,10 +106,13 @@ public class StudyFragment extends BaseFragment {
                 case 0:
                     fragment1 = new PublicCourseFragment();
                     return fragment1;
-
                 case 1:
-                    fragment2 = new MajorCourseFragment();
+                    fragment2 = new PolicyRuleFragment();
                     return fragment2;
+                case 2:
+                    fragment3 = new MajorCourseFragment();
+                    return fragment3;
+
 
                 default:
                     return null;

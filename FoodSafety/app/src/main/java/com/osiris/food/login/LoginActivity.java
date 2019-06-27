@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity {
 				//showDialog();
 				break;
 			case R.id.tv_regist:
-				Intent intent = new Intent(this, RegistActivity.class);
+				Intent intent = new Intent(this, IdentitySelectionActivity.class);
 				startActivity(intent);
 
 				break;
@@ -93,8 +93,8 @@ public class LoginActivity extends BaseActivity {
 
 
 		Map<String, String> paramMap = new HashMap<>();
-		//paramMap.put("phone","18370894190");
-		//paramMap.put("password","123456");
+		paramMap.put("phone","18370894190");
+		paramMap.put("password","123456");
 
 
 		if (!TextUtils.isEmpty(edt_phone.getText())) {
@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity {
 			//paramMap.put("phone","18370894190");
 		} else {
 			Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
-			return;
+			//return;
 		}
 
 		if (!TextUtils.isEmpty(edt_pwd.getText())) {
@@ -111,7 +111,7 @@ public class LoginActivity extends BaseActivity {
 
 		} else {
 			Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
-			return;
+			//return;
 		}
 
 
