@@ -102,6 +102,7 @@ public class CityNewsFragment extends BaseFragment {
 		Map<String, String> paramMap = new HashMap<>();
 
 		paramMap.put("category_id","2");
+		showLoadDialog();
 //		paramMap.put("")
 		NetRequest.requestParamWithToken(url, REQUEST_DATA,paramMap, new NetRequestResultListener() {
 			@Override
@@ -118,13 +119,13 @@ public class CityNewsFragment extends BaseFragment {
 					dataList.addAll(Arrays.asList(data));
 					dataAdapter.notifyDataSetChanged();
 				}
+				cancelLoadDialog();
 			}
 
 			@Override
 			public void requestFailure(int tag, int code, String msg) {
 				LogUtils.d("zkf code :" + code);
-
-
+				cancelLoadDialog();
 			}
 		});
 

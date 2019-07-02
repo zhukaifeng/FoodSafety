@@ -15,6 +15,7 @@ public final class GlobalParams {
     public static String birthday;
     public static String address;
     public static String company;
+    public static int type;
     public static int identity_card_type;
 
 }

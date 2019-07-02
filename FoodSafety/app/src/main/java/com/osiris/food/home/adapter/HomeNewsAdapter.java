@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.osiris.food.R;
 import com.osiris.food.model.PolicyList;
-import com.osiris.food.network.GlobalParams;
 import com.osiris.food.view.widget.MyItemClickListener;
 import com.squareup.picasso.Picasso;
 
@@ -99,9 +98,15 @@ public class HomeNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 				tv_news_date.setText(data.getCreated_at().substring(0,10));
 			}
 
-			Picasso.with(itemView.getContext())
-					.load(data.getThumb())
-					.into(iv_news_pic);
+			if (!TextUtils.isEmpty(data.getThumb())){
+				Picasso.with(itemView.getContext())
+						.load(data.getThumb())
+						.into(iv_news_pic);
+			}else {
+				iv_news_pic.setBackgroundResource(R.drawable.ic_place);
+			}
+
+
 
 		}
 	}

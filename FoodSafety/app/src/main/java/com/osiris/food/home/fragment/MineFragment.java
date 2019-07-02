@@ -1,6 +1,7 @@
 package com.osiris.food.home.fragment;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -53,9 +54,12 @@ public class MineFragment extends BaseFragment {
 	@Override
 	protected void initView() {
 		tv_name.setText(GlobalParams.user_name);
-		Picasso.with(getActivity())
-				.load(GlobalParams.avatar)
-				.into(iv_avatar);
+		if (!TextUtils.isEmpty(GlobalParams.avatar)){
+			Picasso.with(getActivity())
+					.load(GlobalParams.avatar)
+					.into(iv_avatar);
+		}
+
 
 		getTotalScore();
 

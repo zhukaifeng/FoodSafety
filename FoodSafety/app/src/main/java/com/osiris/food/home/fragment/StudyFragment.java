@@ -51,9 +51,9 @@ public class StudyFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        title = new String[]{getResources().getString(R.string.public_class),
+        title = new String[]{getResources().getString(R.string.video_class),
                 getResources().getString(R.string.major_class),
-                getResources().getString(R.string.policy_rule)};
+                getResources().getString(R.string.public_class)};
         mViewPager.setAdapter(new myPagerAdapter(getActivity().getSupportFragmentManager()));
         tab_strip.setViewPager(mViewPager);
         tab_strip.setTextSize((int) getResources().getDimension(R.dimen.sp16));

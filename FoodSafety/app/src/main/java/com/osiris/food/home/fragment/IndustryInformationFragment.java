@@ -49,13 +49,14 @@ public class IndustryInformationFragment extends BaseFragment {
 
 
 	@OnClick({R.id.rl_back})
-	void onClick(View v){
-		switch (v.getId()){
+	void onClick(View v) {
+		switch (v.getId()) {
 			case R.id.rl_back:
 				postEvent(new FragmentChangeEvent(FRAGMENT_HOME));
 				break;
 		}
 	}
+
 	public boolean onBackPressed() {
 		postEvent(new FragmentChangeEvent(FRAGMENT_HOME));
 		return true;
@@ -72,14 +73,14 @@ public class IndustryInformationFragment extends BaseFragment {
 
 		tv_title.setText(getString(R.string.industry_information));
 
-		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
+		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 		rv_data.setAdapter(dataAdapter);
 		dataAdapter.notifyDataSetChanged();
 		dataAdapter.setOnItemClick(new MyItemClickListener() {
 			@Override
 			public void onItemClick(View view, int position) {
 				Intent intent = new Intent(getActivity(), ContentDetailActivity.class);
-				intent.putExtra("id",dataList.get(position).getId());
+				intent.putExtra("id", dataList.get(position).getId());
 				startActivity(intent);
 			}
 		});
@@ -92,46 +93,42 @@ public class IndustryInformationFragment extends BaseFragment {
 	}
 
 
-
 	private void getData() {
 		String url = ApiRequestTag.API_HOST + "/api/v1/contents";
 
 		Map<String, String> paramMap = new HashMap<>();
+		showLoadDialog();
 
-		paramMap.put("category_id","3");
+		paramMap.put("category_id", "3");
 //		paramMap.put("")
-		NetRequest.requestParamWithToken(url, REQUEST_DATA,paramMap, new NetRequestResultListener() {
+		NetRequest.requestParamWithToken(url, REQUEST_DATA, paramMap, new NetRequestResultListener() {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
-				if (json.get("code").getAsInt() == 200){
+				if (json.get("code").getAsInt() == 200) {
 					PolicyList.DataBeanX.DataBean[] data = JsonUtils.fromJson(
 							json.get("data").getAsJsonObject().get("data").getAsJsonArray(), PolicyList.DataBeanX.DataBean[].class);
-					if (dataList.size()>0) {
+					if (dataList.size() > 0) {
 						dataList.clear();
 					}
 
 					dataList.addAll(Arrays.asList(data));
 					dataAdapter.notifyDataSetChanged();
 				}
+				cancelLoadDialog();
 			}
 
 			@Override
 			public void requestFailure(int tag, int code, String msg) {
 				LogUtils.d("zkf code :" + code);
-
+				cancelLoadDialog();
 
 			}
 		});
 
 
-
 	}
-
-
-
-
 
 
 }

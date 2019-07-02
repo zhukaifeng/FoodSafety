@@ -153,6 +153,7 @@ public class RegistCompleteActivity extends BaseActivity {
 		paramMap.put("address",edt_company_detail_location.getText().toString());
 		//paramMap.put("district", cityId+"01");
 		paramMap.put("password", "123456");
+		paramMap.put("type",String.valueOf(positionId));
 
 
 		Set keys = paramMap.keySet();

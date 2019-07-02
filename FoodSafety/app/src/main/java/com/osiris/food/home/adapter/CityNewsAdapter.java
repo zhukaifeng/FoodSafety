@@ -97,9 +97,15 @@ public class CityNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 			if (!TextUtils.isEmpty(data.getCreated_at())){
 				tv_news_date.setText(data.getCreated_at().substring(0,10));
 			}
-			Picasso.with(itemView.getContext())
-					.load(data.getThumb())
-					.into(iv_news_pic);
+
+			if (!TextUtils.isEmpty(data.getThumb())){
+				Picasso.with(itemView.getContext())
+						.load(data.getThumb())
+						.into(iv_news_pic);
+			}else {
+				iv_news_pic.setBackgroundResource(R.drawable.ic_place);
+			}
+
 		}
 	}
 

@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StudyCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class StudyNewsCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
 	private MyItemClickListener myItemClickListener;
@@ -31,7 +31,7 @@ public class StudyCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 	private Context context;
 
-	public StudyCourseAdapter(List<StudyCourse> dataList, Context context) {
+	public StudyNewsCourseAdapter(List<StudyCourse> dataList, Context context) {
 		this.dataList = dataList;
 		this.context = context;
 	}
@@ -43,7 +43,7 @@ public class StudyCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_study, parent, false);//解决宽度不能铺满
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_study_news, parent, false);//解决宽度不能铺满
 
 		return new StudyCourseHolder(view, myItemClickListener);
 	}
@@ -68,10 +68,10 @@ public class StudyCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		TextView tv_course;
 		@BindView(R.id.tv_date)
 		TextView tv_date;
-		@BindView(R.id.tv_time)
-		TextView tv_time;
-		@BindView(R.id.tv_look_time)
-		TextView tv_look_time;
+//		@BindView(R.id.tv_time)
+//		TextView tv_time;
+//		@BindView(R.id.tv_look_time)
+//		TextView tv_look_time;
 		@BindView(R.id.tv_name)
 		TextView tv_name;
 		@BindView(R.id.iv_cover)
@@ -95,10 +95,10 @@ public class StudyCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 		public void bindData(StudyCourse data) {
 			tv_name.setText(data.getCourseName());
-			tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name), data.getCategory()));
-			tv_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time), data.getCourseTime()));
-			tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look), data.getCourseLook()));
-			tv_date.setText(data.getStartTime() + "至" + data.getEndTime());
+		//	tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name), data.getCategory()));
+		//	tv_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time), data.getCourseTime()));
+		//	tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look), data.getCourseLook()));
+			tv_date.setText(data.getStartTime());
 			try {
 				if (!TextUtils.isEmpty(data.getThumb())) {
 					RequestOptions options = new RequestOptions()

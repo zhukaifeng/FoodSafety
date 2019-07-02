@@ -6,10 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
-import com.osiris.food.mine.adapter.StudyAdapter;
-import com.osiris.food.mine.adapter.StudyCourseAdapter;
+import com.osiris.food.home.adapter.StudyCourseAdapter;
 import com.osiris.food.model.LearnsPulicBean;
 import com.osiris.food.model.StudyCourse;
 import com.osiris.food.network.ApiRequestTag;
@@ -20,11 +21,13 @@ import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import me.jessyan.autosize.utils.LogUtils;
 
 public class PublicCourseFragment extends BaseFragment {
 
@@ -33,6 +36,7 @@ public class PublicCourseFragment extends BaseFragment {
 
     private List<StudyCourse> dataList = new ArrayList<>();
     private StudyCourseAdapter dataAdapter;
+
 
     @Override
     protected int setLayout() {
@@ -81,20 +85,23 @@ public class PublicCourseFragment extends BaseFragment {
     private void getClassList() {
         dataList.clear();
         String url = ApiRequestTag.API_HOST + "/api/v1/lessons/learning";
+        LogUtils.d("zkf  url:" + url);
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("type", "0");
-        NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
+      //  paramMap.put("type", "0");
+        NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
 
             @Override
             public void requestSuccess(int tag, String successResult) {
-                LearnsPulicBean learnsPulicBean = JsonUtils.deserialize(successResult, LearnsPulicBean.class);
-                if ((successResult.contains("lesson_id"))) {
-                    int learnId = learnsPulicBean.getData().getLesson_id();
-                    List<LearnsPulicBean.DataBean.ListBean> listBeans = learnsPulicBean.getData().getList();
-                    for (int i = 0; i < listBeans.size(); i++) {
-                        LearnsPulicBean.DataBean.ListBean bean = listBeans.get(i);
+                JsonParser parser = new JsonParser();
+                JsonObject json = parser.parse(successResult).getAsJsonObject().get("data").getAsJsonObject();
+                if ((successResult.contains("video"))) {
+                    LearnsPulicBean.DataBean.VideoBean[] videos = JsonUtils.fromJson(json.get("video").getAsJsonArray()
+                            , LearnsPulicBean.DataBean.VideoBean[].class);
+                    List<LearnsPulicBean.DataBean.VideoBean> videoBeansList = new ArrayList<>();
+                    videoBeansList.addAll(Arrays.asList(videos));
+                    for (int i = 0; i < videoBeansList.size(); i++) {
+                        LearnsPulicBean.DataBean.VideoBean bean = videoBeansList.get(i);
                         StudyCourse studyCourse = new StudyCourse();
-                        studyCourse.setLessonId(learnId);
                         studyCourse.setId(bean.getId());
                         studyCourse.setCourseName(bean.getName());
                         studyCourse.setStartTime(bean.getStart_time());

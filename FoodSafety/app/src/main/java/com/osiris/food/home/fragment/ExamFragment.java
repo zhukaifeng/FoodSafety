@@ -83,7 +83,7 @@ public class ExamFragment extends BaseFragment {
 
 	private void getData(){
 
-
+		showLoadDialog();
 		String url = ApiRequestTag.API_HOST + "/api/v1/papers";
 
 		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA,  new NetRequestResultListener() {
@@ -102,13 +102,14 @@ public class ExamFragment extends BaseFragment {
 					dataList.addAll(Arrays.asList(data));
 					dataAdapter.notifyDataSetChanged();
 				}
-
+				cancelLoadDialog();
 
 			}
 
 			@Override
 			public void requestFailure(int tag, int code, String msg) {
 				LogUtils.d("zkf  code: " + code);
+				cancelLoadDialog();
 			}
 		});
 

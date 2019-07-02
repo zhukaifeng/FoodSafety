@@ -2,20 +2,18 @@ package com.osiris.food.train;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.osiris.food.R;
-import com.osiris.food.base.BaseActivity;
 import com.osiris.food.model.VideoDetailBean;
 import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
@@ -159,9 +157,11 @@ public class TrainContentLookActivity extends AppCompatActivity {
                     tvTitle.setText(videoDetailBean.getData().getName());
                     videoplayer.setUp(videoDetailBean.getData().getPath()
                             , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, videoDetailBean.getData().getName());
-                    Picasso.with(mActivity)
-                            .load(mPic)
-                            .into(videoplayer.thumbImageView);
+                    if (!TextUtils.isEmpty(mPic)){
+                        Picasso.with(mActivity)
+                                .load(mPic)
+                                .into(videoplayer.thumbImageView);
+                    }
                     EventBus.getDefault().post(videoDetailBean);
                 } else {
                     T.showShort(mActivity, "信息加载错误，请稍后重试");

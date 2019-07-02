@@ -67,10 +67,12 @@ public class PersonInfoActivity extends BaseActivity {
 
 		tv_study_num.setText(String.valueOf(GlobalParams.identity_card_type));
 
+		if (!TextUtils.isEmpty(GlobalParams.avatar)) {
 
-		Picasso.with(this)
-				.load(GlobalParams.avatar)
-				.into(iv_avatar);
+			Picasso.with(this)
+					.load(GlobalParams.avatar)
+					.into(iv_avatar);
+		}
 
 
 	}
@@ -92,10 +94,11 @@ public class PersonInfoActivity extends BaseActivity {
 
 		tv_study_num.setText(String.valueOf(GlobalParams.identity_card_type));
 
-
-		Picasso.with(this)
-				.load(GlobalParams.avatar)
-				.into(iv_avatar);
+		if (!TextUtils.isEmpty(GlobalParams.avatar)) {
+			Picasso.with(this)
+					.load(GlobalParams.avatar)
+					.into(iv_avatar);
+		}
 	}
 
 	@OnClick({R.id.rl_back, R.id.iv_avatar, R.id.rl_nick_name,

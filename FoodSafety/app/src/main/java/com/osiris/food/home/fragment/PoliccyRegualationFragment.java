@@ -96,6 +96,7 @@ public class PoliccyRegualationFragment extends BaseFragment {
 		String url = ApiRequestTag.API_HOST + "/api/v1/contents";
 
 		Map<String, String> paramMap = new HashMap<>();
+		showLoadDialog();
 
 		paramMap.put("category_id","1");
 //		paramMap.put("")
@@ -114,11 +115,13 @@ public class PoliccyRegualationFragment extends BaseFragment {
 					dataList.addAll(Arrays.asList(data));
 					dataAdapter.notifyDataSetChanged();
 				}
+				cancelLoadDialog();
 			}
 
 			@Override
 			public void requestFailure(int tag, int code, String msg) {
 				LogUtils.d("zkf code :" + code);
+				cancelLoadDialog();
 
 
 			}

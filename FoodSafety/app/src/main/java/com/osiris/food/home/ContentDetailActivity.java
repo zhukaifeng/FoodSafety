@@ -2,7 +2,6 @@ package com.osiris.food.home;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -17,7 +16,6 @@ import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,11 +84,11 @@ public class ContentDetailActivity extends BaseActivity {
 					tvContent.setText(Html.fromHtml(dataBean.getContent()));
 
 					LogUtils.d("zkf dataBean.getThumb():" + dataBean.getThumb());
-					if (!TextUtils.isEmpty(dataBean.getThumb())) {
+					/*if (!TextUtils.isEmpty(dataBean.getThumb())) {
 						Picasso.with(mActivity)
 								.load(dataBean.getThumb())
 								.into(ivContent);
-					}
+					}*/
 					tvTitle.setText(dataBean.getTitle());
 					cancelLoadDialog();
 

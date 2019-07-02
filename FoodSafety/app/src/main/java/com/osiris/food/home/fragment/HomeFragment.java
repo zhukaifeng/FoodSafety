@@ -112,6 +112,7 @@ public class HomeFragment extends BaseFragment {
 
 	private void getData() {
 		String url = ApiRequestTag.API_HOST + "/api/v1/contents";
+		showLoadDialog();
 
 		NetRequest.requestNoParamWithToken(url, REQUEST_DATA, new NetRequestResultListener() {
 			@Override
@@ -128,12 +129,13 @@ public class HomeFragment extends BaseFragment {
 					dataList.addAll(Arrays.asList(data));
 					dataAdapter.notifyDataSetChanged();
 				}
+				cancelLoadDialog();
 			}
 
 			@Override
 			public void requestFailure(int tag, int code, String msg) {
 				LogUtils.d("zkf code :" + code);
-
+				cancelLoadDialog();
 
 			}
 		});

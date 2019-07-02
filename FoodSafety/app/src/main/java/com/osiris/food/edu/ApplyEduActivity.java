@@ -81,6 +81,7 @@ public class ApplyEduActivity extends BaseActivity {
 
 
 	private void getEduList() {
+		showLoadDialog();
 
 		String url = ApiRequestTag.API_HOST + "/api/v1/lessons";
 
@@ -90,9 +91,10 @@ public class ApplyEduActivity extends BaseActivity {
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
 				if (json.get("code").getAsInt() == 200) {
-					EduList.DataBean[] dataBeans = JsonUtils.fromJson(json.get("data").getAsJsonArray(),EduList.DataBean[].class);
+					EduList.DataBean[] dataBeans = JsonUtils.fromJson(json.get("data").getAsJsonArray(), EduList.DataBean[].class);
 					dataList.addAll(Arrays.asList(dataBeans));
 					dataAdapter.notifyDataSetChanged();
+					cancelLoadDialog();
 
 				}
 
@@ -101,7 +103,7 @@ public class ApplyEduActivity extends BaseActivity {
 
 			@Override
 			public void requestFailure(int tag, int code, String msg) {
-
+				cancelLoadDialog();
 			}
 		});
 

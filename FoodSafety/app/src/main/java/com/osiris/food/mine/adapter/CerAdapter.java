@@ -1,6 +1,7 @@
 package com.osiris.food.mine.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,9 +85,14 @@ public class CerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 		public void bindData(Certification.DataBean data){
 
-			Picasso.with(itemView.getContext())
-					.load(data.getThumb())
-					.into(iv_cer);
+			if (!TextUtils.isEmpty(data.getThumb())){
+				Picasso.with(itemView.getContext())
+						.load(data.getThumb())
+						.into(iv_cer);
+			}else {
+				iv_cer.setBackgroundResource(R.drawable.ic_place);
+			}
+
 			tv_cer_name.setText(data.getName());
 		}
 	}

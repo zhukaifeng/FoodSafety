@@ -14,7 +14,7 @@
     <string name="txt_regist_input_name">请输入姓名</string>
     <string name="txt_regist_input_sex">请输入性别</string>
     <string name="txt_document_type">证件类型</string>
-    <string name="txt_document_num">请输入证件号码</string>
+    <string name="txt_document_num">请输入身份证号码</string>
     <string name="txt_input_mail">请输入邮箱</string>
     <string name="txt_input_eduction">请输入学历</string>
     <string name="txt_next">下一步</string>
@@ -138,7 +138,7 @@
     <string name="confirm_note"><u>认定说明</u></string>
     <string name="public_class">公共课程</string>
     <string name="major_class">专业课程</string>
-    <string name="policy_rule">法律法规</string>
+    <string name="video_class">视频课程</string>
     <string name="all">全部</string>
     <string name="paid">已缴费</string>
     <string name="unpaid">未缴费</string>

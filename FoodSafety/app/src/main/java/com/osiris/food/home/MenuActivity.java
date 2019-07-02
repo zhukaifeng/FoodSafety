@@ -241,9 +241,12 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 					GlobalParams.birthday = dataBean.getBirthday();
 					GlobalParams.address = dataBean.getAddress();
 					GlobalParams.company = dataBean.getCompany();
+					GlobalParams.type = dataBean.getType();
 					GlobalParams.identity_card_type = dataBean.getIdentity_card_type();
 					LogUtils.d("zkf GlobalParams.user_name:" + GlobalParams.user_name);
 					LogUtils.d("zkf GlobalParams.avatar:" + GlobalParams.avatar);
+					LogUtils.d("zkf GlobalParams.type:" + GlobalParams.type);
+
 
 				}
 
