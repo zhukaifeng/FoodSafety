@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <RelativeLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp64"
-        android:background="@drawable/bg_top_title"
-        >
+        android:background="@drawable/bg_top_title">
 
 
         <RelativeLayout
@@ -22,8 +21,7 @@
                 android:layout_width="@dimen/dp10"
                 android:layout_height="@dimen/dp17"
                 android:layout_centerInParent="true"
-                android:background="@drawable/bg_back"
-                />
+                android:background="@drawable/bg_back" />
 
         </RelativeLayout>
 
@@ -32,8 +30,7 @@
             android:layout_width="@dimen/dp202"
             android:layout_height="@dimen/dp26"
             android:layout_centerInParent="true"
-            android:background="@drawable/bg_top_title_name"
-            >
+            android:background="@drawable/bg_top_title_name">
 
             <TextView
                 android:id="@+id/tv_title"
@@ -43,48 +40,47 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp16"
-                />
+                android:textSize="@dimen/sp16" />
 
 
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rl_submit"
             android:layout_width="@dimen/dp60"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="提交"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/white"
-                />
-
+                android:text="提交"
+                android:textColor="@color/white" />
 
 
         </RelativeLayout>
 
 
-
     </RelativeLayout>
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp40"
-                android:background="#F4F4F4"
-                >
+                android:background="#F4F4F4">
 
 
                 <TextView
@@ -94,8 +90,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp20"
                     android:text="2018~2019年度食品安全管理员初级考试"
-                    android:textColor="@color/txt_important_black_51"
-                    />
+                    android:textColor="@color/txt_important_black_51" />
 
 
                 <TextView
@@ -118,8 +113,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/dp24"
                     android:text="/24"
-                    android:textColor="@color/txt_important_black_51"
-                    />
+                    android:textColor="@color/txt_important_black_51" />
 
 
             </RelativeLayout>
@@ -134,8 +128,7 @@
                 android:layout_marginRight="@dimen/dp30"
                 android:layout_marginBottom="@dimen/dp30"
                 android:text="餐饮服务提供者要建立保证餐饮食品安全的各项制度，配备经考核合格的(     ) "
-                android:textColor="@color/txt_important_black_51"
-                />
+                android:textColor="@color/txt_important_black_51" />
 
 
             <LinearLayout
@@ -145,8 +138,7 @@
                 android:layout_marginLeft="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp30"
                 android:layout_marginRight="@dimen/dp30"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/checkbox_a"
@@ -155,8 +147,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_checkbox_a"
-                    android:button="@null"
-                    />
+                    android:button="@null" />
 
 
                 <TextView
@@ -166,8 +157,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dp15"
                     android:text="食品检验员"
-                    android:textColor="@color/txt_important_black_51"
-                    />
+                    android:textColor="@color/txt_important_black_51" />
 
 
             </LinearLayout>
@@ -179,8 +169,7 @@
                 android:layout_marginLeft="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp30"
                 android:layout_marginRight="@dimen/dp30"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/checkbox_b"
@@ -189,8 +178,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_checkbox_b"
-                    android:button="@null"
-                    />
+                    android:button="@null" />
 
 
                 <TextView
@@ -200,8 +188,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dp15"
                     android:text="食品检验员"
-                    android:textColor="@color/txt_important_black_51"
-                    />
+                    android:textColor="@color/txt_important_black_51" />
 
 
             </LinearLayout>
@@ -213,8 +200,7 @@
                 android:layout_marginLeft="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp30"
                 android:layout_marginRight="@dimen/dp30"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/checkbox_c"
@@ -223,8 +209,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_checkbox_c"
-                    android:button="@null"
-                    />
+                    android:button="@null" />
 
 
                 <TextView
@@ -234,8 +219,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dp15"
                     android:text="食品检验员"
-                    android:textColor="@color/txt_important_black_51"
-                    />
+                    android:textColor="@color/txt_important_black_51" />
 
 
             </LinearLayout>
@@ -247,8 +231,7 @@
                 android:layout_marginLeft="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp30"
                 android:layout_marginRight="@dimen/dp30"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/checkbox_d"
@@ -257,8 +240,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_checkbox_d"
-                    android:button="@null"
-                    />
+                    android:button="@null" />
 
 
                 <TextView
@@ -268,8 +250,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dp15"
                     android:text="食品检验员"
-                    android:textColor="@color/txt_important_black_51"
-                    />
+                    android:textColor="@color/txt_important_black_51" />
 
 
             </LinearLayout>
@@ -280,9 +261,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp30"
-                android:visibility="gone"
                 android:text="正确答案：A"
-                />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_answer_result"
@@ -290,61 +270,65 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp30"
                 android:layout_marginTop="@dimen/dp10"
-                android:visibility="gone"
                 android:text="回答正确"
-                />
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_answer_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp10"
+                android:visibility="gone" />
 
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp70"
+        android:orientation="horizontal">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dp70"
-            android:orientation="horizontal"
-            >
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_last_question"
+                android:layout_width="@dimen/dp141"
+                android:layout_height="@dimen/dp50"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_updaown_btn"
+                android:gravity="center"
+                android:text="@string/topic_question"
+                android:textColor="@color/txt_important_black_51"
+                android:textSize="@dimen/sp15" />
+
+        </RelativeLayout>
 
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/tv_last_question"
-                    android:layout_width="@dimen/dp141"
-                    android:layout_height="@dimen/dp50"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/bg_updaown_btn"
-                    android:gravity="center"
-                    android:text="@string/topic_question"
-                    android:textColor="@color/txt_important_black_51"
-                    android:textSize="@dimen/sp15"
-                    />
+            <TextView
+                android:id="@+id/tv_next_question"
+                android:layout_width="@dimen/dp141"
+                android:layout_height="@dimen/dp50"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_updaown_btn"
+                android:gravity="center"
+                android:text="@string/next_question"
+                android:textColor="@color/txt_important_black_51"
+                android:textSize="@dimen/sp15" />
 
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/tv_next_question"
-                    android:layout_width="@dimen/dp141"
-                    android:layout_height="@dimen/dp50"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/bg_updaown_btn"
-                    android:gravity="center"
-                    android:text="@string/next_question"
-                    android:textColor="@color/txt_important_black_51"
-                    android:textSize="@dimen/sp15"
-                    />
-
-            </RelativeLayout>
-        </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
 
-    </RelativeLayout>
+</RelativeLayout>

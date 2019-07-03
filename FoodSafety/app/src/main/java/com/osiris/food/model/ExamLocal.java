@@ -9,6 +9,15 @@ public class ExamLocal extends RealmObject {
 	private int answerId;
 	private String answer;
 	private String selectAnswer;
+	private int score;
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
 
 	public int getExamId() {
 		return examId;
