@@ -533,6 +533,7 @@ public class ExamAnswersActivity extends BaseActivity {
 
         showLoadDialog();
         String url = ApiRequestTag.API_HOST + "/api/v1/papers/" + mExamId;
+        LogUtils.d("zkf url :" + url);
         NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
             @Override
             public void requestSuccess(int tag, String successResult) {
@@ -663,6 +664,7 @@ public class ExamAnswersActivity extends BaseActivity {
                             tv_answer_score.setVisibility(View.VISIBLE);
                             tv_answer_score.setText("100分");
                         }else {
+                            LogUtils.d("zkf rightcount:" + rightCount + "  averageScore:" + averageScore);
                             tv_answer_score.setVisibility(View.VISIBLE);
                             tv_answer_score.setText(rightCount*averageScore + "分");
                         }
