@@ -8,8 +8,13 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
+import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.NetRequest;
+import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.train.ApplyTrainingActivity;
 import com.osiris.food.train.FaceTraingActivity;
 import com.osiris.food.train.TrainRecordActivity;
@@ -19,6 +24,7 @@ import com.osiris.food.view.PagerSlidingTabStrip;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import me.jessyan.autosize.utils.LogUtils;
 
 public class StudyFragment extends BaseFragment {
 
@@ -57,7 +63,10 @@ public class StudyFragment extends BaseFragment {
         mViewPager.setAdapter(new myPagerAdapter(getActivity().getSupportFragmentManager()));
         tab_strip.setViewPager(mViewPager);
         tab_strip.setTextSize((int) getResources().getDimension(R.dimen.sp16));
+        getTotalScore();
+
     }
+
 
     @Override
     protected void initData() {
@@ -87,6 +96,35 @@ public class StudyFragment extends BaseFragment {
                 break;
         }
     }
+
+
+    private void getTotalScore() {
+
+        String url = ApiRequestTag.API_HOST + "/api/v1/users/points";
+
+        NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
+            @Override
+            public void requestSuccess(int tag, String successResult) {
+                JsonParser parser = new JsonParser();
+                JsonObject json = parser.parse(successResult).getAsJsonObject();
+                if (json.get("code").getAsInt() == 200) {
+                    if (null != json.get("data").getAsJsonObject().get("user_point").getAsString()) {
+                        String score = json.get("data").getAsJsonObject().get("user_point").getAsString();
+                        tv_study_score.setText(score);
+                        tv_total_score.setText(score);
+                    }
+
+                }
+            }
+
+            @Override
+            public void requestFailure(int tag, int code, String msg) {
+                LogUtils.d("zkf code111:" + code);
+            }
+        });
+
+    }
+
 
 
     private class myPagerAdapter extends FragmentPagerAdapter {

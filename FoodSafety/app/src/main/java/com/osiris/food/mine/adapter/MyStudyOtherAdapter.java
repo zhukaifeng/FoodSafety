@@ -19,34 +19,34 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StudyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class MyStudyOtherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<MyStudy.DataBean.VideoCourseBean> dataList = new ArrayList<>();
+	private List<MyStudy.DataBean.PublicCourseBean> dataList = new ArrayList<>();
 
 
-	public StudyAdapter(List<MyStudy.DataBean.VideoCourseBean> dataList) {
+	public MyStudyOtherAdapter(List<MyStudy.DataBean.PublicCourseBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<MyStudy.DataBean.VideoCourseBean> dataList) {
+	public void setDataList(List<MyStudy.DataBean.PublicCourseBean> dataList) {
 		this.dataList = dataList;
 	}
 
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_study, parent,false);//解决宽度不能铺满
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_study_other, parent,false);//解决宽度不能铺满
 
-		return new StudyHolder(view,myItemClickListener);
+		return new PolicyHolder(view,myItemClickListener);
 	}
 
 	@Override
 	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-		((StudyHolder)holder).bindData(dataList.get(position));
+		((PolicyHolder)holder).bindData(dataList.get(position));
 
 	}
 
@@ -57,25 +57,21 @@ public class StudyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
 
-	class StudyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+	class PolicyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 
-		@BindView(R.id.tv_course)
-		TextView tv_course;
-		@BindView(R.id.tv_date)
-		TextView tv_date;
-		@BindView(R.id.tv_time)
-		TextView tv_time;
-		@BindView(R.id.tv_look_time)
-		TextView tv_look_time;
-		@BindView(R.id.tv_name)
-		TextView tv_name;
-		@BindView(R.id.iv_cover)
-		ImageView iv_cover;
+		@BindView(R.id.tv_news_name)
+		TextView tv_news_name;
+		@BindView(R.id.tv_news_date)
+		TextView tv_news_date;
+		@BindView(R.id.iv_news_pic)
+		ImageView iv_news_pic;
+
+
 
 		private MyItemClickListener myItemClickListener;
 
-		public StudyHolder(View itemView,MyItemClickListener myItemClickListener) {
+		public PolicyHolder(View itemView,MyItemClickListener myItemClickListener) {
 			super(itemView);
 			ButterKnife.bind(this,itemView);
 			this.myItemClickListener = myItemClickListener;
@@ -89,17 +85,24 @@ public class StudyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 			}
 		}
 
-		public void bindData(MyStudy.DataBean.VideoCourseBean data){
-			tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name),data.getName()));
-			tv_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time),data.getTime()));
-			tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look),data.getStart_time()));
-			tv_date.setText(data.getStart_time()+"-"+data.getEnd_time());
+		public void bindData(MyStudy.DataBean.PublicCourseBean data){
+			if (!TextUtils.isEmpty(data.getTitle())){
+				tv_news_name.setText(data.getTitle());
+			}
+			if (!TextUtils.isEmpty(data.getCategory_name())){
+			//	tv_news_type.setText(data.getCategory_name());
+			}
+			if (!TextUtils.isEmpty(data.getCreated_at())){
+				tv_news_date.setText(data.getCreated_at().substring(0,10));
+			}
+
 			if (!TextUtils.isEmpty(data.getThumb())){
 				Picasso.with(itemView.getContext())
 						.load(data.getThumb())
-						.into(iv_cover);
+						.into(iv_news_pic);
+			}else {
+				iv_news_pic.setBackgroundResource(R.drawable.ic_place);
 			}
-
 
 		}
 	}

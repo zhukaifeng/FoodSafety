@@ -148,7 +148,6 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 		if (fragment == null) {
 			return;
 		}
-		LogUtils.d("zkf change");
 		getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
 				.commitAllowingStateLoss();
 	}
@@ -198,7 +197,6 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onGetMessage(FragmentChangeEvent fragmentChangeEvent) {
-
 		if (TextUtils.isEmpty(fragmentChangeEvent.getFrgment())){
 			return;
 		}
@@ -271,10 +269,11 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 	public void onBackPressed() {
 		if (fragment != null && ((CityNewsFragment) fragment).onBackPressed()) {
 			//实现具体的点击效果
+			postEvent(new FragmentChangeEvent(FRAGMENT_HOME));
 		} else if (fragment != null && ((PoliccyRegualationFragment) fragment).onBackPressed()){
-
+			postEvent(new FragmentChangeEvent(FRAGMENT_HOME));
 		}else if (fragment != null && ((IndustryInformationFragment) fragment).onBackPressed()){
-
+			postEvent(new FragmentChangeEvent(FRAGMENT_HOME));
 		}
 	}
 

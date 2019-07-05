@@ -50,7 +50,7 @@ public class HomeFragment extends BaseFragment {
 
 	private List<PolicyList.DataBeanX.DataBean> dataList = new ArrayList<>();
 	private HomeNewsAdapter dataAdapter = new HomeNewsAdapter(dataList);
-
+	private boolean show = true;
 
 	@Override
 	protected int setLayout() {
@@ -72,12 +72,12 @@ public class HomeFragment extends BaseFragment {
 			@Override
 			public void onItemClick(View view, int position) {
 				Intent intent = new Intent(getActivity(), ContentDetailActivity.class);
-				intent.putExtra("id",dataList.get(position).getId());
+				intent.putExtra("id", dataList.get(position).getId());
 				startActivity(intent);
 			}
 		});
-		getData();
-		getMessage();
+//		getData(true);
+//		getMessage();
 
 	}
 
@@ -85,9 +85,15 @@ public class HomeFragment extends BaseFragment {
 	protected void initData() {
 
 
-
 	}
 
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		getData();
+		getMessage();
+	}
 
 	@OnClick({R.id.linear_policy_regulation, R.id.linear_city_dynamic, R.id.linear_industry_information})
 	void onClick(View v) {
@@ -107,22 +113,20 @@ public class HomeFragment extends BaseFragment {
 	}
 
 
-
-
-
 	private void getData() {
 		String url = ApiRequestTag.API_HOST + "/api/v1/contents";
-		showLoadDialog();
+		if (show)
+			showLoadDialog();
 
 		NetRequest.requestNoParamWithToken(url, REQUEST_DATA, new NetRequestResultListener() {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
-				if (json.get("code").getAsInt() == 200){
+				if (json.get("code").getAsInt() == 200) {
 					PolicyList.DataBeanX.DataBean[] data = JsonUtils.fromJson(
 							json.get("data").getAsJsonObject().get("data").getAsJsonArray(), PolicyList.DataBeanX.DataBean[].class);
-					if (dataList.size()>0) {
+					if (dataList.size() > 0) {
 						dataList.clear();
 					}
 
@@ -130,6 +134,7 @@ public class HomeFragment extends BaseFragment {
 					dataAdapter.notifyDataSetChanged();
 				}
 				cancelLoadDialog();
+				show = false;
 			}
 
 			@Override
@@ -141,10 +146,9 @@ public class HomeFragment extends BaseFragment {
 		});
 
 
-
 	}
 
-	private void getMessage(){
+	private void getMessage() {
 
 		String url = ApiRequestTag.API_HOST + "/api/v1/messages/carousel";
 
@@ -153,11 +157,11 @@ public class HomeFragment extends BaseFragment {
 			public void requestSuccess(int tag, String successResult) {
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
-				if (json.get("code").getAsInt() == 200){
+				if (json.get("code").getAsInt() == 200) {
 					Message.DataBean[] dataBeans = JsonUtils.fromJson(json.get("data").getAsJsonArray(), Message.DataBean[].class);
 					List<Message.DataBean> list = new ArrayList<>();
 					list.addAll(Arrays.asList(dataBeans));
-					if (list.size()>0){
+					if (list.size() > 0) {
 						String msg = list.get(0).getSubject();
 						tv_news_title.setText(msg);
 					}
@@ -173,10 +177,7 @@ public class HomeFragment extends BaseFragment {
 		});
 
 
-
 	}
-
-
 
 
 }

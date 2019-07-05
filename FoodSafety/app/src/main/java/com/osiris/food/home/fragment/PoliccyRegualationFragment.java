@@ -83,6 +83,11 @@ public class PoliccyRegualationFragment extends BaseFragment {
 				startActivity(intent);
 			}
 		});
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
 		getData();
 	}
 

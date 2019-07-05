@@ -2,6 +2,7 @@ package com.osiris.food.login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
@@ -45,6 +46,11 @@ public class LoginActivity extends BaseActivity {
 	TextView tv_send;
 
 	private CountDownTimer countDownTimer;
+	private SharedPreferences preferences;
+	private SharedPreferences.Editor editor;
+	private String USER_ACCOUNT="account";
+	private String USER_PWD="password";
+
 
 
 	@Override
@@ -54,7 +60,17 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	public void init() {
-
+		preferences=getPreferences(MODE_PRIVATE);
+		editor=preferences.edit();
+		String account=preferences.getString(USER_ACCOUNT,"");
+		String pwd=preferences.getString(USER_PWD,"");
+		LogUtils.d("zkf account:" + account + "   pwd:" + pwd);
+		if (!TextUtils.isEmpty(account)){
+			edt_phone.setText(account);
+		}
+		if (!TextUtils.isEmpty(pwd)){
+			edt_pwd.setText(pwd);
+		}
 	}
 
 
@@ -93,8 +109,8 @@ public class LoginActivity extends BaseActivity {
 
 
 		Map<String, String> paramMap = new HashMap<>();
-		paramMap.put("phone","18370894190");
-		paramMap.put("password","123456");
+//		paramMap.put("phone","18370894190");
+//		paramMap.put("password","123456");
 
 
 		if (!TextUtils.isEmpty(edt_phone.getText())) {
@@ -102,7 +118,7 @@ public class LoginActivity extends BaseActivity {
 			//paramMap.put("phone","18370894190");
 		} else {
 			Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
-			//return;
+			return;
 		}
 
 		if (!TextUtils.isEmpty(edt_pwd.getText())) {
@@ -111,7 +127,7 @@ public class LoginActivity extends BaseActivity {
 
 		} else {
 			Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
-			//return;
+			return;
 		}
 
 
@@ -137,6 +153,12 @@ public class LoginActivity extends BaseActivity {
 							uploadTask();
 
 							Intent intent2 = new Intent(LoginActivity.this, MenuActivity.class);
+
+							editor.putString(USER_ACCOUNT,edt_phone.getText().toString());
+							editor.putString(USER_PWD,edt_pwd.getText().toString());
+							editor.commit();
+
+
 							startActivity(intent2);
 						}
 

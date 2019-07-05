@@ -91,7 +91,7 @@ public class ApplyEduAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 				tv_title.setText(data.getName());
 			}
 			if (!TextUtils.isEmpty(data.getLesson_no())){
-				tv_project_id.setText(data.getName());
+				tv_project_id.setText("项目编号：" + data.getLesson_no());
 			}
 			if (!TextUtils.isEmpty(data.getPrice())){
 				tv_price.setText(data.getPrice());

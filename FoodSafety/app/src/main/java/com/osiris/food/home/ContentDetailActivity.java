@@ -17,6 +17,9 @@ import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -46,6 +49,7 @@ public class ContentDetailActivity extends BaseActivity {
 		id = getIntent().getIntExtra("id", 0);
 
 		getData();
+	//	uploadTask();
 
 	}
 
@@ -70,6 +74,7 @@ public class ContentDetailActivity extends BaseActivity {
 	private void getData() {
 
 		String url = ApiRequestTag.API_HOST + "/api/v1/contents/" + id;
+		LogUtils.d("zkf url :" + url);
 
 		showLoadDialog();
 		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
@@ -102,6 +107,30 @@ public class ContentDetailActivity extends BaseActivity {
 				cancelLoadDialog();
 			}
 		});
+
+	}
+
+	//1登录2阅读文章3观看视频4文章学习市场5视频学习市场
+	private void uploadTask() {
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/report/task";
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("task_id", "2");
+
+		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				LogUtils.d("zkf upload task successResult:" + successResult);
+
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+				LogUtils.d("zkf upload task code:" + code);
+
+			}
+		});
+
 
 	}
 

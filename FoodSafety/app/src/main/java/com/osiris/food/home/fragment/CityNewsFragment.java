@@ -59,8 +59,11 @@ public class CityNewsFragment extends BaseFragment {
 		}
 	}
 
-
-
+	@Override
+	public void onResume() {
+		super.onResume();
+		getData();
+	}
 
 	@Override
 	protected int setLayout() {
@@ -85,7 +88,6 @@ public class CityNewsFragment extends BaseFragment {
 				startActivity(intent);
 			}
 		});
-		getData();
 	}
 
 	@Override
@@ -94,6 +96,7 @@ public class CityNewsFragment extends BaseFragment {
 	}
 	public boolean onBackPressed() {
 		postEvent(new FragmentChangeEvent(FRAGMENT_HOME));
+		LogUtils.d("zkf onBackPressed");
 		return true;
 	}
 	private void getData() {

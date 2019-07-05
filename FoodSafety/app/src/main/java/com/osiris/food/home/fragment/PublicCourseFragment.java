@@ -36,6 +36,7 @@ public class PublicCourseFragment extends BaseFragment {
 
     private List<StudyCourse> dataList = new ArrayList<>();
     private StudyCourseAdapter dataAdapter;
+    private boolean show = true;
 
 
     @Override

@@ -36,6 +36,7 @@ public class ExamFragment extends BaseFragment {
 	TextView tv_title;
 	@BindView(R.id.rv_data)
 	RecyclerView rv_data;
+	private boolean show = true;
 
 	private List<ExamList.DataBean> dataList = new ArrayList<>();
 
@@ -54,7 +55,7 @@ public class ExamFragment extends BaseFragment {
 		rl_back.setVisibility(View.GONE);
 
 
-		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL,false));
+		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 		rv_data.setAdapter(dataAdapter);
 		dataAdapter.notifyDataSetChanged();
 
@@ -63,15 +64,20 @@ public class ExamFragment extends BaseFragment {
 			public void onItemClick(View view, int position) {
 
 				Intent intent = new Intent(getActivity(), ExamAnswersActivity.class);
-				intent.putExtra("exam_id",dataList.get(position).getId());
+				intent.putExtra("exam_id", dataList.get(position).getId());
 				startActivity(intent);
 
 			}
 		});
 
+
+	}
+
+
+	@Override
+	public void onResume() {
+		super.onResume();
 		getData();
-
-
 	}
 
 	@Override
@@ -80,22 +86,21 @@ public class ExamFragment extends BaseFragment {
 	}
 
 
-
-	private void getData(){
-
-		showLoadDialog();
+	private void getData() {
+		if (show)
+			showLoadDialog();
 		String url = ApiRequestTag.API_HOST + "/api/v1/papers";
 
-		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA,  new NetRequestResultListener() {
+		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
 
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
-				if (json.get("code").getAsInt() == 200){
+				if (json.get("code").getAsInt() == 200) {
 					ExamList.DataBean[] data = JsonUtils.fromJson(
 							json.get("data").getAsJsonArray(), ExamList.DataBean[].class);
-					if (dataList.size()>0) {
+					if (dataList.size() > 0) {
 						dataList.clear();
 					}
 
@@ -103,6 +108,7 @@ public class ExamFragment extends BaseFragment {
 					dataAdapter.notifyDataSetChanged();
 				}
 				cancelLoadDialog();
+				show =false;
 
 			}
 
@@ -112,8 +118,6 @@ public class ExamFragment extends BaseFragment {
 				cancelLoadDialog();
 			}
 		});
-
-
 
 
 	}
