@@ -145,7 +145,7 @@ public class TrainContentLookActivity extends AppCompatActivity {
     }
 
     private void getVideoDetail() {
-        String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + mId;
+        String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + 28;
         //String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + 2;
         Log.e("xzw", url);
         NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {

@@ -115,7 +115,7 @@ public class PublicCourseFragment extends BaseFragment {
                     }
                 }
                 dataAdapter.notifyDataSetChanged();
-                Log.e("xzw", successResult);
+                Log.e("xzw   xxx", successResult);
             }
 
             @Override

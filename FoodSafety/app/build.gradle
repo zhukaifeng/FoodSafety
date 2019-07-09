@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.uphyca:stetho_realm:2.1.0'
+    implementation 'com.shuyu:GSYVideoPlayer:7.0.2'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
