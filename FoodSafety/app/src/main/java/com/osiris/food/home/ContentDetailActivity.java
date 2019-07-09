@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.model.ContenDetail;
+import com.osiris.food.model.LessonDetail;
 import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
@@ -37,6 +38,7 @@ public class ContentDetailActivity extends BaseActivity {
 	@BindView(R.id.tv_content)
 	TextView tvContent;
 	private int id = 0;
+	private boolean isLesson;
 
 	@Override
 	public int getLayoutResId() {
@@ -47,9 +49,10 @@ public class ContentDetailActivity extends BaseActivity {
 	public void init() {
 
 		id = getIntent().getIntExtra("id", 0);
-
+		isLesson = getIntent().getBooleanExtra("lesson", false);
 		getData();
-	//	uploadTask();
+
+		//	uploadTask();
 
 	}
 
@@ -73,7 +76,12 @@ public class ContentDetailActivity extends BaseActivity {
 
 	private void getData() {
 
-		String url = ApiRequestTag.API_HOST + "/api/v1/contents/" + id;
+		String url ;
+		if (isLesson){
+			url =  ApiRequestTag.API_HOST + "/api/v1/lessons/" + id;
+		}else {
+			url = ApiRequestTag.API_HOST + "/api/v1/contents/" + id;
+		}
 		LogUtils.d("zkf url :" + url);
 
 		showLoadDialog();
@@ -83,18 +91,32 @@ public class ContentDetailActivity extends BaseActivity {
 
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
-				if (json.get("code").getAsInt() == 200) {
+				if (json.get("code").getAsInt() == 200 && json.get("status").getAsString().equals("success")) {
 
-					ContenDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), ContenDetail.DataBean.class);
-					tvContent.setText(Html.fromHtml(dataBean.getContent()));
 
-					LogUtils.d("zkf dataBean.getThumb():" + dataBean.getThumb());
+					if (isLesson){
+						LessonDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), LessonDetail.DataBean.class);
+						tvContent.setText(Html.fromHtml(dataBean.getSummary()));
+						tvTitle.setText(dataBean.getName());
+
+					}else {
+						ContenDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), ContenDetail.DataBean.class);
+						tvContent.setText(Html.fromHtml(dataBean.getContent()));
+
+						LogUtils.d("zkf dataBean.getThumb():" + dataBean.getThumb());
 					/*if (!TextUtils.isEmpty(dataBean.getThumb())) {
 						Picasso.with(mActivity)
 								.load(dataBean.getThumb())
 								.into(ivContent);
 					}*/
-					tvTitle.setText(dataBean.getTitle());
+						tvTitle.setText(dataBean.getTitle());
+					}
+
+					cancelLoadDialog();
+
+				} else if (json.get("code").getAsInt() == 200 && json.get("status").getAsString().equals("error")) {
+
+					tvTitle.setText("文章不存在");
 					cancelLoadDialog();
 
 				}

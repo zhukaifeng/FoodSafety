@@ -66,6 +66,7 @@ public class MajorCourseFragment extends BaseFragment {
 //				startActivity(intent);
 				Intent intent = new Intent(getActivity(), ContentDetailActivity.class);
 				intent.putExtra("id",dataList.get(position).getId());
+				intent.putExtra("lesson",true);
 				startActivity(intent);
 			}
 		});
@@ -105,17 +106,20 @@ public class MajorCourseFragment extends BaseFragment {
 				//	List<LearnsMajorBean.DataBean.ListBean> listBeans = learnsMajorBean.getData().getList();
 					for (int i = 0; i < coursesBeansList.size(); i++) {
 						LearnsPulicBean.DataBean.CoursesBean bean = coursesBeansList.get(i);
-						StudyCourse studyCourse = new StudyCourse();
-						//studyCourse.setLessonId(bean);
-						studyCourse.setId(bean.getId());
-						studyCourse.setCourseName(bean.getTitle());
-						studyCourse.setStartTime(bean.getCreated_at());
-					//	studyCourse.setEndTime(learnsMajorBean.getData().getLesson().getEnd_time());
-					//	studyCourse.setCourseTime(bean.getTime());
-					//	studyCourse.setCourseLook(bean.getVisited());
-					//	studyCourse.setCategory(bean.getCategory());
-						studyCourse.setThumb(bean.getThumb());
-						dataList.add(studyCourse);
+
+							StudyCourse studyCourse = new StudyCourse();
+							//studyCourse.setLessonId(bean);
+							studyCourse.setId(bean.getId());
+							studyCourse.setCourseName(bean.getTitle());
+							studyCourse.setStartTime(bean.getCreated_at());
+							//	studyCourse.setEndTime(learnsMajorBean.getData().getLesson().getEnd_time());
+							//	studyCourse.setCourseTime(bean.getTime());
+							//	studyCourse.setCourseLook(bean.getVisited());
+							//	studyCourse.setCategory(bean.getCategory());
+							studyCourse.setThumb(bean.getThumb());
+							dataList.add(studyCourse);
+
+
 					}
 					dataAdapter.notifyDataSetChanged();
 				}

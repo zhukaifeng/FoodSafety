@@ -1,19 +1,17 @@
 package com.osiris.food.model;
 
-import java.util.List;
-
 public class Message {
 
 
 	/**
 	 * status : success
 	 * code : 200
-	 * data : [{"subject":"市场监督总局关于调整《食品经营许可证》..."}]
+	 * data : {"title":"食品安全标准护航舌尖上的安","id":16}
 	 */
 
 	private String status;
 	private int code;
-	private List<DataBean> data;
+	private DataBean data;
 
 	public String getStatus() {
 		return status;
@@ -31,27 +29,37 @@ public class Message {
 		this.code = code;
 	}
 
-	public List<DataBean> getData() {
+	public DataBean getData() {
 		return data;
 	}
 
-	public void setData(List<DataBean> data) {
+	public void setData(DataBean data) {
 		this.data = data;
 	}
 
 	public static class DataBean {
 		/**
-		 * subject : 市场监督总局关于调整《食品经营许可证》...
+		 * title : 食品安全标准护航舌尖上的安
+		 * id : 16
 		 */
 
-		private String subject;
+		private String title;
+		private int id;
 
-		public String getSubject() {
-			return subject;
+		public String getTitle() {
+			return title;
 		}
 
-		public void setSubject(String subject) {
-			this.subject = subject;
+		public void setTitle(String title) {
+			this.title = title;
+		}
+
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
 		}
 	}
 }

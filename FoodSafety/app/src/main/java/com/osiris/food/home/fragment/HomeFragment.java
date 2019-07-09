@@ -3,6 +3,7 @@ package com.osiris.food.home.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ public class HomeFragment extends BaseFragment {
 	private List<PolicyList.DataBeanX.DataBean> dataList = new ArrayList<>();
 	private HomeNewsAdapter dataAdapter = new HomeNewsAdapter(dataList);
 	private boolean show = true;
+	private Message.DataBean msgData;
 
 	@Override
 	protected int setLayout() {
@@ -95,7 +97,7 @@ public class HomeFragment extends BaseFragment {
 		getMessage();
 	}
 
-	@OnClick({R.id.linear_policy_regulation, R.id.linear_city_dynamic, R.id.linear_industry_information})
+	@OnClick({R.id.linear_policy_regulation, R.id.linear_city_dynamic, R.id.linear_industry_information,R.id.tv_news_title})
 	void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.linear_policy_regulation:
@@ -107,6 +109,14 @@ public class HomeFragment extends BaseFragment {
 				break;
 			case R.id.linear_industry_information:
 				postEvent(new FragmentChangeEvent(FRAGMENT_INFORMATION));
+
+				break;
+			case R.id.tv_news_title:
+				if (msgData.getId()>0){
+					Intent intent = new Intent(getActivity(), ContentDetailActivity.class);
+					intent.putExtra("id", msgData.getId());
+					startActivity(intent);
+				}
 
 				break;
 		}
@@ -158,12 +168,10 @@ public class HomeFragment extends BaseFragment {
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
 				if (json.get("code").getAsInt() == 200) {
-					Message.DataBean[] dataBeans = JsonUtils.fromJson(json.get("data").getAsJsonArray(), Message.DataBean[].class);
-					List<Message.DataBean> list = new ArrayList<>();
-					list.addAll(Arrays.asList(dataBeans));
-					if (list.size() > 0) {
-						String msg = list.get(0).getSubject();
-						tv_news_title.setText(msg);
+					Message.DataBean dataBeans = JsonUtils.fromJson(json.get("data").getAsJsonObject(), Message.DataBean.class);
+					msgData =dataBeans;
+					if (!TextUtils.isEmpty(msgData.getTitle())){
+						tv_news_title.setText(msgData.getTitle()+"           " + msgData.getTitle());
 					}
 				}
 			}

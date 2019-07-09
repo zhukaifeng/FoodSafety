@@ -54,7 +54,8 @@ public class PolicyRuleFragment extends BaseFragment {
 			@Override
 			public void onItemClick(View view, int position) {
 				Intent intent = new Intent(getActivity(), ContentDetailActivity.class);
-				intent.putExtra("id",dataList.get(position).getId());
+				intent.putExtra("id", dataList.get(position).getId());
+				intent.putExtra("lesson",true);
 				startActivity(intent);
 //				Intent intent = new Intent(getActivity(), TrainContentLookActivity.class);
 //				intent.putExtra("v_id", dataList.get(position).getId());
@@ -111,6 +112,8 @@ public class PolicyRuleFragment extends BaseFragment {
 						//	studyCourse.setCategory(bean.getCategory());
 						studyCourse.setThumb(bean.getThumb());
 						dataList.add(studyCourse);
+
+
 					}
 					dataAdapter.notifyDataSetChanged();
 				}
@@ -122,7 +125,6 @@ public class PolicyRuleFragment extends BaseFragment {
 			}
 		});
 	}
-
 
 
 }

@@ -15,7 +15,6 @@ import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.model.ExamDetail;
-import com.osiris.food.model.ExamLocal;
 import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
@@ -31,7 +30,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
-import io.realm.RealmResults;
 import me.jessyan.autosize.utils.LogUtils;
 
 public class ExamAnswersActivity extends BaseActivity {
@@ -87,7 +85,7 @@ public class ExamAnswersActivity extends BaseActivity {
 	private List<ExamDetail.DataBean.QuestionItemsBean> dataList = new ArrayList<>();
 	private int position = 0;
 
-	private boolean answered;
+	//private boolean answered;
 	private Realm mRealm;
 	private int examLocalScore = 0;
 
@@ -103,7 +101,7 @@ public class ExamAnswersActivity extends BaseActivity {
 		mExamId = getIntent().getIntExtra("exam_id", 0);
 		mRealm = Realm.getDefaultInstance();
 
-		RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).equalTo("examId",mExamId).findAll();
+		/*RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).equalTo("examId",mExamId).findAll();
 
 		for (ExamLocal u : userRealmResults) {
 			if (u.getExamId() == mExamId) {
@@ -116,7 +114,7 @@ public class ExamAnswersActivity extends BaseActivity {
 				answered = true;
 				examLocalScore = u.getScore();
 			}
-		}
+		}*/
 
 
 		getData();
@@ -254,7 +252,7 @@ public class ExamAnswersActivity extends BaseActivity {
 					}
 
 
-					if (answered) {
+				/*	if (answered) {
 
 
 						RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).equalTo("examId",mExamId).findAll();
@@ -318,7 +316,7 @@ public class ExamAnswersActivity extends BaseActivity {
 						} else {
 							tv_answer_result.setText("回答错误");
 						}
-					}
+					}*/
 
 					switch (dataList.get(position).getSelect().size()) {
 						case 0:
@@ -416,7 +414,7 @@ public class ExamAnswersActivity extends BaseActivity {
 						}
 
 					}
-					if (answered) {
+					/*if (answered) {
 						RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).equalTo("examId",mExamId).findAll();
 						for (ExamLocal u : userRealmResults) {
 							if (u.getAnswerId() == dataList.get(position).getId()) {
@@ -477,13 +475,12 @@ public class ExamAnswersActivity extends BaseActivity {
 							tv_answer_result.setText("回答错误");
 						}
 
-					}
+					}*/
 				} else {
 					position--;
 					if (tv_next_question.getText().toString().equals("提交")) {
 						LogUtils.d("zkf 提交");
-						if (!answered) {
-							mRealm.beginTransaction();
+					/*		mRealm.beginTransaction();
 
 							for (ExamDetail.DataBean.QuestionItemsBean data : dataList) {
 
@@ -493,36 +490,38 @@ public class ExamAnswersActivity extends BaseActivity {
 								examlocal.setSelectAnswer(data.getSelectAnswer());
 								examlocal.setAnswerId(data.getId());
 							}
-							mRealm.commitTransaction();
-							Toast.makeText(this, "答题结束，请返回查看答题结果", Toast.LENGTH_SHORT).show();
+							mRealm.commitTransaction();*/
+						Toast.makeText(this, "答题结束，请返回查看答题结果", Toast.LENGTH_SHORT).show();
 
-							RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).equalTo("examId",mExamId).findAll();
+						//	RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).equalTo("examId",mExamId).findAll();
 
-							int rightCount = 0;
-							int averageScore = 100 / (userRealmResults.size());
-							if (userRealmResults.size() == dataList.size()) {
-								for (int i = 0; i < dataList.size(); i++) {
-									if (userRealmResults.get(i).getSelectAnswer().equals(dataList.get(i).getAnswer())) {
-										rightCount++;
-									}
-								}
+						int rightCount = 0;
+						int averageScore = 100 / (dataList.size());
+//							if (userRealmResults.size() == dataList.size()) {
+//								for (int i = 0; i < dataList.size(); i++) {
+//									if (userRealmResults.get(i).getSelectAnswer().equals(dataList.get(i).getAnswer())) {
+//										rightCount++;
+//									}
+//								}
+//							}
+
+						for (ExamDetail.DataBean.QuestionItemsBean questionItemsBean : dataList) {
+							if (!TextUtils.isEmpty(questionItemsBean.getSelectAnswer())&&questionItemsBean.getSelectAnswer().equals(questionItemsBean.getAnswer())) {
+								rightCount++;
 							}
-							if (rightCount == dataList.size()) {
-								examLocalScore = 100;
-								saveScoreData();
-							} else {
-								LogUtils.d("zkf rightcount:" + rightCount + "  averageScore:" + averageScore);
-								examLocalScore = rightCount * averageScore;
-								saveScoreData();
-							}
-
-
-							finish();
-
-						} else {
-							Toast.makeText(this, "此试卷已经做完", Toast.LENGTH_SHORT).show();
-
 						}
+
+						if (rightCount == dataList.size()) {
+							examLocalScore = 100;
+							saveScoreData();
+						} else {
+							LogUtils.d("zkf rightcount:" + rightCount + "  averageScore:" + averageScore);
+							examLocalScore = rightCount * averageScore;
+							saveScoreData();
+						}
+
+
+						finish();
 
 
 					} else {
@@ -618,7 +617,7 @@ public class ExamAnswersActivity extends BaseActivity {
 					}
 
 
-					if (answered) {
+				/*	if (answered) {
 						RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).equalTo("examId",mExamId).findAll();
 
 						int rightCount = 0;
@@ -702,7 +701,7 @@ public class ExamAnswersActivity extends BaseActivity {
 
 						}
 
-					}
+					}*/
 
 
 				}
@@ -727,6 +726,7 @@ public class ExamAnswersActivity extends BaseActivity {
 		// TODO: add setContentView(...) invocation
 		ButterKnife.bind(this);
 	}
+
 	private void updateScoreData() {
 		if (mExamId == 0)
 			return;
@@ -765,7 +765,6 @@ public class ExamAnswersActivity extends BaseActivity {
 	}
 
 
-
 	private void saveScoreData() {
 		if (mExamId == 0)
 			return;
@@ -790,7 +789,7 @@ public class ExamAnswersActivity extends BaseActivity {
 			public void requestSuccess(int tag, String successResult) {
 				LogUtils.d("zkf  successResult      sdd:" + successResult);
 				cancelLoadDialog();
-				if (successResult.contains("success")){
+				if (successResult.contains("success")) {
 					finish();
 				}
 

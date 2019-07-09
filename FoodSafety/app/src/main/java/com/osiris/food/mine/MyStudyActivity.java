@@ -107,7 +107,7 @@ public class MyStudyActivity extends BaseActivity {
 					dataAdapter.notifyDataSetChanged();
 
 					MyStudy.DataBean.PublicCourseBean[] dataOther = JsonUtils.fromJson(
-							json.get("data").getAsJsonObject().get("public_course").getAsJsonArray(), MyStudy.DataBean.PublicCourseBean[].class);
+							json.get("data").getAsJsonObject().get("major_course").getAsJsonArray(), MyStudy.DataBean.PublicCourseBean[].class);
 					if (dataOtherList.size()>0) {
 						dataOtherList.clear();
 					}
