@@ -98,6 +98,7 @@ public class ContentDetailActivity extends BaseActivity {
 						LessonDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), LessonDetail.DataBean.class);
 						tvContent.setText(Html.fromHtml(dataBean.getSummary()));
 						tvTitle.setText(dataBean.getName());
+						uploadTask(4);
 
 					}else {
 						ContenDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), ContenDetail.DataBean.class);
@@ -109,6 +110,7 @@ public class ContentDetailActivity extends BaseActivity {
 								.load(dataBean.getThumb())
 								.into(ivContent);
 					}*/
+						uploadTask(2);
 						tvTitle.setText(dataBean.getTitle());
 					}
 
@@ -133,11 +135,11 @@ public class ContentDetailActivity extends BaseActivity {
 	}
 
 	//1登录2阅读文章3观看视频4文章学习市场5视频学习市场
-	private void uploadTask() {
+	private void uploadTask(int id) {
 
 		String url = ApiRequestTag.API_HOST + "/api/v1/report/task";
 		Map<String, String> paramMap = new HashMap<>();
-		paramMap.put("task_id", "2");
+		paramMap.put("task_id", String.valueOf(id));
 
 		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
 			@Override

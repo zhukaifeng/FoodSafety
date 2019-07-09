@@ -90,9 +90,10 @@ public class StudyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 		}
 
 		public void bindData(MyStudy.DataBean.VideoCourseBean data){
-			tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name),data.getName()));
+			tv_name.setText(data.getName());
+			tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name),data.getCategory_name()));
 			tv_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time),data.getTime()));
-			tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look),data.getStart_time()));
+			tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look),data.getVisited()));
 			tv_date.setText(data.getStart_time()+"-"+data.getEnd_time());
 			if (!TextUtils.isEmpty(data.getThumb())){
 				Picasso.with(itemView.getContext())
