@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
+import com.osiris.food.event.UploadVideoInfo;
 import com.osiris.food.home.ContentDetailActivity;
 import com.osiris.food.home.adapter.StudyNewsCourseAdapter;
 import com.osiris.food.model.LearnsPulicBean;
@@ -19,6 +20,9 @@ import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.view.widget.MyItemClickListener;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -131,4 +135,11 @@ public class MajorCourseFragment extends BaseFragment {
 			}
 		});
 	}
+
+
+
+
+
+
+
 }

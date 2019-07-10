@@ -15,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.event.DefaultEvent;
+import com.osiris.food.event.UploadVideoInfo;
 import com.osiris.food.model.VideoDetailBean;
 import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
@@ -27,9 +29,7 @@ import com.osiris.food.view.PagerSlidingTabStrip;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +62,7 @@ public class TrainContentLookActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_train_content_look);
+		EventBus.getDefault().register(this);
 		mActivity = this;
 		ButterKnife.bind(this);
 		//去掉标题栏（ActionBar实际上是设置在标题栏上的）
@@ -93,6 +94,8 @@ public class TrainContentLookActivity extends AppCompatActivity {
 		rlBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				LogUtils.d("zkf post event");
+				postEvent(new UploadVideoInfo(mId,0,videoplayer.getCurrentPositionWhenPlaying()/1000));
 				finish();
 			}
 		});
@@ -238,7 +241,6 @@ public class TrainContentLookActivity extends AppCompatActivity {
 	protected void onPause() {
 		super.onPause();
 		try {
-			uploadLookTime();
 			JCVideoPlayer.releaseAllVideos();
 		} catch (Exception e) {
 
@@ -246,33 +248,20 @@ public class TrainContentLookActivity extends AppCompatActivity {
 	}
 
 
-	private void uploadLookTime() {
-
-
-		String url = ApiRequestTag.API_HOST + "/api/v1/report/video";
-
-		LogUtils.d("zkf videoplayer.getDuration():" + videoplayer.getDuration());
-		LogUtils.d("zkf videoplayer.getCurrentPositionWhenPlaying()/1000:" + videoplayer.getCurrentPositionWhenPlaying()/1000);
-
-
-		Map<String, String> paramMap = new HashMap<>();
-		paramMap.put("video_id",String.valueOf(mId));
-		paramMap.put("start_time",String.valueOf(0));
-		paramMap.put("start_time",String.valueOf((videoplayer.getCurrentPositionWhenPlaying()/1000)));
-		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
-			@Override
-			public void requestSuccess(int tag, String successResult) {
-
-			}
-
-			@Override
-			public void requestFailure(int tag, int code, String msg) {
-
-			}
-		});
-
-
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 	}
 
+
+	protected void postEvent(Object obj) {
+		EventBus.getDefault().post(obj);
+	}
+
+	@Subscribe
+	public void defaultEventHandler(DefaultEvent event) {
+		// not handle
+	}
 
 }

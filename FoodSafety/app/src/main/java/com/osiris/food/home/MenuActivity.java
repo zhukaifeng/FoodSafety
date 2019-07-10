@@ -1,5 +1,7 @@
 package com.osiris.food.home;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,6 +14,7 @@ import com.osiris.food.base.BaseActivity;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.event.ExitEvent;
 import com.osiris.food.event.FragmentChangeEvent;
+import com.osiris.food.event.UploadVideoInfo;
 import com.osiris.food.home.fragment.ApplyFragment;
 import com.osiris.food.home.fragment.CityNewsFragment;
 import com.osiris.food.home.fragment.ExamFragment;
@@ -32,6 +35,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -282,5 +286,58 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 
 		finish();
 	}
+
+
+
+	private void uploadLookTime(int id,int start_time,int end_time) {
+
+		LogUtils.d("zkf uploadLookTime");
+		String url = ApiRequestTag.API_HOST + "/api/v1/report/video";
+
+
+
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("video_id",String.valueOf(id));
+		paramMap.put("start_time",String.valueOf(start_time));
+		paramMap.put("end_time",String.valueOf(end_time));
+		LogUtils.d("zkf start uploadLookTime");
+
+		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA+1, paramMap, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				LogUtils.d("finish");
+				LogUtils.d("zkf successresult111:" + successResult);
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+				LogUtils.d("failed");
+			}
+		});
+
+
+	}
+
+	private UploadVideoInfo mUploadVideoInfo;
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onReceiveMessage(UploadVideoInfo uploadVideoInfo) {
+		LogUtils.d("zkf reeeeeeeeeeee");
+		mUploadVideoInfo = uploadVideoInfo;
+		mHandler.sendEmptyMessage(0);
+	}
+
+	private Handler mHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what){
+				case 0:
+					uploadLookTime(mUploadVideoInfo.getId(),mUploadVideoInfo.getStartTime(),mUploadVideoInfo.getEndTime());
+					break;
+			}
+		}
+	};
+
 
 }
