@@ -17,5 +17,8 @@ public final class GlobalParams {
     public static String company;
     public static int type;
     public static int identity_card_type;
+    public static int user_point;
+	public static String video_time;
+	public static String created_at;
 
 }

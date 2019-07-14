@@ -2,7 +2,10 @@ package com.osiris.food.home.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,6 +80,7 @@ public class StudyNewsCourseAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 		@BindView(R.id.iv_cover)
 		ImageView iv_cover;
 
+
 		private MyItemClickListener myItemClickListener;
 
 		public StudyCourseHolder(View itemView, MyItemClickListener myItemClickListener) {
@@ -94,8 +98,25 @@ public class StudyNewsCourseAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 		}
 
 		public void bindData(StudyCourse data) {
-			tv_name.setText(data.getCourseName());
-		//	tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name), data.getCategory()));
+			if (data.getVisited() == 1){
+				String str = data.getCourseName()+"（已观看）";
+				SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(str);
+				int fstart=str.indexOf("（已观看）");
+				int fend=fstart+"（已观看）".length();
+				SpannableStringBuilder style=new SpannableStringBuilder(str);
+				style.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.color_blue_btn)),
+						fstart,fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+				tv_name.setText(style);
+
+
+			}else {//			tv_name.setText(data.getCourseName()+"（已观看）");
+
+				tv_name.setText(data.getCourseName());
+
+			}
+			tv_name.setSelected(true);
+
+			//	tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name), data.getCategory()));
 		//	tv_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time), data.getCourseTime()));
 		//	tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look), data.getCourseLook()));
 			tv_date.setText(data.getStartTime());

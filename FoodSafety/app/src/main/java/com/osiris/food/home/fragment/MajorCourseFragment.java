@@ -10,7 +10,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
-import com.osiris.food.event.UploadVideoInfo;
 import com.osiris.food.home.ContentDetailActivity;
 import com.osiris.food.home.adapter.StudyNewsCourseAdapter;
 import com.osiris.food.model.LearnsPulicBean;
@@ -20,9 +19,6 @@ import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.view.widget.MyItemClickListener;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,11 +65,14 @@ public class MajorCourseFragment extends BaseFragment {
 //				intent.putExtra("pic", dataList.get(position).getThumb());
 //				startActivity(intent);
 				Intent intent = new Intent(getActivity(), ContentDetailActivity.class);
-				intent.putExtra("id",dataList.get(position).getId());
-				intent.putExtra("lesson",true);
+				intent.putExtra("id", dataList.get(position).getId());
+				intent.putExtra("lesson", true);
+				intent.putExtra("lesson_type",7);
+				intent.putExtra("visited",dataList.get(position).getVisited());
 				startActivity(intent);
 			}
 		});
+
 	}
 
 	@Override
@@ -81,12 +80,18 @@ public class MajorCourseFragment extends BaseFragment {
 
 	}
 
-	@Override
+	/*@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
 		super.setUserVisibleHint(isVisibleToUser);
 		if (isVisibleToUser) {
 			getClassList();
 		}
+	}*/
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		getClassList();
 	}
 
 	private void getClassList() {
@@ -94,7 +99,7 @@ public class MajorCourseFragment extends BaseFragment {
 		String url = ApiRequestTag.API_HOST + "/api/v1/lessons/learning";
 		LogUtils.d("zkf  url:" + url);
 		Map<String, String> paramMap = new HashMap<>();
-	//	paramMap.put("type", "1");
+		//	paramMap.put("type", "1");
 		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
@@ -102,26 +107,27 @@ public class MajorCourseFragment extends BaseFragment {
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject().get("data").getAsJsonObject();
 				if ((successResult.contains("courses"))) {
-				LearnsPulicBean.DataBean.CoursesBean[] learnsMajorBean = JsonUtils.fromJson(json.get("courses").getAsJsonArray()
-						, LearnsPulicBean.DataBean.CoursesBean[].class);
-				List<LearnsPulicBean.DataBean.CoursesBean> coursesBeansList = new ArrayList<>();
-				coursesBeansList.addAll(Arrays.asList(learnsMajorBean));
-				//	int learnId = learnsMajorBean.getData().getLesson_id();
-				//	List<LearnsMajorBean.DataBean.ListBean> listBeans = learnsMajorBean.getData().getList();
+					LearnsPulicBean.DataBean.CoursesBean[] learnsMajorBean = JsonUtils.fromJson(json.get("courses").getAsJsonArray()
+							, LearnsPulicBean.DataBean.CoursesBean[].class);
+					List<LearnsPulicBean.DataBean.CoursesBean> coursesBeansList = new ArrayList<>();
+					coursesBeansList.addAll(Arrays.asList(learnsMajorBean));
+					//	int learnId = learnsMajorBean.getData().getLesson_id();
+					//	List<LearnsMajorBean.DataBean.ListBean> listBeans = learnsMajorBean.getData().getList();
 					for (int i = 0; i < coursesBeansList.size(); i++) {
 						LearnsPulicBean.DataBean.CoursesBean bean = coursesBeansList.get(i);
 
-							StudyCourse studyCourse = new StudyCourse();
-							//studyCourse.setLessonId(bean);
-							studyCourse.setId(bean.getId());
-							studyCourse.setCourseName(bean.getTitle());
-							studyCourse.setStartTime(bean.getCreated_at());
-							//	studyCourse.setEndTime(learnsMajorBean.getData().getLesson().getEnd_time());
-							//	studyCourse.setCourseTime(bean.getTime());
-							//	studyCourse.setCourseLook(bean.getVisited());
-							//	studyCourse.setCategory(bean.getCategory());
-							studyCourse.setThumb(bean.getThumb());
-							dataList.add(studyCourse);
+						StudyCourse studyCourse = new StudyCourse();
+						//studyCourse.setLessonId(bean);
+						studyCourse.setId(bean.getId());
+						studyCourse.setCourseName(bean.getTitle());
+						studyCourse.setStartTime(bean.getStart_time());
+						studyCourse.setVisited(bean.getVisited());
+						//	studyCourse.setEndTime(learnsMajorBean.getData().getLesson().getEnd_time());
+						//	studyCourse.setCourseTime(bean.getTime());
+						//	studyCourse.setCourseLook(bean.getVisited());
+						//	studyCourse.setCategory(bean.getCategory());
+						studyCourse.setThumb(bean.getThumb());
+						dataList.add(studyCourse);
 
 
 					}
@@ -135,11 +141,6 @@ public class MajorCourseFragment extends BaseFragment {
 			}
 		});
 	}
-
-
-
-
-
 
 
 }

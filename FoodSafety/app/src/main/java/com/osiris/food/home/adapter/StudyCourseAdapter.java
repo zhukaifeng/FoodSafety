@@ -98,6 +98,7 @@ public class StudyCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			tv_course.setText(String.format(itemView.getResources().getString(R.string.txt_course_name), data.getCategory()));
 			tv_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time), data.getCourseTime()));
 			tv_look_time.setText(String.format(itemView.getResources().getString(R.string.txt_course_time_look), data.getCourseLook()));
+			tv_look_time.setTextColor(itemView.getResources().getColor(R.color.color_blue_btn));
 			tv_date.setText(data.getStartTime() + "至" + data.getEndTime());
 			try {
 				if (!TextUtils.isEmpty(data.getThumb())) {

@@ -121,6 +121,8 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".home.ContentDetailActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".exam.ExamResultActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

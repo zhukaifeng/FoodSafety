@@ -224,9 +224,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginLeft="@dimen/dp30"
                         android:layout_marginTop="@dimen/dp28"
-                        android:layout_marginRight="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp30"
                         android:orientation="horizontal"
                         >
 
@@ -253,17 +253,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="@dimen/dp10"
-                                android:text="学习任务"
-                                android:textColor="@color/txt_important_black_51"
-                                android:textSize="@dimen/sp14"
-
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="积分"
+                                android:text="总积分"
                                 android:textColor="@color/txt_important_black_51"
                                 android:textSize="@dimen/sp14"
 
@@ -295,21 +285,12 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="@dimen/dp10"
-                                android:text="完成任务"
+                                android:text="学习积分"
                                 android:textColor="@color/txt_important_black_51"
                                 android:textSize="@dimen/sp14"
 
                                 />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="总积分"
-                                android:textColor="@color/txt_important_black_51"
-                                android:textSize="@dimen/sp14"
-
-                                />
 
 
                         </LinearLayout>
@@ -326,7 +307,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:text="20分钟"
+                                android:text="20"
                                 android:textColor="@color/txt_important_black_51"
                                 android:textSize="@dimen/sp20"
 
@@ -337,7 +318,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="@dimen/dp10"
-                                android:text="已观看时长"
+                                android:text="还需学习积分"
                                 android:textColor="@color/txt_important_black_51"
                                 android:textSize="@dimen/sp14"
 
@@ -346,47 +327,6 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                            <TextView
-                                android:id="@+id/tv_train_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="0分钟"
-                                android:textColor="@color/txt_important_black_51"
-                                android:textSize="@dimen/sp20"
-
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="@dimen/dp10"
-                                android:text="面授培训"
-                                android:textColor="@color/txt_important_black_51"
-                                android:textSize="@dimen/sp14"
-
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:text="时长"
-                                android:textColor="@color/txt_important_black_51"
-                                android:textSize="@dimen/sp14"
-
-                                />
-
-
-                        </LinearLayout>
 
 
                     </LinearLayout>

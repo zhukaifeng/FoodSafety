@@ -1,19 +1,17 @@
 package com.osiris.food.model;
 
-import java.util.List;
-
 public class ExamList {
 
 
 	/**
 	 * status : success
 	 * code : 200
-	 * data : [{"id":1,"name":"2018～2019年度食品安全管理员初级考试","created_at":"2019-06-18 23:18:26","question_numbers":4,"history_score":0}]
+	 * data : {"id":9,"name":"食品安全中级考试","created_at":"2019-07-02 23:31:57","question_numbers":20,"history_score":0,"times":0}
 	 */
 
 	private String status;
 	private int code;
-	private List<DataBean> data;
+	private DataBean data;
 
 	public String getStatus() {
 		return status;
@@ -31,28 +29,30 @@ public class ExamList {
 		this.code = code;
 	}
 
-	public List<DataBean> getData() {
+	public DataBean getData() {
 		return data;
 	}
 
-	public void setData(List<DataBean> data) {
+	public void setData(DataBean data) {
 		this.data = data;
 	}
 
 	public static class DataBean {
 		/**
-		 * id : 1
-		 * name : 2018～2019年度食品安全管理员初级考试
-		 * created_at : 2019-06-18 23:18:26
-		 * question_numbers : 4
+		 * id : 9
+		 * name : 食品安全中级考试
+		 * created_at : 2019-07-02 23:31:57
+		 * question_numbers : 20
 		 * history_score : 0
+		 * times : 0
 		 */
 
 		private int id;
 		private String name;
 		private String created_at;
 		private int question_numbers;
-		private String history_score;
+		private int history_score;
+		private int times;
 
 		public int getId() {
 			return id;
@@ -86,12 +86,20 @@ public class ExamList {
 			this.question_numbers = question_numbers;
 		}
 
-		public String getHistory_score() {
+		public int getHistory_score() {
 			return history_score;
 		}
 
-		public void setHistory_score(String history_score) {
+		public void setHistory_score(int history_score) {
 			this.history_score = history_score;
+		}
+
+		public int getTimes() {
+			return times;
+		}
+
+		public void setTimes(int times) {
+			this.times = times;
 		}
 	}
 }

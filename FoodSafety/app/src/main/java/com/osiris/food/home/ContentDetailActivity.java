@@ -1,8 +1,18 @@
 package com.osiris.food.home;
 
+import android.content.Context;
+import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.RequiresApi;
+import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,21 +47,101 @@ public class ContentDetailActivity extends BaseActivity {
 	ImageView ivContent;
 	@BindView(R.id.tv_content)
 	TextView tvContent;
+	@BindView(R.id.scroll_view)
+	NestedScrollView scroll_view;
+	@BindView(R.id.iv_default)
+	ImageView iv_default;
+	@BindView(R.id.title)
+	RelativeLayout title;
+
 	private int id = 0;
 	private boolean isLesson;
+	private int lessonType = 0;
+	private int visited = -1;
+	private int titleHeight = 0;
+	private int screanHeight = 0;
+	private int scrollHeight = 0;
 
 	@Override
 	public int getLayoutResId() {
 		return R.layout.activity_content_detail;
 	}
 
+	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	public void init() {
 
 		id = getIntent().getIntExtra("id", 0);
 		isLesson = getIntent().getBooleanExtra("lesson", false);
+		lessonType = getIntent().getIntExtra("lesson_type", 0);
+		visited = getIntent().getIntExtra("visited", -1);
 		getData();
+		scroll_view.setOnScrollChangeListener(new View.OnScrollChangeListener() {
 
+			@Override
+			public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+				if (scroll_view.getScrollY() == 0) {
+					//顶部
+				}
+
+				View contentView = scroll_view.getChildAt(0);
+				if (contentView != null && contentView.getMeasuredHeight() == (scroll_view.getScrollY() + scroll_view.getHeight())) {
+					//底部
+					if (visited == 0) {
+						uploadRead();
+						if (lessonType > 0) {
+							uploadTask(lessonType);
+						}
+					}
+				}
+			}
+		});
+		LogUtils.d("zkf iv_default isVisible  " + iv_default.getVisibility());
+
+
+		title.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+			@Override
+			public void onGlobalLayout() {
+				// TODO Auto-generated method stub
+				title.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+				titleHeight = title.getMeasuredHeight();
+				LogUtils.d("zkf title height:" + title.getMeasuredHeight());
+			}
+		});
+		WindowManager windowManager =
+				(WindowManager) getApplication().getSystemService(Context.
+						WINDOW_SERVICE);
+		final Display display = windowManager.getDefaultDisplay();
+		Point outPoint = new Point();
+		if (Build.VERSION.SDK_INT >= 19) {
+			// 可能有虚拟按键的情况
+			display.getRealSize(outPoint);
+		} else {
+			// 不可能有虚拟按键
+			display.getSize(outPoint);
+		}
+		int mRealSizeWidth;//手机屏幕真实宽度
+		int mRealSizeHeight;//手机屏幕真实高度
+		mRealSizeHeight = outPoint.y;
+		mRealSizeWidth = outPoint.x;
+		screanHeight = mRealSizeHeight;
+		LogUtils.d("zkf mRealSizeHeight:" + mRealSizeHeight);
+
+		/*scroll_view.setOnScrollChangeListener(new  View.OnScrollChangeListener()) {
+			@Override
+			public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+				if (scroll_view.getScrollY() == 0) {
+					//顶部
+				}
+
+				View contentView = svView.getChildAt(0);
+				if (contentView != null && contentView.getMeasuredHeight() == (scroll_view.getScrollY() + scroll_view.getHeight())) {
+					//底部
+				}
+
+			}
+		});*/
 		//	uploadTask();
 
 	}
@@ -76,10 +166,10 @@ public class ContentDetailActivity extends BaseActivity {
 
 	private void getData() {
 
-		String url ;
-		if (isLesson){
-			url =  ApiRequestTag.API_HOST + "/api/v1/lessons/" + id;
-		}else {
+		String url;
+		if (isLesson) {
+			url = ApiRequestTag.API_HOST + "/api/v1/lessons/" + id;
+		} else {
 			url = ApiRequestTag.API_HOST + "/api/v1/contents/" + id;
 		}
 		LogUtils.d("zkf url :" + url);
@@ -94,13 +184,12 @@ public class ContentDetailActivity extends BaseActivity {
 				if (json.get("code").getAsInt() == 200 && json.get("status").getAsString().equals("success")) {
 
 
-					if (isLesson){
+					if (isLesson) {
 						LessonDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), LessonDetail.DataBean.class);
 						tvContent.setText(Html.fromHtml(dataBean.getSummary()));
 						tvTitle.setText(dataBean.getName());
-						uploadTask(4);
 
-					}else {
+					} else {
 						ContenDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), ContenDetail.DataBean.class);
 						tvContent.setText(Html.fromHtml(dataBean.getContent()));
 
@@ -110,7 +199,6 @@ public class ContentDetailActivity extends BaseActivity {
 								.load(dataBean.getThumb())
 								.into(ivContent);
 					}*/
-						uploadTask(2);
 						tvTitle.setText(dataBean.getTitle());
 					}
 
@@ -122,6 +210,17 @@ public class ContentDetailActivity extends BaseActivity {
 					cancelLoadDialog();
 
 				}
+				scroll_view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+					@Override
+					public void onGlobalLayout() {
+						// TODO Auto-generated method stub
+						scroll_view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+						screanHeight = scroll_view.getMeasuredHeight();
+						mHandler.sendEmptyMessage(1);
+						LogUtils.d("zkf scroll_view height:" + scroll_view.getMeasuredHeight());
+					}
+				});
 
 
 			}
@@ -134,12 +233,37 @@ public class ContentDetailActivity extends BaseActivity {
 
 	}
 
-	//1登录2阅读文章3观看视频4文章学习市场5视频学习市场
-	private void uploadTask(int id) {
+	private Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+				case 1:
+					LogUtils.d("zkf receive handler");
+					if ((scrollHeight + titleHeight) < screanHeight) {
+						LogUtils.d("zkf receive handler < ");
+						if (visited == 0) {
+							LogUtils.d("zkf uploadRead");
+							uploadRead();
+							if (lessonType > 0) {
+								uploadTask(lessonType);
+							}
+						}
+					}
+
+					break;
+			}
+		}
+	};
+
+	private void uploadTask(int type) {
 
 		String url = ApiRequestTag.API_HOST + "/api/v1/report/task";
 		Map<String, String> paramMap = new HashMap<>();
-		paramMap.put("task_id", String.valueOf(id));
+		LogUtils.d("zkf id:" + id);
+		paramMap.put("task_id", String.valueOf(type));
+		paramMap.put("object_id",String.valueOf(id));
+		LogUtils.d("zkf url:" + url + "  task_id: " + type+ "object_id: " + id);
 
 		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
 			@Override
@@ -158,5 +282,27 @@ public class ContentDetailActivity extends BaseActivity {
 
 	}
 
+	private void uploadRead() {
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/report/lesson";
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("lesson_id", String.valueOf(id));
+
+		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				LogUtils.d("zkf upload task successResult:" + successResult);
+
+			}
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+				LogUtils.d("zkf upload task code:" + code);
+
+			}
+		});
+
+
+	}
 
 }

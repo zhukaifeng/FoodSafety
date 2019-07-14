@@ -35,7 +35,7 @@
 
 
                     <RelativeLayout
-                        android:layout_width="@dimen/dp202"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/dp26"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/dp27"
@@ -49,6 +49,8 @@
                             android:layout_centerInParent="true"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sp16"
+                            android:singleLine="true"
+                            android:text="海陵区食品安全培训学习平台"
                             />
 
 

@@ -75,12 +75,9 @@ public class PublicCourseFragment extends BaseFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            //请求网络数据
-            getClassList();
-        }
+    public void onResume() {
+        super.onResume();
+        getClassList();
     }
 
     private void getClassList() {

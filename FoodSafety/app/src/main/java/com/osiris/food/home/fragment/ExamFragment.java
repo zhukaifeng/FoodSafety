@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.exam.ExamAnswersActivity;
+import com.osiris.food.exam.ExamResultActivity;
 import com.osiris.food.exam.adapter.ExamAdapter;
 import com.osiris.food.model.ExamList;
 import com.osiris.food.network.ApiRequestTag;
@@ -21,10 +22,10 @@ import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import io.realm.Realm;
 import me.jessyan.autosize.utils.LogUtils;
 
 public class ExamFragment extends BaseFragment {
@@ -41,6 +42,7 @@ public class ExamFragment extends BaseFragment {
 	private List<ExamList.DataBean> dataList = new ArrayList<>();
 
 	private ExamAdapter dataAdapter = new ExamAdapter(dataList);
+	private Realm mRealm;
 
 
 	@Override
@@ -53,7 +55,7 @@ public class ExamFragment extends BaseFragment {
 
 		tv_title.setText(getString(R.string.exam));
 		rl_back.setVisibility(View.GONE);
-
+		mRealm = Realm.getDefaultInstance();
 
 		rv_data.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 		rv_data.setAdapter(dataAdapter);
@@ -62,10 +64,17 @@ public class ExamFragment extends BaseFragment {
 		dataAdapter.setOnItemClick(new MyItemClickListener() {
 			@Override
 			public void onItemClick(View view, int position) {
+				if (dataList.get(position).getTimes() == 2){
+					Intent intent = new Intent(getActivity(), ExamResultActivity.class);
+					intent.putExtra("exam_score", dataList.get(position).getHistory_score());
+					LogUtils.d("zkf exam_score:" + dataList.get(position).getHistory_score());
+					startActivity(intent);
+				}else {
+					Intent intent = new Intent(getActivity(), ExamAnswersActivity.class);
+					intent.putExtra("exam_id", dataList.get(position).getId());
+					startActivity(intent);
+				}
 
-				Intent intent = new Intent(getActivity(), ExamAnswersActivity.class);
-				intent.putExtra("exam_id", dataList.get(position).getId());
-				startActivity(intent);
 
 			}
 		});
@@ -98,13 +107,13 @@ public class ExamFragment extends BaseFragment {
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
 				if (json.get("code").getAsInt() == 200) {
-					ExamList.DataBean[] data = JsonUtils.fromJson(
-							json.get("data").getAsJsonArray(), ExamList.DataBean[].class);
+					ExamList.DataBean data = JsonUtils.fromJson(
+							json.get("data").getAsJsonObject(), ExamList.DataBean.class);
 					if (dataList.size() > 0) {
 						dataList.clear();
 					}
 
-					dataList.addAll(Arrays.asList(data));
+					dataList.add(data);
 					dataAdapter.notifyDataSetChanged();
 				}
 				cancelLoadDialog();

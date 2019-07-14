@@ -713,6 +713,8 @@ public class ExamAnswersActivity extends BaseActivity {
 			public void requestFailure(int tag, int code, String msg) {
 				LogUtils.d("zkf  code: " + code);
 				cancelLoadDialog();
+				Toast.makeText(ExamAnswersActivity.this,"积分不够，请再接再厉",Toast.LENGTH_SHORT).show();
+				finish();
 			}
 		});
 

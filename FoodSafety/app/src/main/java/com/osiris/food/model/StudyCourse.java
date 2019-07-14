@@ -11,10 +11,12 @@ public class StudyCourse {
 	private String thumb;
 	private int lessonId;
 	private int id;
+	private int visited;
 
 	public StudyCourse() {
 
 	}
+
 
 	public StudyCourse(String courseName, String startTime, String endTime, String courseTime, String courseLook) {
 		this.courseName = courseName;
@@ -22,6 +24,14 @@ public class StudyCourse {
 		this.endTime = endTime;
 		this.courseTime = courseTime;
 		this.courseLook = courseLook;
+	}
+
+	public int getVisited() {
+		return visited;
+	}
+
+	public void setVisited(int visited) {
+		this.visited = visited;
 	}
 
 	public String getCategory() {
@@ -95,4 +105,9 @@ public class StudyCourse {
 	public void setCourseLook(String courseLook) {
 		this.courseLook = courseLook;
 	}
+
+
+
+
+
 }

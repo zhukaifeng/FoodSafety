@@ -8,7 +8,7 @@ public class LearnsPulicBean {
     /**
      * status : success
      * code : 200
-     * data : {"video":[{"id":1,"name":"2018～2019年度初级食品安全培训","thumb":"http://132.232.227.58/uploads/lessons/20190625/fec54c21685fbf483a21b6212277caa8.jpg","start_time":"2019-06-01","end_time":"2020-06-01","category_id":4,"category":"食品安全","time":"01:35:55","visited":"00:00:00"},{"id":2,"name":"2018～2019年度中级食品安全培训","thumb":"http://132.232.227.58/uploads/lessons/20190625/8e17abd61c9ebb759a42c5e5f7aa114a.jpg","start_time":"2019-06-01","end_time":"2020-06-01","category_id":4,"category":"食品安全","time":"04:35:00","visited":"00:00:00"},{"id":3,"name":"2018～2019年度高级食品安全培训","thumb":"http://132.232.227.58/uploads/lessons/20190625/701f9141efc960e371afb1d4407d19a4.jpg","start_time":"2019-06-01","end_time":"2020-06-01","category_id":4,"category":"食品安全","time":"00:00:12","visited":"00:00:00"},{"id":4,"name":"食品安全公共课程","thumb":"http://132.232.227.58/uploads/lessons/20190625/0ebfc95d45b4a21b7e3aa99b6b83e14e.jpg","start_time":"2019-06-23","end_time":"2021-06-23","category_id":4,"category":"食品安全","time":"00:23:40","visited":"00:00:00"},{"id":5,"name":"公共课程2","thumb":"http://132.232.227.58/uploads/lessons/20190625/52339fc8507d214e6f0dff12756aeb05.jpg","start_time":"2019-06-23","end_time":"2023-06-23","category_id":4,"category":"食品安全","time":"00:23:40","visited":"00:00:00"},{"id":6,"name":"食品安全公共课程3","thumb":"http://132.232.227.58/uploads/lessons/20190625/b623375d679515aa2d818bd8ee898e12.jpg","start_time":"2019-06-23","end_time":"2019-07-28","category_id":4,"category":"食品安全","time":"00:23:40","visited":"00:00:00"},{"id":7,"name":"食品安全公共课程4","thumb":"http://132.232.227.58/uploads/lessons/20190625/c3be144aa0530f0c97febc65ce1d6da6.jpg","start_time":"2019-06-01","end_time":"2021-09-20","category_id":4,"category":"食品安全","time":"00:23:40","visited":"00:00:00"},{"id":8,"name":"食品安全管理公共课程5","thumb":"http://132.232.227.58/uploads/lessons/20190625/e1f0d148ff200477950c91d1c4357beb.jpg","start_time":"2019-06-01","end_time":"2020-06-01","category_id":4,"category":"食品安全","time":"00:23:40","visited":"00:00:00"}],"content":[{"id":1,"title":"国务院关于加强食品等产品安全监督管理的特别规定(国务院令第503号)","thumb":"http://132.232.227.58/uploads/contents/20190624/6ef1931b5e4fcf38008bd95c94f2b8c6.jpg","created_at":"2019-06-17 02:16:30"}],"courses":[{"id":9,"title":"中华人民共和国食品安全法实施条例(国务院令第557号)","thumb":"http://132.232.227.58/uploads/contents/20190624/a61922d9207a6801a0cca07ba156bf09.jpg","created_at":"2019-06-24 22:12:11"}]}
+     * data : {"courses":[{"id":2,"thumb":"http://132.232.227.58/uploads/lessons/20190625/8e17abd61c9ebb759a42c5e5f7aa114a.jpg","start_time":"2019-06-01","end_time":"2020-06-01","category_id":13,"category":"食品安全","title":"2018～2019年度中级食品安全培训","visited":1},{"id":3,"thumb":"http://132.232.227.58/uploads/lessons/20190625/701f9141efc960e371afb1d4407d19a4.jpg","start_time":"2019-06-01","end_time":"2020-06-01","category_id":13,"category":"食品安全","title":"2018～2019年度高级食品安全培训","visited":1},{"id":23,"thumb":"","start_time":"2019-07-05","end_time":"2023-04-30","category_id":13,"category":"食品安全","title":"海陵区学校食堂食品安全管理员 应知应会100条","visited":0},{"id":31,"thumb":"","start_time":"2019-07-08","end_time":"2023-04-30","category_id":13,"category":"食品安全","title":"泰州市食品药品监管 工作手册","visited":0},{"id":32,"thumb":"","start_time":"2019-07-08","end_time":"2023-04-30","category_id":13,"category":"食品安全","title":"餐饮服务食品安全操作规范","visited":0},{"id":33,"thumb":"","start_time":"2019-07-08","end_time":"2023-04-30","category_id":13,"category":"食品安全","title":"餐饮服务单位食品安全 基础管理手册","visited":0}],"video":[{"id":25,"name":"食品安全五要点-4","thumb":"http://132.232.227.58/uploads/lessons/20190707/de4e0b5ec830ca5a177f0bcb48510c7f.jpg","start_time":"2019-07-06","end_time":"2019-07-20","category_id":13,"category":"食品安全","time":"00:00:40","visited":"00:00:00"},{"id":30,"name":"食品安全五要点-1","thumb":"http://132.232.227.58/uploads/lessons/20190707/29a99d72ee8025b8f822bd6f4f555e76.jpg","start_time":"2019-07-07","end_time":"2019-09-15","category_id":13,"category":"食品安全","time":"00:00:40","visited":"00:00:00"},{"id":31,"name":"食品安全五要点-2","thumb":"http://132.232.227.58/uploads/lessons/20190707/94c997d21379a0cce6d0134a6b16bd5c.jpg","start_time":"2019-07-07","end_time":"2019-07-31","category_id":13,"category":"食品安全","time":"00:00:02","visited":"00:00:00"},{"id":33,"name":"食品安全五要点-3","thumb":"http://132.232.227.58/uploads/lessons/20190707/0864b5617a62061c379585c06bb214d5.jpg","start_time":"2019-07-01","end_time":"2019-10-27","category_id":13,"category":"食品安全","time":"00:11:00","visited":"00:00:00"},{"id":34,"name":"食品安全五要点-5","thumb":"http://132.232.227.58/uploads/lessons/20190707/f457bd3bad7b45dfbc21fca6ccc0c764.jpg","start_time":"2019-07-01","end_time":"2019-11-30","category_id":13,"category":"食品安全","time":"00:02:00","visited":"00:00:00"}],"content":[{"id":38,"thumb":"","start_time":"2019-07-01","end_time":"2019-07-28","category_id":13,"category":"食品安全","title":"测试专业课程","visited":0}]}
      */
 
     private String status;
@@ -40,9 +40,17 @@ public class LearnsPulicBean {
     }
 
     public static class DataBean {
+        private List<CoursesBean> courses;
         private List<VideoBean> video;
         private List<ContentBean> content;
-        private List<CoursesBean> courses;
+
+        public List<CoursesBean> getCourses() {
+            return courses;
+        }
+
+        public void setCourses(List<CoursesBean> courses) {
+            this.courses = courses;
+        }
 
         public List<VideoBean> getVideo() {
             return video;
@@ -60,24 +68,102 @@ public class LearnsPulicBean {
             this.content = content;
         }
 
-        public List<CoursesBean> getCourses() {
-            return courses;
-        }
+        public static class CoursesBean {
+            /**
+             * id : 2
+             * thumb : http://132.232.227.58/uploads/lessons/20190625/8e17abd61c9ebb759a42c5e5f7aa114a.jpg
+             * start_time : 2019-06-01
+             * end_time : 2020-06-01
+             * category_id : 13
+             * category : 食品安全
+             * title : 2018～2019年度中级食品安全培训
+             * visited : 1
+             */
 
-        public void setCourses(List<CoursesBean> courses) {
-            this.courses = courses;
+            private int id;
+            private String thumb;
+            private String start_time;
+            private String end_time;
+            private int category_id;
+            private String category;
+            private String title;
+            private int visited;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getThumb() {
+                return thumb;
+            }
+
+            public void setThumb(String thumb) {
+                this.thumb = thumb;
+            }
+
+            public String getStart_time() {
+                return start_time;
+            }
+
+            public void setStart_time(String start_time) {
+                this.start_time = start_time;
+            }
+
+            public String getEnd_time() {
+                return end_time;
+            }
+
+            public void setEnd_time(String end_time) {
+                this.end_time = end_time;
+            }
+
+            public int getCategory_id() {
+                return category_id;
+            }
+
+            public void setCategory_id(int category_id) {
+                this.category_id = category_id;
+            }
+
+            public String getCategory() {
+                return category;
+            }
+
+            public void setCategory(String category) {
+                this.category = category;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public int getVisited() {
+                return visited;
+            }
+
+            public void setVisited(int visited) {
+                this.visited = visited;
+            }
         }
 
         public static class VideoBean {
             /**
-             * id : 1
-             * name : 2018～2019年度初级食品安全培训
-             * thumb : http://132.232.227.58/uploads/lessons/20190625/fec54c21685fbf483a21b6212277caa8.jpg
-             * start_time : 2019-06-01
-             * end_time : 2020-06-01
-             * category_id : 4
+             * id : 25
+             * name : 食品安全五要点-4
+             * thumb : http://132.232.227.58/uploads/lessons/20190707/de4e0b5ec830ca5a177f0bcb48510c7f.jpg
+             * start_time : 2019-07-06
+             * end_time : 2019-07-20
+             * category_id : 13
              * category : 食品安全
-             * time : 01:35:55
+             * time : 00:00:40
              * visited : 00:00:00
              */
 
@@ -166,16 +252,24 @@ public class LearnsPulicBean {
 
         public static class ContentBean {
             /**
-             * id : 1
-             * title : 国务院关于加强食品等产品安全监督管理的特别规定(国务院令第503号)
-             * thumb : http://132.232.227.58/uploads/contents/20190624/6ef1931b5e4fcf38008bd95c94f2b8c6.jpg
-             * created_at : 2019-06-17 02:16:30
+             * id : 38
+             * thumb :
+             * start_time : 2019-07-01
+             * end_time : 2019-07-28
+             * category_id : 13
+             * category : 食品安全
+             * title : 测试专业课程
+             * visited : 0
              */
 
             private int id;
-            private String title;
             private String thumb;
-            private String created_at;
+            private String start_time;
+            private String end_time;
+            private int category_id;
+            private String category;
+            private String title;
+            private int visited;
 
             public int getId() {
                 return id;
@@ -183,14 +277,6 @@ public class LearnsPulicBean {
 
             public void setId(int id) {
                 this.id = id;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
             }
 
             public String getThumb() {
@@ -201,34 +287,36 @@ public class LearnsPulicBean {
                 this.thumb = thumb;
             }
 
-            public String getCreated_at() {
-                return created_at;
+            public String getStart_time() {
+                return start_time;
             }
 
-            public void setCreated_at(String created_at) {
-                this.created_at = created_at;
-            }
-        }
-
-        public static class CoursesBean {
-            /**
-             * id : 9
-             * title : 中华人民共和国食品安全法实施条例(国务院令第557号)
-             * thumb : http://132.232.227.58/uploads/contents/20190624/a61922d9207a6801a0cca07ba156bf09.jpg
-             * created_at : 2019-06-24 22:12:11
-             */
-
-            private int id;
-            private String title;
-            private String thumb;
-            private String created_at;
-
-            public int getId() {
-                return id;
+            public void setStart_time(String start_time) {
+                this.start_time = start_time;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public String getEnd_time() {
+                return end_time;
+            }
+
+            public void setEnd_time(String end_time) {
+                this.end_time = end_time;
+            }
+
+            public int getCategory_id() {
+                return category_id;
+            }
+
+            public void setCategory_id(int category_id) {
+                this.category_id = category_id;
+            }
+
+            public String getCategory() {
+                return category;
+            }
+
+            public void setCategory(String category) {
+                this.category = category;
             }
 
             public String getTitle() {
@@ -239,20 +327,12 @@ public class LearnsPulicBean {
                 this.title = title;
             }
 
-            public String getThumb() {
-                return thumb;
+            public int getVisited() {
+                return visited;
             }
 
-            public void setThumb(String thumb) {
-                this.thumb = thumb;
-            }
-
-            public String getCreated_at() {
-                return created_at;
-            }
-
-            public void setCreated_at(String created_at) {
-                this.created_at = created_at;
+            public void setVisited(int visited) {
+                this.visited = visited;
             }
         }
     }

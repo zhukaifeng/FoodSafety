@@ -13,6 +13,7 @@ import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
 import com.osiris.food.network.ApiRequestTag;
+import com.osiris.food.network.GlobalParams;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.train.ApplyTrainingActivity;
@@ -26,6 +27,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import me.jessyan.autosize.utils.LogUtils;
 
+//公共课程
 public class StudyFragment extends BaseFragment {
 
     @BindView(R.id.tab_strip)
@@ -44,8 +46,6 @@ public class StudyFragment extends BaseFragment {
     TextView tv_total_score;
     @BindView(R.id.tv_complete_time)
     TextView tv_complete_time;
-    @BindView(R.id.tv_train_time)
-    TextView tv_train_time;
 
     private String[] title;
 
@@ -63,13 +63,21 @@ public class StudyFragment extends BaseFragment {
         mViewPager.setAdapter(new myPagerAdapter(getActivity().getSupportFragmentManager()));
         tab_strip.setViewPager(mViewPager);
         tab_strip.setTextSize((int) getResources().getDimension(R.dimen.sp16));
-        getTotalScore();
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getTotalScore();
+    }
 
     @Override
     protected void initData() {
+
+    }
+
+    public void  setFragment(){
 
     }
 
@@ -109,9 +117,14 @@ public class StudyFragment extends BaseFragment {
                 JsonObject json = parser.parse(successResult).getAsJsonObject();
                 if (json.get("code").getAsInt() == 200) {
                     if (null != json.get("data").getAsJsonObject().get("user_point").getAsString()) {
-                        String score = json.get("data").getAsJsonObject().get("user_point").getAsString();
-                        tv_study_score.setText(score);
-                        tv_total_score.setText(score);
+                        String user_point = json.get("data").getAsJsonObject().get("user_point").getAsString();
+                        String surplus_point = json.get("data").getAsJsonObject().get("surplus_point").getAsString();
+                        String total_point = json.get("data").getAsJsonObject().get("total_point").getAsString();
+                        //textview 改动后命名有问题
+                        tv_study_score.setText(total_point);
+                        tv_total_score.setText(user_point);
+                        tv_complete_time.setText(surplus_point);
+                        GlobalParams.user_point = Integer.parseInt(user_point);
                     }
 
                 }

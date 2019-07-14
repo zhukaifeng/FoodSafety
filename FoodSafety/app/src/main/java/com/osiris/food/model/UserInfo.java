@@ -6,7 +6,7 @@ public class UserInfo {
 	/**
 	 * status : success
 	 * code : 200
-	 * data : {"name":"charles","phone":"18370894190","avatar":"th.jpeg","gender":"男","birthday":"1999-08-11","address":null,"company":"","identity_card_type":1}
+	 * data : {"name":"Ashin","phone":"18370894190","type":5,"avatar":"http://132.232.227.58/uploads/th.jpeg","gender":"男","birthday":"1999-08-11","address":"","company":"","identity_card_type":1,"sno":10000,"created_at":"148天","video_time":"0小时"}
 	 */
 
 	private String status;
@@ -39,33 +39,32 @@ public class UserInfo {
 
 	public static class DataBean {
 		/**
-		 * name : charles
+		 * name : Ashin
 		 * phone : 18370894190
-		 * avatar : th.jpeg
+		 * type : 5
+		 * avatar : http://132.232.227.58/uploads/th.jpeg
 		 * gender : 男
 		 * birthday : 1999-08-11
-		 * address : null
+		 * address :
 		 * company :
 		 * identity_card_type : 1
+		 * sno : 10000
+		 * created_at : 148天
+		 * video_time : 0小时
 		 */
 
 		private String name;
 		private String phone;
+		private int type;
 		private String avatar;
 		private String gender;
 		private String birthday;
 		private String address;
 		private String company;
-		private int type;
 		private int identity_card_type;
-
-		public int getType() {
-			return type;
-		}
-
-		public void setType(int type) {
-			this.type = type;
-		}
+		private int sno;
+		private String created_at;
+		private String video_time;
 
 		public String getName() {
 			return name;
@@ -81,6 +80,14 @@ public class UserInfo {
 
 		public void setPhone(String phone) {
 			this.phone = phone;
+		}
+
+		public int getType() {
+			return type;
+		}
+
+		public void setType(int type) {
+			this.type = type;
 		}
 
 		public String getAvatar() {
@@ -129,6 +136,30 @@ public class UserInfo {
 
 		public void setIdentity_card_type(int identity_card_type) {
 			this.identity_card_type = identity_card_type;
+		}
+
+		public int getSno() {
+			return sno;
+		}
+
+		public void setSno(int sno) {
+			this.sno = sno;
+		}
+
+		public String getCreated_at() {
+			return created_at;
+		}
+
+		public void setCreated_at(String created_at) {
+			this.created_at = created_at;
+		}
+
+		public String getVideo_time() {
+			return video_time;
+		}
+
+		public void setVideo_time(String video_time) {
+			this.video_time = video_time;
 		}
 	}
 }

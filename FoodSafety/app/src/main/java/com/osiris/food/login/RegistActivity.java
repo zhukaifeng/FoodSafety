@@ -144,7 +144,7 @@ public class RegistActivity extends BaseActivity {
 				LogUtils.d("zkf  sdsdd :" + successResult);
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
-				if (json.get("code").getAsInt() == 201) {
+				if (json.get("code").getAsInt() == 200) {
 					showRegistComplete();
 				}
 			}

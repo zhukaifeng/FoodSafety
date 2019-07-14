@@ -29,6 +29,7 @@ import java.util.Map;
 import butterknife.BindView;
 import me.jessyan.autosize.utils.LogUtils;
 
+//专业课程
 public class PolicyRuleFragment extends BaseFragment {
 
 
@@ -56,6 +57,8 @@ public class PolicyRuleFragment extends BaseFragment {
 				Intent intent = new Intent(getActivity(), ContentDetailActivity.class);
 				intent.putExtra("id", dataList.get(position).getId());
 				intent.putExtra("lesson",true);
+				intent.putExtra("lesson_type",8);
+				intent.putExtra("visited",dataList.get(position).getVisited());
 				startActivity(intent);
 //				Intent intent = new Intent(getActivity(), TrainContentLookActivity.class);
 //				intent.putExtra("v_id", dataList.get(position).getId());
@@ -72,11 +75,9 @@ public class PolicyRuleFragment extends BaseFragment {
 
 
 	@Override
-	public void setUserVisibleHint(boolean isVisibleToUser) {
-		super.setUserVisibleHint(isVisibleToUser);
-		if (isVisibleToUser) {
-			getClassList();
-		}
+	public void onResume() {
+		super.onResume();
+		getClassList();
 	}
 
 
@@ -105,7 +106,8 @@ public class PolicyRuleFragment extends BaseFragment {
 						//studyCourse.setLessonId(bean);
 						studyCourse.setId(bean.getId());
 						studyCourse.setCourseName(bean.getTitle());
-						studyCourse.setStartTime(bean.getCreated_at());
+						studyCourse.setStartTime(bean.getStart_time());
+						studyCourse.setVisited(bean.getVisited());
 						//	studyCourse.setEndTime(learnsMajorBean.getData().getLesson().getEnd_time());
 						//	studyCourse.setCourseTime(bean.getTime());
 						//	studyCourse.setCourseLook(bean.getVisited());
