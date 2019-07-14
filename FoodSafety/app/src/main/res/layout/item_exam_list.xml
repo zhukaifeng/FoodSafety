@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp66"
+        android:layout_height="@dimen/dp86"
         android:layout_marginTop="@dimen/dp16"
         >
 
@@ -22,11 +22,22 @@
             android:layout_marginRight="@dimen/dp75"
             android:layout_marginLeft="@dimen/dp20"
             />
-
+        <TextView
+            android:id="@+id/tv_passed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已通过"
+            android:visibility="gone"
+            android:textColor="@color/txt_important_black_51"
+            android:textSize="@dimen/sp14"
+            android:layout_below="@+id/tv_exam_name"
+            android:layout_marginRight="@dimen/dp75"
+            android:layout_marginLeft="@dimen/dp20"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_exam_name"
+            android:layout_below="@+id/tv_passed"
             android:layout_marginLeft="@dimen/dp20"
             android:layout_marginRight="@dimen/dp75"
             android:layout_marginTop="@dimen/dp10"

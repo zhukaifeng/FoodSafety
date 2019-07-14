@@ -88,6 +88,7 @@ public class ExamAnswersActivity extends BaseActivity {
 	//private boolean answered;
 	private Realm mRealm;
 	private int examLocalScore = 0;
+	private int uplaodId = 0;
 
 	@Override
 	public int getLayoutResId() {
@@ -491,7 +492,6 @@ public class ExamAnswersActivity extends BaseActivity {
 								examlocal.setAnswerId(data.getId());
 							}
 							mRealm.commitTransaction();*/
-						Toast.makeText(this, "答题结束，请返回查看答题结果", Toast.LENGTH_SHORT).show();
 
 						//	RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).equalTo("examId",mExamId).findAll();
 
@@ -521,7 +521,7 @@ public class ExamAnswersActivity extends BaseActivity {
 						}
 
 
-						finish();
+					//	finish();
 
 
 					} else {
@@ -571,12 +571,14 @@ public class ExamAnswersActivity extends BaseActivity {
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
 				if (json.get("code").getAsInt() == 200) {
+					ExamDetail.DataBean dataBean = JsonUtils.fromJson(
+							json.get("data").getAsJsonObject(), ExamDetail.DataBean.class);
 					ExamDetail.DataBean.QuestionItemsBean[] data = JsonUtils.fromJson(
 							json.get("data").getAsJsonObject().get("question_items").getAsJsonArray(), ExamDetail.DataBean.QuestionItemsBean[].class);
 					if (dataList.size() > 0) {
 						dataList.clear();
 					}
-
+					uplaodId =dataBean.getId();
 					String title = JsonUtils.fromJson(json.get("data").getAsJsonObject().get("name").getAsString(), String.class);
 					tv_exam_title.setText(title);
 
@@ -777,13 +779,19 @@ public class ExamAnswersActivity extends BaseActivity {
 		Map<String, String> paramMap = new HashMap<>();
 		//paramMap.put("user_id",String.valueOf(GlobalParams.user_id));
 		//LogUtils.d("zkf userid:" + GlobalParams.user_id);
-		paramMap.put("paper_id", String.valueOf(mExamId));
+		paramMap.put("paper_id", String.valueOf(uplaodId));
 		LogUtils.d("zkf paper_id:" + mExamId);
 		LogUtils.d("zkf score:" + examLocalScore);
 
 		paramMap.put("score", String.valueOf(examLocalScore));
 
 		LogUtils.d("zkf url :" + url);
+		if (examLocalScore>60){
+			Toast.makeText(this, "恭喜你通过考试，现在可以去领取证书了", Toast.LENGTH_SHORT).show();
+		}else {
+			Toast.makeText(this, "考试未通过，请再接再厉", Toast.LENGTH_SHORT).show();
+		}
+
 
 
 		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {

@@ -65,6 +65,8 @@ public class ExamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 		TextView tv_history_score;
 		@BindView(R.id.tv_count)
 		TextView tv_count;
+		@BindView(R.id.tv_passed)
+		TextView tv_passed;
 
 
 		private MyItemClickListener myItemClickListener;
@@ -86,13 +88,30 @@ public class ExamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 		public void bindData(ExamList.DataBean data) {
 
 			if (!TextUtils.isEmpty(data.getName())) {
-				tv_exam_name.setText(data.getName());
+
+				if (data.getTimes() > 0) {
+					double scoreDouble = Double.parseDouble(data.getHistory_score());
+					int score = (new Double(scoreDouble)).intValue();
+					if (score > 60) {
+						tv_exam_name.setText(data.getName());
+						tv_passed.setVisibility(View.VISIBLE);
+						tv_passed.setText( "考试已通过");
+					} else {
+						tv_exam_name.setText(data.getName());
+						tv_passed.setVisibility(View.VISIBLE);
+						tv_passed.setText("考试未通过" + "  剩余补考次数：" + (2 - data.getTimes()));
+					}
+
+				} else {
+					tv_exam_name.setText(data.getName());
+					tv_passed.setVisibility(View.GONE);
+				}
+
 			}
 
 			tv_count.setText(String.valueOf(data.getHistory_score()));
 
 			tv_subject_num.setText(String.valueOf(data.getQuestion_numbers()));
-
 
 
 		}

@@ -51,7 +51,7 @@ public class ExamList {
 		private String name;
 		private String created_at;
 		private int question_numbers;
-		private int history_score;
+		private String history_score;
 		private int times;
 
 		public int getId() {
@@ -86,11 +86,11 @@ public class ExamList {
 			this.question_numbers = question_numbers;
 		}
 
-		public int getHistory_score() {
+		public String getHistory_score() {
 			return history_score;
 		}
 
-		public void setHistory_score(int history_score) {
+		public void setHistory_score(String history_score) {
 			this.history_score = history_score;
 		}
 

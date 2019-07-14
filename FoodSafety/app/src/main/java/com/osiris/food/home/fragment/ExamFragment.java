@@ -99,6 +99,7 @@ public class ExamFragment extends BaseFragment {
 		if (show)
 			showLoadDialog();
 		String url = ApiRequestTag.API_HOST + "/api/v1/papers";
+		LogUtils.d("zkf url:" + url);
 
 		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
 			@Override
