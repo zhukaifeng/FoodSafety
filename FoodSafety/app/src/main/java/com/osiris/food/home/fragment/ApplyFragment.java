@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseFragment;
+import com.osiris.food.event.FragmentChangeEvent;
 import com.osiris.food.home.IdComparator;
 import com.osiris.food.model.LearnsPulicBean;
 import com.osiris.food.model.StudyCourse;
@@ -36,8 +37,12 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.jessyan.autosize.utils.LogUtils;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.osiris.food.home.MenuActivity.FRAGMENT_STUDY;
 
 public class ApplyFragment extends BaseFragment {
 
@@ -61,7 +66,9 @@ public class ApplyFragment extends BaseFragment {
 	@BindView(R.id.tv_notice)
 	TextView tvNotice;
 	Unbinder unbinder;
-
+	private SharedPreferences preferences;
+	private SharedPreferences.Editor editor;
+	private String COURSE_ID = "acorse_id";
 
 	@Override
 	protected int setLayout() {
@@ -74,10 +81,10 @@ public class ApplyFragment extends BaseFragment {
 		rl_back.setVisibility(View.GONE);
 		tvName.setText(GlobalParams.user_name);
 		tvSex.setText(GlobalParams.gender);
-		if (!TextUtils.isEmpty(GlobalParams.company)){
+		if (!TextUtils.isEmpty(GlobalParams.company)) {
 			tvCompanyName.setText(GlobalParams.company);
 		}
-		switch (GlobalParams.type){
+		switch (GlobalParams.type) {
 			case 1:
 				tvIdentity.setText("餐饮服务从业人员");
 				break;
@@ -96,6 +103,13 @@ public class ApplyFragment extends BaseFragment {
 		}
 		tvStudyTime.setText(GlobalParams.created_at);
 		tv_video_time.setText(GlobalParams.video_time);
+//		LogUtils.d("zkf save id :" + preferences.getInt("COURSE_ID",0));
+//		if (preferences.getInt("COURSE_ID",0) == 0){
+//			getClassList(true,0);
+//		}else {
+//			getClassList(false,preferences.getInt("COURSE_ID",0));
+//		}
+
 	}
 
 	@Override
@@ -127,9 +141,10 @@ public class ApplyFragment extends BaseFragment {
 		unbinder.unbind();
 	}
 
+
 	private List<StudyCourse> dataList = new ArrayList<>();
 
-	private void getClassList(boolean saveId) {
+	private void getClassList(boolean saveId, int oldId) {
 		dataList.clear();
 		String url = ApiRequestTag.API_HOST + "/api/v1/lessons/learning";
 		LogUtils.d("zkf  url:" + url);
@@ -179,12 +194,20 @@ public class ApplyFragment extends BaseFragment {
 					}
 				}
 				Collections.sort(dataList, new IdComparator()); // 根据id排序
-				if (saveId){
-					editor.putInt(COURSE_ID,  dataList.get(dataList.size() - 1).getId());
+				if (saveId) {
+					preferences = getActivity().getPreferences(MODE_PRIVATE);
+					editor = preferences.edit();
+					editor.putInt(COURSE_ID, dataList.get(dataList.size() - 1).getId());
 					editor.commit();
-				}else {
-					applyNewCourse(dataList.get(dataList.size() - 1).getId());
+					LogUtils.d("zkf save id  iiiiiii:" + dataList.get(dataList.size() - 1).getId());
+					applyNewCourse(dataList.get(dataList.size() - 2).getId());
+				} else {
+					applyNewCourse(oldId);
 				}
+//				if (mInitInfoTimer == null) {
+//					mInitInfoTimer = new Timer(true);
+//					mInitInfoTimer.schedule(mInitInfoTask, 0, 6 * 1000); //延时0S，6s执行一次
+//				}
 
 			}
 
@@ -204,7 +227,7 @@ public class ApplyFragment extends BaseFragment {
 					LogUtils.d("zkf 6s one time start");
 					int course_id = preferences.getInt(COURSE_ID, 0);
 					if (course_id == 0) {
-						getClassList(false);
+						getClassList(false, course_id);
 					} else {
 						applyNewCourse(course_id);
 					}
@@ -213,12 +236,11 @@ public class ApplyFragment extends BaseFragment {
 		}
 	};
 
-	private SharedPreferences preferences;
-	private SharedPreferences.Editor editor;
-	private String COURSE_ID = "acorse_id";
+
 	private Timer mInitInfoTimer;
 
 	private void applyNewCourse(int id) {
+		LogUtils.d("zkf send apply new course id:" + id);
 
 		String url = ApiRequestTag.API_HOST + "/api/v1/lessons/notice";
 		Map<String, String> paramMap = new HashMap<>();
@@ -228,15 +250,16 @@ public class ApplyFragment extends BaseFragment {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
 				if (successResult.contains("success")) {
-					mHandler.sendEmptyMessage(1);
+					preferences = getActivity().getPreferences(MODE_PRIVATE);
+//					mHandler.sendEmptyMessage(1);
+					editor = preferences.edit();
 					editor.putInt(COURSE_ID, id);
 					editor.commit();
-					tvNotice.setText("您有新的课程");
+					if (null != tvNotice){
+						tvNotice.setText("您有新的课程");
+					}
 				}
-				if (mInitInfoTimer == null) {
-					mInitInfoTimer = new Timer(true);
-					mInitInfoTimer.schedule(mInitInfoTask, 0, 6 * 1000); //延时0S，6s执行一次
-				}
+
 
 			}
 
@@ -258,4 +281,28 @@ public class ApplyFragment extends BaseFragment {
 	};
 
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		int course_id = preferences.getInt(COURSE_ID, 0);
+		LogUtils.d("zkf iiii get course_id:" + course_id);
+		if (course_id == 0) {
+			getClassList(true, course_id);
+		} else {
+			applyNewCourse(course_id);
+		}
+	}
+
+	@OnClick(R.id.rl_work_status)
+	public void onViewClicked(View v) {
+		switch (v.getId()){
+			case R.id.rl_work_status:
+				int course_id = preferences.getInt(COURSE_ID, 0);
+				getClassList(true,course_id);
+
+				postEvent(new FragmentChangeEvent(FRAGMENT_STUDY));
+				break;
+
+		}
+	}
 }

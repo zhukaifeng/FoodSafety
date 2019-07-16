@@ -47,7 +47,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
@@ -106,10 +105,10 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 		if (course_id == 0) {
 			getClassList(false);
 		} else {
-			if (mInitInfoTimer == null) {
-				mInitInfoTimer = new Timer(true);
-				mInitInfoTimer.schedule(mInitInfoTask, 0, 6 * 1000); //延时0S，6s执行一次
-			}
+//			if (mInitInfoTimer == null) {
+//				mInitInfoTimer = new Timer(true);
+//				mInitInfoTimer.schedule(mInitInfoTask, 0, 6 * 1000); //延时0S，6s执行一次
+//			}
 		}
 
 	}
@@ -238,21 +237,15 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 			return;
 		}
 		switchFragment(fragmentChangeEvent.getFrgment());
-		refreshTabRes(FRAGMENT_HOME);
-		/*switch (fragmentChangeEvent.getFrgment()){
+		switch (fragmentChangeEvent.getFrgment()){
 			case FRAGMENT_HOME:
-
-				break;
-			case FRAGMENT_POLICY:
-				switchFragment(fragmentChangeEvent.getFrgment());
 				refreshTabRes(FRAGMENT_HOME);
 				break;
-			case FRAGMENT_NEWS:
-				switchFragment(fragmentChangeEvent.getFrgment());
-				refreshTabRes(FRAGMENT_HOME);
+			case FRAGMENT_STUDY:
+				refreshTabRes(FRAGMENT_STUDY);
 				break;
 
-		}*/
+		}
 
 	}
 
@@ -535,7 +528,7 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 	private SharedPreferences preferences;
 	private SharedPreferences.Editor editor;
 	private String COURSE_ID = "acorse_id";
-	private Timer mInitInfoTimer;
+	//private Timer mInitInfoTimer;
 
 	private void applyNewCourse(int id) {
 
@@ -552,10 +545,10 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 					editor.commit();
 
 				}
-				if (mInitInfoTimer == null) {
-					mInitInfoTimer = new Timer(true);
-					mInitInfoTimer.schedule(mInitInfoTask, 0, 6 * 1000); //延时0S，6s执行一次
-				}
+//				if (mInitInfoTimer == null) {
+//					mInitInfoTimer = new Timer(true);
+//					mInitInfoTimer.schedule(mInitInfoTask, 0, 6 * 1000); //延时0S，6s执行一次
+//				}
 
 			}
 

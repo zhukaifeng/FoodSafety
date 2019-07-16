@@ -61,6 +61,7 @@ public class ContentDetailActivity extends BaseActivity {
 	private int titleHeight = 0;
 	private int screanHeight = 0;
 	private int scrollHeight = 0;
+	private int score = 0;
 
 	@Override
 	public int getLayoutResId() {
@@ -75,7 +76,6 @@ public class ContentDetailActivity extends BaseActivity {
 		isLesson = getIntent().getBooleanExtra("lesson", false);
 		lessonType = getIntent().getIntExtra("lesson_type", 0);
 		visited = getIntent().getIntExtra("visited", -1);
-		getData();
 		scroll_view.setOnScrollChangeListener(new View.OnScrollChangeListener() {
 
 			@Override
@@ -143,6 +143,7 @@ public class ContentDetailActivity extends BaseActivity {
 			}
 		});*/
 		//	uploadTask();
+		getData();
 
 	}
 
@@ -188,6 +189,7 @@ public class ContentDetailActivity extends BaseActivity {
 						LessonDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), LessonDetail.DataBean.class);
 						tvContent.setText(Html.fromHtml(dataBean.getSummary()));
 						tvTitle.setText(dataBean.getName());
+						score = dataBean.getScore();
 
 					} else {
 						ContenDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), ContenDetail.DataBean.class);
@@ -216,7 +218,7 @@ public class ContentDetailActivity extends BaseActivity {
 					public void onGlobalLayout() {
 						// TODO Auto-generated method stub
 						scroll_view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-						screanHeight = scroll_view.getMeasuredHeight();
+						scrollHeight = scroll_view.getMeasuredHeight();
 						mHandler.sendEmptyMessage(1);
 						LogUtils.d("zkf scroll_view height:" + scroll_view.getMeasuredHeight());
 					}
@@ -239,7 +241,7 @@ public class ContentDetailActivity extends BaseActivity {
 			super.handleMessage(msg);
 			switch (msg.what) {
 				case 1:
-					LogUtils.d("zkf receive handler");
+					LogUtils.d("zkf receive handler scrollHeight:" + scrollHeight +" titleHeight:" + titleHeight+" screanHeight:" + screanHeight);
 					if ((scrollHeight + titleHeight) < screanHeight) {
 						LogUtils.d("zkf receive handler < ");
 						if (visited == 0) {
@@ -263,6 +265,7 @@ public class ContentDetailActivity extends BaseActivity {
 		LogUtils.d("zkf id:" + id);
 		paramMap.put("task_id", String.valueOf(type));
 		paramMap.put("object_id",String.valueOf(id));
+		//paramMap.put("score",String.valueOf(score));
 		LogUtils.d("zkf url:" + url + "  task_id: " + type+ "object_id: " + id);
 
 		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
@@ -287,6 +290,7 @@ public class ContentDetailActivity extends BaseActivity {
 		String url = ApiRequestTag.API_HOST + "/api/v1/report/lesson";
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put("lesson_id", String.valueOf(id));
+		paramMap.put("score",String.valueOf(score));
 
 		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
 			@Override

@@ -51,6 +51,15 @@ public class LessonDetail {
 		private String summary;
 		private String text;
 		private String model_code;
+		private int score;
+
+		public int getScore() {
+			return score;
+		}
+
+		public void setScore(int score) {
+			this.score = score;
+		}
 
 		public int getId() {
 			return id;
