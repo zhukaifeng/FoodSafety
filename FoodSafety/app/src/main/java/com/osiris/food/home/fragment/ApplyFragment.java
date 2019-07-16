@@ -1,6 +1,5 @@
 package com.osiris.food.home.fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +24,7 @@ import com.osiris.food.network.GlobalParams;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
+import com.osiris.food.utils.SharePrefUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +41,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.jessyan.autosize.utils.LogUtils;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.osiris.food.home.MenuActivity.FRAGMENT_STUDY;
 
 public class ApplyFragment extends BaseFragment {
@@ -66,8 +65,6 @@ public class ApplyFragment extends BaseFragment {
 	@BindView(R.id.tv_notice)
 	TextView tvNotice;
 	Unbinder unbinder;
-	private SharedPreferences preferences;
-	private SharedPreferences.Editor editor;
 	private String COURSE_ID = "acorse_id";
 
 	@Override
@@ -195,12 +192,10 @@ public class ApplyFragment extends BaseFragment {
 				}
 				Collections.sort(dataList, new IdComparator()); // 根据id排序
 				if (saveId) {
-					preferences = getActivity().getPreferences(MODE_PRIVATE);
-					editor = preferences.edit();
-					editor.putInt(COURSE_ID, dataList.get(dataList.size() - 1).getId());
-					editor.commit();
-					LogUtils.d("zkf save id  iiiiiii:" + dataList.get(dataList.size() - 1).getId());
-					applyNewCourse(dataList.get(dataList.size() - 2).getId());
+
+					SharePrefUtils.saveInt(COURSE_ID, dataList.get(dataList.size() - 1).getId());
+					LogUtils.d("zkf save id  iiiiiii:" + SharePrefUtils.getInt(COURSE_ID,0));
+					applyNewCourse(SharePrefUtils.getInt(COURSE_ID,0));
 				} else {
 					applyNewCourse(oldId);
 				}
@@ -225,7 +220,7 @@ public class ApplyFragment extends BaseFragment {
 			switch (msg.what) {
 				case 2:
 					LogUtils.d("zkf 6s one time start");
-					int course_id = preferences.getInt(COURSE_ID, 0);
+					int course_id = SharePrefUtils.getInt(COURSE_ID, 0);
 					if (course_id == 0) {
 						getClassList(false, course_id);
 					} else {
@@ -245,16 +240,16 @@ public class ApplyFragment extends BaseFragment {
 		String url = ApiRequestTag.API_HOST + "/api/v1/lessons/notice";
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put("last_id", String.valueOf(id));
-
+		if (null != tvNotice) {
+			tvNotice.setText("暂无新的课程");
+		}
 		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
 			@Override
 			public void requestSuccess(int tag, String successResult) {
+				LogUtils.d("zkf get new notice str:" +successResult);
 				if (successResult.contains("success")) {
-					preferences = getActivity().getPreferences(MODE_PRIVATE);
-//					mHandler.sendEmptyMessage(1);
-					editor = preferences.edit();
-					editor.putInt(COURSE_ID, id);
-					editor.commit();
+
+					SharePrefUtils.saveInt(COURSE_ID, id);
 					if (null != tvNotice){
 						tvNotice.setText("您有新的课程");
 					}
@@ -265,7 +260,9 @@ public class ApplyFragment extends BaseFragment {
 
 			@Override
 			public void requestFailure(int tag, int code, String msg) {
-
+				if (null != tvNotice) {
+					tvNotice.setText("暂无新的课程");
+				}
 			}
 		});
 
@@ -284,7 +281,7 @@ public class ApplyFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		int course_id = preferences.getInt(COURSE_ID, 0);
+		int course_id = SharePrefUtils.getInt(COURSE_ID, 0);
 		LogUtils.d("zkf iiii get course_id:" + course_id);
 		if (course_id == 0) {
 			getClassList(true, course_id);
@@ -297,7 +294,7 @@ public class ApplyFragment extends BaseFragment {
 	public void onViewClicked(View v) {
 		switch (v.getId()){
 			case R.id.rl_work_status:
-				int course_id = preferences.getInt(COURSE_ID, 0);
+				int course_id = SharePrefUtils.getInt(COURSE_ID, 0);
 				getClassList(true,course_id);
 
 				postEvent(new FragmentChangeEvent(FRAGMENT_STUDY));

@@ -167,6 +167,7 @@ public class LoginActivity extends BaseActivity {
 					@Override
 					public void requestFailure(int tag, int code, String msg) {
 						LogUtils.d("zkf return data:" + msg);
+						cancelLoadDialog();
 					}
 				}
 		);
