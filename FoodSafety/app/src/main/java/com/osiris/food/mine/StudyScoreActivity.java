@@ -46,6 +46,8 @@ public class StudyScoreActivity extends BaseActivity {
 	TextView tvScore;
 	@BindView(R.id.tv_today_score)
 	TextView tv_today_score;
+	@BindView(R.id.tv_score_detail)
+	TextView tv_score_detail;
 
 	private List<ScoreList.DataBean> dataList = new ArrayList<>();
 	private StudyScoreAdapter dataAdapter = new StudyScoreAdapter(dataList);
@@ -74,7 +76,7 @@ public class StudyScoreActivity extends BaseActivity {
 		getTodayScoreDetail();
 		getTotalScore();
 
-
+		tv_score_detail.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -120,7 +122,7 @@ public class StudyScoreActivity extends BaseActivity {
 					dataAdapter.notifyDataSetChanged();
 					int totalScore = 0;
 					for (ScoreList.DataBean dataBean:dataList){
-						totalScore = dataBean.getMax_score() + totalScore;
+						totalScore = dataBean.getScore() + totalScore;
 					}
 					tv_today_score.setText("今日已获取"+totalScore+"积分");
 

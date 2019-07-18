@@ -44,7 +44,8 @@ public class MineFragment extends BaseFragment {
 	ImageView iv_avatar;
 	@BindView(R.id.iv_qr)
 	ImageView iv_qr;
-
+	@BindView(R.id.rl_mine_score)
+	RelativeLayout rl_mine_score;
 
 	@Override
 	protected int setLayout() {
@@ -60,10 +61,13 @@ public class MineFragment extends BaseFragment {
 					.into(iv_avatar);
 		}
 
-
-		getTotalScore();
+		rl_mine_score.setVisibility(View.GONE);
 
 	}
+
+
+
+
 
 	@Override
 	protected void initData() {
@@ -140,8 +144,10 @@ public class MineFragment extends BaseFragment {
 
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		getTotalScore();
 
-
-
-
+	}
 }
