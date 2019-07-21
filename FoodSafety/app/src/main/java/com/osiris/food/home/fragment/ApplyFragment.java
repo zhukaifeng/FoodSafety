@@ -64,6 +64,8 @@ public class ApplyFragment extends BaseFragment {
 	TextView tv_video_time;
 	@BindView(R.id.tv_notice)
 	TextView tvNotice;
+	@BindView(R.id.tv_phone)
+	TextView tv_phone;
 	Unbinder unbinder;
 	private String COURSE_ID = "acorse_id";
 
@@ -78,6 +80,7 @@ public class ApplyFragment extends BaseFragment {
 		rl_back.setVisibility(View.GONE);
 		tvName.setText(GlobalParams.user_name);
 		tvSex.setText(GlobalParams.gender);
+		tv_phone.setText(String.valueOf(GlobalParams.phone));
 		if (!TextUtils.isEmpty(GlobalParams.company)) {
 			tvCompanyName.setText(GlobalParams.company);
 		}

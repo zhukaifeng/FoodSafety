@@ -34,6 +34,8 @@ public class ChangeInfoActivity extends BaseActivity {
 	EditText editChange;
 	@BindView(R.id.rl_confirm)
 	RelativeLayout rlConfirm;
+	@BindView(R.id.tv_change)
+	TextView tv_change;
 
 	public static final int CHANGE_INFO_NAME = 1;
 	public static final int CHANGE_INFO_GENDA = CHANGE_INFO_NAME + 1;
@@ -51,7 +53,20 @@ public class ChangeInfoActivity extends BaseActivity {
 	public void init() {
 
 		type = getIntent().getIntExtra("type",0);
-
+		switch (type){
+			case CHANGE_INFO_NAME:
+				tv_change.setText("修改姓名：");
+				break;
+			case CHANGE_INFO_GENDA:
+				tv_change.setText("修改性别：");
+				break;
+			case CHANGE_INFO_BIRTHDAY:
+				tv_change.setText("修改出生日期：");
+				break;
+			case CHANGE_INFO_PHONE:
+				tv_change.setText("修改手机号码：");
+				break;
+		}
 
 
 	}

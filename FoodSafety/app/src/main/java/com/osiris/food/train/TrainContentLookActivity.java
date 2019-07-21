@@ -55,6 +55,8 @@ public class TrainContentLookActivity extends AppCompatActivity {
 
 	private int mId;
 	private String mPic;
+	private int score = 0;
+	private int lessonId = 0;
 
 	private Context mActivity;
 
@@ -95,7 +97,8 @@ public class TrainContentLookActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				LogUtils.d("zkf post event");
-				postEvent(new UploadVideoInfo(mId,0,videoplayer.getCurrentPositionWhenPlaying()/1000));
+				postEvent(new UploadVideoInfo(mId,0,videoplayer.getCurrentPositionWhenPlaying()/1000,
+						score,lessonId));
 				finish();
 			}
 		});
@@ -177,6 +180,8 @@ public class TrainContentLookActivity extends AppCompatActivity {
 								.load(mPic)
 								.into(videoplayer.thumbImageView);
 					}
+					score = videoDetailBean.getData().getScore();
+					lessonId = videoDetailBean.getData().getLesson_id();
 					EventBus.getDefault().post(videoDetailBean);
 				} else {
 					T.showShort(mActivity, "信息加载错误，请稍后重试");

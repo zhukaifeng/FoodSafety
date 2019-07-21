@@ -42,8 +42,26 @@ public class VideoDetailBean {
         private String path;
         private int comment_count;
         private List<CommentsBean> comments;
+        private int lesson_id;
+        private int score;
 
-        public int getId() {
+	    public int getLesson_id() {
+		    return lesson_id;
+	    }
+
+	    public void setLesson_id(int lesson_id) {
+		    this.lesson_id = lesson_id;
+	    }
+
+	    public int getScore() {
+		    return score;
+	    }
+
+	    public void setScore(int score) {
+		    this.score = score;
+	    }
+
+	    public int getId() {
             return id;
         }
 

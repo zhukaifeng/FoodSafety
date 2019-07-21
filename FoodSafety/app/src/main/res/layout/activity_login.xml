@@ -116,6 +116,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp50"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -176,7 +177,6 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="@dimen/dp305"
         android:layout_height="@dimen/dp55"
-        android:layout_marginTop="@dimen/dp32"
         android:background="@drawable/bg_button"
         android:paddingBottom="@dimen/dp4"
         android:text="@string/txt_login"

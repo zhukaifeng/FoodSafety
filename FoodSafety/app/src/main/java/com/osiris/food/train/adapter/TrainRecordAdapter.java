@@ -1,6 +1,7 @@
 package com.osiris.food.train.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,14 +60,8 @@ public class TrainRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 		@BindView(R.id.tv_train_name)
 		TextView tv_train_name;
-		@BindView(R.id.tv_total_time)
-		TextView tv_total_time;
-		@BindView(R.id.tv_complete_time)
-		TextView tv_complete_time;
-		@BindView(R.id.tv_look_time)
-		TextView tv_look_time;
-		@BindView(R.id.tv_train_time)
-		TextView tv_train_time;
+		@BindView(R.id.tv_start_time)
+		TextView tv_start_time;
 		@BindView(R.id.tv_term)
 		TextView tv_term;
 
@@ -91,10 +86,9 @@ public class TrainRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		public void bindData(TrainRecord.DataBean data){
 			tv_term.setText(data.getSchool_year());
 			tv_train_name.setText(data.getName());
-			tv_look_time.setText(data.getVisited());
-			tv_total_time.setText(data.getTime());
-			tv_complete_time.setText(data.getTask_time());
-			tv_train_time.setText(data.getFace_teaching());
+			if (!TextUtils.isEmpty(data.getCreated_at())&& data.getCreated_at().length()>10){
+				tv_start_time.setText(data.getCreated_at().substring(0,10));
+			}
 
 		}
 	}

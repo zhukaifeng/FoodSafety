@@ -150,7 +150,7 @@ public class LoginActivity extends BaseActivity {
 							GlobalParams.user_id = data.getData().getId();
 							GlobalParams.user_name = data.getData().getName();
 							cancelLoadDialog();
-							uploadTask();
+					//		uploadTask();
 
 							Intent intent2 = new Intent(LoginActivity.this, MenuActivity.class);
 

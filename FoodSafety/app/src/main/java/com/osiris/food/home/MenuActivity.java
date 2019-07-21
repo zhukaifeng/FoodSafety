@@ -1,8 +1,6 @@
 package com.osiris.food.home;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -27,7 +25,6 @@ import com.osiris.food.home.fragment.IndustryInformationFragment;
 import com.osiris.food.home.fragment.MineFragment;
 import com.osiris.food.home.fragment.PoliccyRegualationFragment;
 import com.osiris.food.home.fragment.StudyFragment;
-import com.osiris.food.model.LearnsPulicBean;
 import com.osiris.food.model.StudyCourse;
 import com.osiris.food.model.UserInfo;
 import com.osiris.food.network.ApiRequestTag;
@@ -42,12 +39,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -96,20 +89,9 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 
 	@Override
 	public void init() {
-		preferences = getPreferences(MODE_PRIVATE);
-		editor = preferences.edit();
 		showFragment(currentFragment);
 		getUserInfo();
 		getTotalScore();
-		int course_id = preferences.getInt(COURSE_ID, 0);
-		if (course_id == 0) {
-			getClassList(false);
-		} else {
-//			if (mInitInfoTimer == null) {
-//				mInitInfoTimer = new Timer(true);
-//				mInitInfoTimer.schedule(mInitInfoTask, 0, 6 * 1000); //延时0S，6s执行一次
-//			}
-		}
 
 	}
 
@@ -317,23 +299,25 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 	}
 
 
-	private void uploadLookTime(int id, int start_time, int end_time) {
+	private void uploadLookTime(int id, int start_time, int end_time,int score,int lessonId) {
 
 		LogUtils.d("zkf uploadLookTime");
 		String url = ApiRequestTag.API_HOST + "/api/v1/report/video";
 
 
-		Map<String, String> paramMap = new HashMap<>();
-		paramMap.put("video_id", String.valueOf(id));
-		paramMap.put("start_time", String.valueOf(start_time));
-		paramMap.put("end_time", String.valueOf(end_time));
+
 		LogUtils.d("zkf start uploadLookTime");
 		LogUtils.d("zkf video_id:" + id);
+		LogUtils.d("zkf score:" + score);
+		LogUtils.d("zkf lesson_id:" + lessonId);
 
 		RequestBody formBody = new FormBody.Builder()
 				.add("video_id", String.valueOf(id))
 				.add("start_time", String.valueOf(start_time))
 				.add("end_time", String.valueOf(end_time))
+				.add("lesson_id", String.valueOf(lessonId))
+				.add("score", String.valueOf(score))
+
 				.build();
 
 		OkHttpClient okHttpClient = new OkHttpClient();
@@ -358,18 +342,18 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 		});
 
 
-		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA + 1, paramMap, new NetRequestResultListener() {
-			@Override
-			public void requestSuccess(int tag, String successResult) {
-				LogUtils.d("finish");
-				LogUtils.d("zkf successresult111:" + successResult);
-			}
-
-			@Override
-			public void requestFailure(int tag, int code, String msg) {
-				LogUtils.d("failed");
-			}
-		});
+//		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA + 1, paramMap, new NetRequestResultListener() {
+//			@Override
+//			public void requestSuccess(int tag, String successResult) {
+//				LogUtils.d("finish");
+//				LogUtils.d("zkf successresult111:" + successResult);
+//			}
+//
+//			@Override
+//			public void requestFailure(int tag, int code, String msg) {
+//				LogUtils.d("failed");
+//			}
+//		});
 
 
 	}
@@ -389,38 +373,14 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 			super.handleMessage(msg);
 			switch (msg.what) {
 				case 0:
-					uploadLookTime(mUploadVideoInfo.getId(), mUploadVideoInfo.getStartTime(), mUploadVideoInfo.getEndTime());
+					uploadLookTime(mUploadVideoInfo.getId(), mUploadVideoInfo.getStartTime(), mUploadVideoInfo.getEndTime()
+					,mUploadVideoInfo.getScore(),mUploadVideoInfo.getLessonId());
 					break;
 				case 1:
-					builder = new AlertDialog.Builder(MenuActivity.this).setIcon(R.drawable.ic_logo).setTitle("课程通知")
-							.setMessage("您有新的课程需要学习，是否跳转去课程？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialogInterface, int i) {
-									//ToDo: 你想做的事情
-									dialogInterface.dismiss();
-									LogUtils.d("zkf jump");
-									switchFragment(FRAGMENT_STUDY);
-									refreshTabRes(FRAGMENT_STUDY);
-									getClassList(true);
 
-								}
-							}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialogInterface, int i) {
-									//ToDo: 你想做的事情
-									dialogInterface.dismiss();
-								}
-							});
-					builder.create().show();
 					break;
 				case 2:
-					LogUtils.d("zkf 6s one time start");
-					int course_id = preferences.getInt(COURSE_ID, 0);
-					if (course_id == 0) {
-						getClassList(false);
-					} else {
-						applyNewCourse(course_id);
-					}
+
 					break;
 			}
 		}
@@ -458,115 +418,8 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 
 	private List<StudyCourse> dataList = new ArrayList<>();
 
-	private void getClassList(boolean saveId) {
-		dataList.clear();
-		String url = ApiRequestTag.API_HOST + "/api/v1/lessons/learning";
-		LogUtils.d("zkf  url:" + url);
-		Map<String, String> paramMap = new HashMap<>();
-		//	paramMap.put("type", "1");
-		NetRequest.requestNoParamWithToken(url, ApiRequestTag.REQUEST_DATA, new NetRequestResultListener() {
-			@Override
-			public void requestSuccess(int tag, String successResult) {
-				Log.e("xzw", successResult);
-				JsonParser parser = new JsonParser();
-				JsonObject json = parser.parse(successResult).getAsJsonObject().get("data").getAsJsonObject();
-				if ((successResult.contains("courses"))) {
-					LearnsPulicBean.DataBean.CoursesBean[] learnsMajorBean = JsonUtils.fromJson(json.get("courses").getAsJsonArray()
-							, LearnsPulicBean.DataBean.CoursesBean[].class);
-					List<LearnsPulicBean.DataBean.CoursesBean> coursesBeansList = new ArrayList<>();
-					coursesBeansList.addAll(Arrays.asList(learnsMajorBean));
-					//	int learnId = learnsMajorBean.getData().getLesson_id();
-					//	List<LearnsMajorBean.DataBean.ListBean> listBeans = learnsMajorBean.getData().getList();
-					for (int i = 0; i < coursesBeansList.size(); i++) {
-						LearnsPulicBean.DataBean.CoursesBean bean = coursesBeansList.get(i);
-						StudyCourse studyCourse = new StudyCourse();
-						studyCourse.setId(bean.getId());
-						studyCourse.setCourseName(bean.getTitle());
-						studyCourse.setStartTime(bean.getStart_time());
-						studyCourse.setVisited(bean.getVisited());
-						studyCourse.setThumb(bean.getThumb());
-						dataList.add(studyCourse);
-
-					}
-				}
-				if ((successResult.contains("content"))) {
-					LearnsPulicBean.DataBean.CoursesBean[] learnsMajorBean = JsonUtils.fromJson(json.get("content").getAsJsonArray()
-							, LearnsPulicBean.DataBean.CoursesBean[].class);
-					List<LearnsPulicBean.DataBean.CoursesBean> coursesBeansList = new ArrayList<>();
-					coursesBeansList.addAll(Arrays.asList(learnsMajorBean));
-					//	int learnId = learnsMajorBean.getData().getLesson_id();
-					//	List<LearnsMajorBean.DataBean.ListBean> listBeans = learnsMajorBean.getData().getList();
-					for (int i = 0; i < coursesBeansList.size(); i++) {
-						LearnsPulicBean.DataBean.CoursesBean bean = coursesBeansList.get(i);
-						StudyCourse studyCourse = new StudyCourse();
-						studyCourse.setId(bean.getId());
-						studyCourse.setCourseName(bean.getTitle());
-						studyCourse.setStartTime(bean.getStart_time());
-						studyCourse.setVisited(bean.getVisited());
-						studyCourse.setThumb(bean.getThumb());
-						dataList.add(studyCourse);
-					}
-				}
-				Collections.sort(dataList, new IdComparator()); // 根据id排序
-				if (saveId){
-					editor.putInt(COURSE_ID,  dataList.get(dataList.size() - 1).getId());
-					editor.commit();
-				}else {
-					applyNewCourse(dataList.get(dataList.size() - 1).getId());
-				}
-
-			}
-
-			@Override
-			public void requestFailure(int tag, int code, String msg) {
-				Log.e("xzw", msg);
-			}
-		});
-	}
 
 
-	private SharedPreferences preferences;
-	private SharedPreferences.Editor editor;
-	private String COURSE_ID = "acorse_id";
-	//private Timer mInitInfoTimer;
 
-	private void applyNewCourse(int id) {
-
-		String url = ApiRequestTag.API_HOST + "/api/v1/lessons/notice";
-		Map<String, String> paramMap = new HashMap<>();
-		paramMap.put("last_id", String.valueOf(id));
-
-		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
-			@Override
-			public void requestSuccess(int tag, String successResult) {
-				if (successResult.contains("success")) {
-					mHandler.sendEmptyMessage(1);
-					editor.putInt(COURSE_ID, id);
-					editor.commit();
-
-				}
-//				if (mInitInfoTimer == null) {
-//					mInitInfoTimer = new Timer(true);
-//					mInitInfoTimer.schedule(mInitInfoTask, 0, 6 * 1000); //延时0S，6s执行一次
-//				}
-
-			}
-
-			@Override
-			public void requestFailure(int tag, int code, String msg) {
-
-			}
-		});
-
-
-	}
-
-
-	private TimerTask mInitInfoTask = new TimerTask() {
-		@Override
-		public void run() {
-			mHandler.sendEmptyMessage(2);
-		}
-	};
 
 }

@@ -66,6 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="主讲：食品安全"
+                    android:textColor="@color/txt_gray_151"
                     android:textSize="@dimen/sp12"
                     />
                 <TextView
@@ -73,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2018-01-01至2019-01-01"
+                    android:textColor="@color/txt_gray_151"
                     android:textSize="@dimen/sp12"
                     />
                 <TextView
@@ -80,13 +82,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="课程时长：3分21秒"
+                    android:textColor="@color/txt_gray_151"
                     android:textSize="@dimen/sp12"
                     />
                 <TextView
                     android:id="@+id/tv_look_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="已观看时长：0分0秒"
+                    android:text="已观看"
+                    android:textColor="@color/txt_gray_151"
                     android:textSize="@dimen/sp12"
                     />
 

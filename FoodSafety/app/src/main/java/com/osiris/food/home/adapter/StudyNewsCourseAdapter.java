@@ -99,10 +99,10 @@ public class StudyNewsCourseAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 		public void bindData(StudyCourse data) {
 			if (data.getVisited() == 1){
-				String str = data.getCourseName()+"（已观看）";
+				String str = data.getCourseName()+"（已学习）";
 				SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(str);
-				int fstart=str.indexOf("（已观看）");
-				int fend=fstart+"（已观看）".length();
+				int fstart=str.indexOf("（已学习）");
+				int fend=fstart+"（已学习）".length();
 				SpannableStringBuilder style=new SpannableStringBuilder(str);
 				style.setSpan(new ForegroundColorSpan(itemView.getResources().getColor(R.color.color_blue_btn)),
 						fstart,fend, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);

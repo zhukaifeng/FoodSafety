@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp173"
+        android:layout_height="@dimen/dp133"
         android:layout_marginLeft="@dimen/dp20"
         android:layout_marginTop="@dimen/dp20"
         android:layout_marginRight="@dimen/dp20"
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="学                      年："
+                    android:text="学                  年："
                     android:textColor="@color/txt_important_black_51"
                     android:textSize="@dimen/sp12"
                     />
@@ -65,37 +65,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="学习任务总时长："
+                    android:text="开始学习时间："
                     android:textColor="@color/txt_important_black_51"
                     android:textSize="@dimen/sp12"
                     />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="完成任务总时长："
-                    android:textColor="@color/txt_important_black_51"
-                    android:textSize="@dimen/sp12"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="观看视频总时长："
-                    android:textColor="@color/txt_important_black_51"
-                    android:textSize="@dimen/sp12"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="面授培训总时长："
-                    android:textColor="@color/txt_important_black_51"
-                    android:textSize="@dimen/sp12"
-                    />
 
 
             </LinearLayout>
@@ -112,47 +86,22 @@
                     android:id="@+id/tv_term"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:text="2019"
                     android:textColor="@color/txt_important_black_51"
                     android:textSize="@dimen/sp12"
                     />
 
 
                 <TextView
-                    android:id="@+id/tv_total_time"
+                    android:id="@+id/tv_start_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="2019-02-02"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/txt_important_black_51"
                     android:textSize="@dimen/sp12"
                     />
 
-                <TextView
-                    android:id="@+id/tv_complete_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/txt_important_black_51"
-                    android:textSize="@dimen/sp12"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_look_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/txt_important_black_51"
-                    android:textSize="@dimen/sp12"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_train_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/txt_important_black_51"
-                    android:textSize="@dimen/sp12"
-                    />
 
 
             </LinearLayout>
