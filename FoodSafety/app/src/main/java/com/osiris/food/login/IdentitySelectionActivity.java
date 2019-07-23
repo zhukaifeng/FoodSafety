@@ -39,11 +39,11 @@ public class IdentitySelectionActivity extends BaseActivity {
 
 	@Override
 	public void init() {
-		dataList.add(new IdentitySelect(1,"餐饮服务从业人员",false));
-		dataList.add(new IdentitySelect(2,"食品生产从业人员",false));
-		dataList.add(new IdentitySelect(3,"食品流通从业人员",false));
-		dataList.add(new IdentitySelect(4,"食品安全协管人员",false));
-		dataList.add(new IdentitySelect(5,"食品安全管理员培训",false));
+		dataList.add(new IdentitySelect(1,"监管人员",false));
+		dataList.add(new IdentitySelect(2,"食品安全协管员",false));
+		dataList.add(new IdentitySelect(3,"食品安全管理员",false));
+		dataList.add(new IdentitySelect(4,"食品经营业主",false));
+		dataList.add(new IdentitySelect(5,"食品从业人员",false));
 
 
 		rv_data.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));

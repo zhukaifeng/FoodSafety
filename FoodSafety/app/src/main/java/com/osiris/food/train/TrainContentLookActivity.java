@@ -7,9 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
@@ -27,7 +25,6 @@ import com.osiris.food.train.fragment.VideoDetailFragment;
 import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.utils.T;
 import com.osiris.food.view.PagerSlidingTabStrip;
-import com.squareup.picasso.Picasso;
 import com.tencent.liteav.demo.play.SuperPlayerModel;
 import com.tencent.liteav.demo.play.SuperPlayerView;
 
@@ -36,11 +33,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fm.jiecao.jcvideoplayer_lib.JCUserAction;
-import fm.jiecao.jcvideoplayer_lib.JCUserActionStandard;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
-import me.jessyan.autosize.utils.LogUtils;
 
 public class TrainContentLookActivity extends AppCompatActivity {
 
@@ -55,6 +47,7 @@ public class TrainContentLookActivity extends AppCompatActivity {
 	@BindView(R.id.viewPager)
 	ViewPager mViewPager;
 	private String[] title;
+	private String videoPath;
 
 	private int mId;
 	private String mPic;
@@ -103,7 +96,13 @@ public class TrainContentLookActivity extends AppCompatActivity {
 	}
 
 
-
+	@Override
+	protected void onResume() {
+		super.onResume();
+		model.videoURL = videoPath;
+		model.title = " ";
+		mSuperPlayerView.startShowPlay();
+	}
 
 	private void getVideoDetail() {
 		String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + mId;
@@ -116,7 +115,8 @@ public class TrainContentLookActivity extends AppCompatActivity {
 				VideoDetailBean videoDetailBean = JsonUtils.deserialize(successResult, VideoDetailBean.class);
 				if (successResult.contains("id")) {
 					tvTitle.setText(videoDetailBean.getData().getName());
-					model.videoURL = videoDetailBean.getData().getPath();
+					videoPath =  videoDetailBean.getData().getPath();
+					model.videoURL = videoPath;
 					model.title = " ";
 					mSuperPlayerView.startShowPlay();
 					mSuperPlayerView.playWithMode(model);
@@ -194,11 +194,8 @@ public class TrainContentLookActivity extends AppCompatActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		try {
-			JCVideoPlayer.releaseAllVideos();
-		} catch (Exception e) {
 
-		}
+
 	}
 
 
@@ -206,6 +203,9 @@ public class TrainContentLookActivity extends AppCompatActivity {
 	public void onDestroy() {
 		super.onDestroy();
 		EventBus.getDefault().unregister(this);
+		mSuperPlayerView.release();
+		mSuperPlayerView.resetPlayer();
+
 	}
 
 

@@ -86,19 +86,19 @@ public class ApplyFragment extends BaseFragment {
 		}
 		switch (GlobalParams.type) {
 			case 1:
-				tvIdentity.setText("餐饮服务从业人员");
+				tvIdentity.setText("监管人员");
 				break;
 			case 2:
-				tvIdentity.setText("食品生产从业人员");
+				tvIdentity.setText("食品安全协管员");
 				break;
 			case 3:
-				tvIdentity.setText("食品流通从业人员");
+				tvIdentity.setText("食品安全管理员");
 				break;
 			case 4:
-				tvIdentity.setText("食品安全协管人员");
+				tvIdentity.setText("食品经营业主");
 				break;
 			case 5:
-				tvIdentity.setText("食品安全管理员培训");
+				tvIdentity.setText("食品从业人员");
 				break;
 		}
 		tvStudyTime.setText(GlobalParams.created_at);
