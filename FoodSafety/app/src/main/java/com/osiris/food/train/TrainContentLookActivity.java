@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,8 @@ import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.utils.T;
 import com.osiris.food.view.PagerSlidingTabStrip;
 import com.squareup.picasso.Picasso;
+import com.tencent.liteav.demo.play.SuperPlayerModel;
+import com.tencent.liteav.demo.play.SuperPlayerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,8 +48,8 @@ public class TrainContentLookActivity extends AppCompatActivity {
 	RelativeLayout rlBack;
 	@BindView(R.id.tv_title)
 	TextView tvTitle;
-	@BindView(R.id.videoplayer)
-	JCVideoPlayerStandard videoplayer;
+	@BindView(R.id.superVodPlayerView)
+	SuperPlayerView mSuperPlayerView;
 	@BindView(R.id.tab_strip)
 	PagerSlidingTabStrip tab_strip;
 	@BindView(R.id.viewPager)
@@ -59,11 +62,14 @@ public class TrainContentLookActivity extends AppCompatActivity {
 	private int lessonId = 0;
 
 	private Context mActivity;
+	private SuperPlayerModel model = new SuperPlayerModel();
+	private long currentTime = System.currentTimeMillis();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_train_content_look);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		EventBus.getDefault().register(this);
 		mActivity = this;
 		ButterKnife.bind(this);
@@ -83,84 +89,21 @@ public class TrainContentLookActivity extends AppCompatActivity {
 		mViewPager.setAdapter(new myPagerAdapter(getSupportFragmentManager()));
 		tab_strip.setViewPager(mViewPager);
 		tab_strip.setTextSize((int) getResources().getDimension(R.dimen.sp16));
+		//	videoplayer.getCurrentPositionWhenPlaying()
 
-		JCVideoPlayer.setJcUserAction(new MyUserActionStandard());
-	//	videoplayer.getCurrentPositionWhenPlaying()
-		videoplayer.setOnDragListener(new View.OnDragListener() {
-			@Override
-			public boolean onDrag(View v, DragEvent event) {
-				return false;
-			}
-		});
 
 		rlBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				LogUtils.d("zkf post event");
-				postEvent(new UploadVideoInfo(mId,0,videoplayer.getCurrentPositionWhenPlaying()/1000,
-						score,lessonId));
+				int time = (int) ((System.currentTimeMillis() - currentTime)/1000);
+				postEvent(new UploadVideoInfo(mId,0,time, score,lessonId));
 				finish();
 			}
 		});
 	}
 
-	class MyUserActionStandard implements JCUserActionStandard {
 
-		@Override
-		public void onEvent(int type, String url, int screen, Object... objects) {
-			switch (type) {
-				case JCUserAction.ON_CLICK_START_ICON:
-					Log.i("USER_EVENT", "ON_CLICK_START_ICON" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_CLICK_START_ERROR:
-					Log.i("USER_EVENT", "ON_CLICK_START_ERROR" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_CLICK_START_AUTO_COMPLETE:
-					Log.i("USER_EVENT", "ON_CLICK_START_AUTO_COMPLETE" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_CLICK_PAUSE:
-					Log.i("USER_EVENT", "ON_CLICK_PAUSE" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_CLICK_RESUME:
-					Log.i("USER_EVENT", "ON_CLICK_RESUME" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_SEEK_POSITION:
-					Log.i("USER_EVENT", "ON_SEEK_POSITION" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_AUTO_COMPLETE:
-					Log.i("USER_EVENT", "ON_AUTO_COMPLETE" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_ENTER_FULLSCREEN:
-					Log.i("USER_EVENT", "ON_ENTER_FULLSCREEN" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_QUIT_FULLSCREEN:
-					Log.i("USER_EVENT", "ON_QUIT_FULLSCREEN" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_ENTER_TINYSCREEN:
-					Log.i("USER_EVENT", "ON_ENTER_TINYSCREEN" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_QUIT_TINYSCREEN:
-					Log.i("USER_EVENT", "ON_QUIT_TINYSCREEN" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_TOUCH_SCREEN_SEEK_VOLUME:
-					Log.i("USER_EVENT", "ON_TOUCH_SCREEN_SEEK_VOLUME" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserAction.ON_TOUCH_SCREEN_SEEK_POSITION:
-					Log.i("USER_EVENT", "ON_TOUCH_SCREEN_SEEK_POSITION" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
 
-				case JCUserActionStandard.ON_CLICK_START_THUMB:
-					Log.i("USER_EVENT", "ON_CLICK_START_THUMB" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				case JCUserActionStandard.ON_CLICK_BLANK:
-					Log.i("USER_EVENT", "ON_CLICK_BLANK" + " title is : " + (objects.length == 0 ? "" : objects[0]) + " url is : " + url + " screen is : " + screen);
-					break;
-				default:
-					Log.i("USER_EVENT", "unknow");
-					break;
-			}
-		}
-	}
 
 	private void getVideoDetail() {
 		String url = ApiRequestTag.API_HOST + "/api/v1/videos/" + mId;
@@ -173,13 +116,17 @@ public class TrainContentLookActivity extends AppCompatActivity {
 				VideoDetailBean videoDetailBean = JsonUtils.deserialize(successResult, VideoDetailBean.class);
 				if (successResult.contains("id")) {
 					tvTitle.setText(videoDetailBean.getData().getName());
-					videoplayer.setUp(videoDetailBean.getData().getPath()
-							, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, videoDetailBean.getData().getName());
-					if (!TextUtils.isEmpty(mPic)) {
-						Picasso.with(mActivity)
-								.load(mPic)
-								.into(videoplayer.thumbImageView);
-					}
+					model.videoURL = videoDetailBean.getData().getPath();
+					model.title = " ";
+					mSuperPlayerView.startShowPlay();
+					mSuperPlayerView.playWithMode(model);
+//					videoplayer.setUp(videoDetailBean.getData().getPath()
+//							, JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, videoDetailBean.getData().getName());
+//					if (!TextUtils.isEmpty(mPic)) {
+//						Picasso.with(mActivity)
+//								.load(mPic)
+//								.into(videoplayer.thumbImageView);
+//					}
 					score = videoDetailBean.getData().getScore();
 					lessonId = videoDetailBean.getData().getLesson_id();
 					EventBus.getDefault().post(videoDetailBean);
@@ -195,6 +142,8 @@ public class TrainContentLookActivity extends AppCompatActivity {
 			}
 		});
 	}
+
+
 
 	private class myPagerAdapter extends FragmentPagerAdapter {
 
@@ -236,10 +185,10 @@ public class TrainContentLookActivity extends AppCompatActivity {
 
 	@Override
 	public void onBackPressed() {
-		if (JCVideoPlayer.backPress()) {
-			return;
-		}
 		super.onBackPressed();
+		int time = (int) ((System.currentTimeMillis() - currentTime)/1000);
+		postEvent(new UploadVideoInfo(mId,0,time, score,lessonId));
+		finish();
 	}
 
 	@Override

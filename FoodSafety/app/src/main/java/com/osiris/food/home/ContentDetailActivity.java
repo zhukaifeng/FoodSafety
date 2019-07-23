@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -27,6 +28,8 @@ import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.NetRequest;
 import com.osiris.food.network.NetRequestResultListener;
 import com.osiris.food.utils.JsonUtils;
+import com.zzhoujay.richtext.RichText;
+import com.zzhoujay.richtext.callback.OnUrlClickListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -76,6 +79,9 @@ public class ContentDetailActivity extends BaseActivity {
 		isLesson = getIntent().getBooleanExtra("lesson", false);
 		lessonType = getIntent().getIntExtra("lesson_type", 0);
 		visited = getIntent().getIntExtra("visited", -1);
+		RichText.initCacheDir(this);
+		//tvContent.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
 		scroll_view.setOnScrollChangeListener(new View.OnScrollChangeListener() {
 
 			@Override
@@ -187,14 +193,37 @@ public class ContentDetailActivity extends BaseActivity {
 
 					if (isLesson) {
 						LessonDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), LessonDetail.DataBean.class);
-						tvContent.setText(Html.fromHtml(dataBean.getSummary()));
+					//	tvContent.setText(Html.fromHtml(dataBean.getSummary()));
+						RichText.from(dataBean.getSummary())
+								.urlClick(new OnUrlClickListener() {
+									@Override
+									public boolean urlClicked(String url) {
+										if (url.startsWith("code://")) {
+											//	Toast.makeText(ContentDetailActivity.this, url.replaceFirst("code://", ""), Toast.LENGTH_SHORT).show();
+											return true;
+										}
+										return false;
+									}
+								})
+								.into(tvContent);
 						tvTitle.setText(dataBean.getName());
 						score = dataBean.getScore();
 
 					} else {
 						ContenDetail.DataBean dataBean = JsonUtils.fromJson(json.get("data").getAsJsonObject(), ContenDetail.DataBean.class);
-						tvContent.setText(Html.fromHtml(dataBean.getContent()));
-
+					//	tvContent.setText(Html.fromHtml(dataBean.getContent()));
+						RichText.from(dataBean.getContent())
+								.urlClick(new OnUrlClickListener() {
+									@Override
+									public boolean urlClicked(String url) {
+										if (url.startsWith("code://")) {
+										//	Toast.makeText(ContentDetailActivity.this, url.replaceFirst("code://", ""), Toast.LENGTH_SHORT).show();
+											return true;
+										}
+										return false;
+									}
+								})
+								.into(tvContent);
 						LogUtils.d("zkf dataBean.getThumb():" + dataBean.getThumb());
 					/*if (!TextUtils.isEmpty(dataBean.getThumb())) {
 						Picasso.with(mActivity)
