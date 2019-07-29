@@ -16,6 +16,7 @@ import com.google.gson.JsonParser;
 import com.osiris.food.R;
 import com.osiris.food.base.BaseActivity;
 import com.osiris.food.home.MenuActivity;
+import com.osiris.food.home.ResetPasswordActivity;
 import com.osiris.food.model.Login;
 import com.osiris.food.network.ApiRequestTag;
 import com.osiris.food.network.GlobalParams;
@@ -88,7 +89,8 @@ public class LoginActivity extends BaseActivity {
 
 				break;
 			case R.id.tv_forget_pwd:
-
+				Intent intent2 = new Intent(this, ResetPasswordActivity.class);
+				startActivity(intent2);
 				//showDialog();
 				break;
 			case R.id.tv_regist:

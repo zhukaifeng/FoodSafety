@@ -17,7 +17,7 @@ import com.osiris.food.base.BaseFragment;
 import com.osiris.food.event.ExitEvent;
 import com.osiris.food.event.FragmentChangeEvent;
 import com.osiris.food.event.UploadVideoInfo;
-import com.osiris.food.home.fragment.ApplyFragment;
+import com.osiris.food.home.fragment.ApplyInfFragment;
 import com.osiris.food.home.fragment.CityNewsFragment;
 import com.osiris.food.home.fragment.ExamFragment;
 import com.osiris.food.home.fragment.HomeFragment;
@@ -185,7 +185,7 @@ public class MenuActivity extends BaseActivity implements IBackInterface {
 					fragment = new HomeFragment();
 					break;
 				case FRAGMENT_APPLY:
-					fragment = new ApplyFragment();
+					fragment = new ApplyInfFragment();
 					break;
 				case FRAGMENT_STUDY:
 					fragment = new StudyFragment();

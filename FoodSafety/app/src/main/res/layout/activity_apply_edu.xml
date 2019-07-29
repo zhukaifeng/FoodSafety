@@ -32,6 +32,7 @@
                 >
 
                 <RelativeLayout
+                    android:id="@+id/rl_choose_work"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp37"
@@ -66,7 +67,7 @@
                         android:layout_marginLeft="@dimen/dp20"
                         android:layout_marginTop="@dimen/dp2"
                         android:layout_toRightOf="@+id/iv_org"
-                        android:text="泰州市海陵区教科"
+                        android:text="泰州市海陵区食品监督管理局"
                         android:textColor="@color/txt_black_102"
                         android:textSize="@dimen/sp12"
                         />
@@ -92,6 +93,7 @@
                     />
 
                 <RelativeLayout
+                    android:id="@+id/rl_choose_job"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp37"
@@ -125,8 +127,8 @@
                         android:layout_below="@+id/tv_job_title"
                         android:layout_marginLeft="@dimen/dp20"
                         android:layout_marginTop="@dimen/dp2"
+                        android:text="餐饮行业"
                         android:layout_toRightOf="@+id/iv_job"
-                        android:text="餐饮服务"
                         android:textColor="@color/txt_black_102"
                         android:textSize="@dimen/sp12"
                         />

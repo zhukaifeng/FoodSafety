@@ -22,6 +22,7 @@ import com.osiris.food.utils.JsonUtils;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -72,6 +73,7 @@ public class ExamFragment extends BaseFragment {
 				}else {
 					Intent intent = new Intent(getActivity(), ExamAnswersActivity.class);
 					intent.putExtra("exam_id", dataList.get(position).getId());
+					intent.putExtra("is_simulate",dataList.get(position).getIs_simulate());
 					startActivity(intent);
 				}
 
@@ -108,13 +110,13 @@ public class ExamFragment extends BaseFragment {
 				JsonParser parser = new JsonParser();
 				JsonObject json = parser.parse(successResult).getAsJsonObject();
 				if (json.get("code").getAsInt() == 200) {
-					ExamList.DataBean data = JsonUtils.fromJson(
-							json.get("data").getAsJsonObject(), ExamList.DataBean.class);
+					ExamList.DataBean[] data = JsonUtils.fromJson(
+							json.get("data").getAsJsonArray(), ExamList.DataBean[].class);
 					if (dataList.size() > 0) {
 						dataList.clear();
 					}
 
-					dataList.add(data);
+					dataList.addAll(Arrays.asList(data));
 					dataAdapter.notifyDataSetChanged();
 				}
 				cancelLoadDialog();

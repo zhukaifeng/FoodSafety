@@ -90,8 +90,7 @@ public class ExamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 			if (!TextUtils.isEmpty(data.getName())) {
 
 				if (data.getTimes() > 0) {
-					double scoreDouble = Double.parseDouble(data.getHistory_score());
-					int score = (new Double(scoreDouble)).intValue();
+					int score = data.getHistory_score();
 					if (score > 60) {
 						tv_exam_name.setText(data.getName());
 						tv_passed.setVisibility(View.VISIBLE);

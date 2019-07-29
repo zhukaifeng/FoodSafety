@@ -1,17 +1,19 @@
 package com.osiris.food.model;
 
+import java.util.List;
+
 public class ExamList {
 
 
 	/**
 	 * status : success
 	 * code : 200
-	 * data : {"id":9,"name":"食品安全中级考试","created_at":"2019-07-02 23:31:57","question_numbers":20,"history_score":0,"times":0}
+	 * data : [{"id":3,"name":"2018～2019年度食品安全管理员中级考试","is_simulate":0,"question_numbers":20,"history_score":0,"times":0},{"id":8,"name":"食品安全高级考试","is_simulate":1,"question_numbers":20,"history_score":0,"times":0}]
 	 */
 
 	private String status;
 	private int code;
-	private DataBean data;
+	private List<DataBean> data;
 
 	public String getStatus() {
 		return status;
@@ -29,19 +31,19 @@ public class ExamList {
 		this.code = code;
 	}
 
-	public DataBean getData() {
+	public List<DataBean> getData() {
 		return data;
 	}
 
-	public void setData(DataBean data) {
+	public void setData(List<DataBean> data) {
 		this.data = data;
 	}
 
 	public static class DataBean {
 		/**
-		 * id : 9
-		 * name : 食品安全中级考试
-		 * created_at : 2019-07-02 23:31:57
+		 * id : 3
+		 * name : 2018～2019年度食品安全管理员中级考试
+		 * is_simulate : 0
 		 * question_numbers : 20
 		 * history_score : 0
 		 * times : 0
@@ -49,9 +51,9 @@ public class ExamList {
 
 		private int id;
 		private String name;
-		private String created_at;
+		private int is_simulate;
 		private int question_numbers;
-		private String history_score;
+		private int history_score;
 		private int times;
 
 		public int getId() {
@@ -70,12 +72,12 @@ public class ExamList {
 			this.name = name;
 		}
 
-		public String getCreated_at() {
-			return created_at;
+		public int getIs_simulate() {
+			return is_simulate;
 		}
 
-		public void setCreated_at(String created_at) {
-			this.created_at = created_at;
+		public void setIs_simulate(int is_simulate) {
+			this.is_simulate = is_simulate;
 		}
 
 		public int getQuestion_numbers() {
@@ -86,11 +88,11 @@ public class ExamList {
 			this.question_numbers = question_numbers;
 		}
 
-		public String getHistory_score() {
+		public int getHistory_score() {
 			return history_score;
 		}
 
-		public void setHistory_score(String history_score) {
+		public void setHistory_score(int history_score) {
 			this.history_score = history_score;
 		}
 

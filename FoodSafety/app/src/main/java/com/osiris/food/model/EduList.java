@@ -52,11 +52,19 @@ public class EduList {
 
 		private int id;
 		private String name;
-		private String start_time;
-		private String end_time;
-		private String lesson_no;
+		private String train_no;
 		private String price;
-		private String level;
+		private int level;
+		private int type;
+		private int order_num;
+
+		public int getOrder_num() {
+			return order_num;
+		}
+
+		public void setOrder_num(int order_num) {
+			this.order_num = order_num;
+		}
 
 		public int getId() {
 			return id;
@@ -74,28 +82,13 @@ public class EduList {
 			this.name = name;
 		}
 
-		public String getStart_time() {
-			return start_time;
+
+		public String getTrain_no() {
+			return train_no;
 		}
 
-		public void setStart_time(String start_time) {
-			this.start_time = start_time;
-		}
-
-		public String getEnd_time() {
-			return end_time;
-		}
-
-		public void setEnd_time(String end_time) {
-			this.end_time = end_time;
-		}
-
-		public String getLesson_no() {
-			return lesson_no;
-		}
-
-		public void setLesson_no(String lesson_no) {
-			this.lesson_no = lesson_no;
+		public void setTrain_no(String train_no) {
+			this.train_no = train_no;
 		}
 
 		public String getPrice() {
@@ -106,12 +99,20 @@ public class EduList {
 			this.price = price;
 		}
 
-		public String getLevel() {
+		public int getLevel() {
 			return level;
 		}
 
-		public void setLevel(String level) {
+		public void setLevel(int level) {
 			this.level = level;
+		}
+
+		public int getType() {
+			return type;
+		}
+
+		public void setType(int type) {
+			this.type = type;
 		}
 	}
 }

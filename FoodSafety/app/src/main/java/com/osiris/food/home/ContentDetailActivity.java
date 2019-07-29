@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.NestedScrollView;
-import android.text.Html;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -16,7 +15,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -65,6 +63,7 @@ public class ContentDetailActivity extends BaseActivity {
 	private int screanHeight = 0;
 	private int scrollHeight = 0;
 	private int score = 0;
+	private boolean isMsg;
 
 	@Override
 	public int getLayoutResId() {
@@ -79,6 +78,7 @@ public class ContentDetailActivity extends BaseActivity {
 		isLesson = getIntent().getBooleanExtra("lesson", false);
 		lessonType = getIntent().getIntExtra("lesson_type", 0);
 		visited = getIntent().getIntExtra("visited", -1);
+		isMsg = getIntent().getBooleanExtra("msg",false);
 		RichText.initCacheDir(this);
 		//tvContent.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
@@ -176,7 +176,9 @@ public class ContentDetailActivity extends BaseActivity {
 		String url;
 		if (isLesson) {
 			url = ApiRequestTag.API_HOST + "/api/v1/lessons/" + id;
-		} else {
+		} else if (isMsg){
+			url = ApiRequestTag.API_HOST + "/api/v1/messages/" + id;
+		} else{
 			url = ApiRequestTag.API_HOST + "/api/v1/contents/" + id;
 		}
 		LogUtils.d("zkf url :" + url);
@@ -207,6 +209,9 @@ public class ContentDetailActivity extends BaseActivity {
 								})
 								.into(tvContent);
 						tvTitle.setText(dataBean.getName());
+						if (isMsg){
+							tvTitle.setText("通知");
+						}
 						score = dataBean.getScore();
 
 					} else {

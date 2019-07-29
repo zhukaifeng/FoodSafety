@@ -7,10 +7,8 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp300"
         android:layout_height="@dimen/dp224"
-        android:layout_marginLeft="@dimen/dp30"
-        android:layout_marginRight="@dimen/dp30"
         android:background="@drawable/bg_white_round"
         android:orientation="vertical">
 
@@ -37,7 +35,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_hint_continue_edu"
+            android:text="请您先点击选择就业"
+            android:layout_gravity="center_horizontal"
             android:layout_below="@+id/view_line"
             android:layout_marginTop="@dimen/dp21"
             android:layout_marginLeft="@dimen/dp22"

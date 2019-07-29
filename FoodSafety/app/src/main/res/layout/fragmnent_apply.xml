@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/txt_hint_input_gray_153"
-                android:text="@string/txt_hint_no_apply"
+                android:text="申请食品安全管理员证"
                 android:layout_gravity="center_horizontal"
                 android:textSize="@dimen/sp16"
                 android:layout_marginTop="@dimen/dp30"
@@ -45,10 +45,10 @@
 
             <TextView
                 android:id="@+id/tv_continue_edu"
-                android:layout_width="@dimen/dp141"
-                android:layout_height="@dimen/dp42"
+                android:layout_width="@dimen/dp201"
+                android:layout_height="@dimen/dp48"
                 android:textSize="@dimen/sp16"
-                android:text="@string/apply_continue_eduction"
+                android:text="申请食品安全管理员证"
                 android:background="@drawable/bg_edu_button_dialog"
                 android:gravity="center"
                 android:textColor="@color/white"

@@ -89,6 +89,7 @@ public class ExamAnswersActivity extends BaseActivity {
 	private Realm mRealm;
 	private int examLocalScore = 0;
 	private int uplaodId = 0;
+	private int is_simulate =0;
 
 	@Override
 	public int getLayoutResId() {
@@ -100,6 +101,7 @@ public class ExamAnswersActivity extends BaseActivity {
 
 		tv_title.setText(getString(R.string.exam_answer));
 		mExamId = getIntent().getIntExtra("exam_id", 0);
+		is_simulate = getIntent().getIntExtra("is_simulate",0);
 		mRealm = Realm.getDefaultInstance();
 
 		/*RealmResults<ExamLocal> userRealmResults = mRealm.where(ExamLocal.class).equalTo("examId",mExamId).findAll();
@@ -780,6 +782,7 @@ public class ExamAnswersActivity extends BaseActivity {
 		//paramMap.put("user_id",String.valueOf(GlobalParams.user_id));
 		//LogUtils.d("zkf userid:" + GlobalParams.user_id);
 		paramMap.put("paper_id", String.valueOf(uplaodId));
+		paramMap.put("is_simulate",String.valueOf(is_simulate));
 		LogUtils.d("zkf paper_id:" + mExamId);
 		LogUtils.d("zkf score:" + examLocalScore);
 

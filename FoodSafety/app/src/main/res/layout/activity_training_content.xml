@@ -9,7 +9,7 @@
 
     <include layout="@layout/layout_title"/>
 
-
+<!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp53"
@@ -40,12 +40,13 @@
         android:textColor="@color/txt_black_102"
         android:textSize="@dimen/sp15"
         />
+                android:background="@drawable/bg_training_content"
 
+-->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_training_content"
         android:layout_marginRight="@dimen/dp21"
         android:layout_marginLeft="@dimen/dp21"
         android:layout_marginTop="@dimen/dp28"

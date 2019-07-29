@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.osiris.food.R;
+import com.osiris.food.model.ApplyRecords;
 import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
@@ -20,21 +21,21 @@ public class TrainingContentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 	private MyItemClickListener myItemClickListener;
 
-	private List<String> dataList = new ArrayList<>();
+	private List<ApplyRecords.DataBean> dataList = new ArrayList<>();
 
 
-	public TrainingContentAdapter(List<String> dataList) {
+	public TrainingContentAdapter(List<ApplyRecords.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
-	public void setDataList(List<String> dataList) {
+	public void setDataList(List<ApplyRecords.DataBean> dataList) {
 		this.dataList = dataList;
 	}
 
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itenm_training_content, parent, false);//解决宽度不能铺满
+		View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_train_records, parent, false);//解决宽度不能铺满
 
 		return new TrainRecordHolder(view, myItemClickListener);
 	}
@@ -55,10 +56,14 @@ public class TrainingContentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 	class TrainRecordHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-		@BindView(R.id.tv_content)
-		TextView tv_content;
-		@BindView(R.id.view_line)
-		View view_line;
+		@BindView(R.id.tv_train_name)
+		TextView tv_train_name;
+		@BindView(R.id.tv_pass)
+		TextView tv_pass;
+		@BindView(R.id.tv_type)
+		TextView tv_type;
+		@BindView(R.id.tv_time)
+		TextView tv_time;
 
 
 		private MyItemClickListener myItemClickListener;
@@ -77,16 +82,13 @@ public class TrainingContentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 			}
 		}
 
-		public void bindData(String data) {
+		public void bindData(ApplyRecords.DataBean data) {
 
-			tv_content.setText(data);
-			if (dataList.size() > 0) {
-				if (getLayoutPosition() == dataList.size() - 1) {
-					view_line.setVisibility(View.GONE);
-				} else {
-					view_line.setVisibility(View.VISIBLE);
-				}
-			}
+			tv_train_name.setText(data.getCert());
+			tv_pass.setText(data.getPass());
+			tv_type.setText(data.getType());
+			tv_time.setText(data.getCreated_at());
+
 
 		}
 	}

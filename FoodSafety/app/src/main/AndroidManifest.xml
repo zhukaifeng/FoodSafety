@@ -124,6 +124,14 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".exam.ExamResultActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".edu.ChooseTypeActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".edu.EduInfoActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".home.ResetPasswordActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".mine.ChangePasswordActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

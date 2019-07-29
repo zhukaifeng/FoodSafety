@@ -1,5 +1,6 @@
 package com.osiris.food.mine;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,7 +32,8 @@ public class SettingActivity extends BaseActivity {
 
 	}
 
-	@OnClick({R.id.rl_back,R.id.rl_account,R.id.rl_news,R.id.rl_privacy,R.id.rl_custom,R.id.rl_app_version,R.id.btn_exit})
+	@OnClick({R.id.rl_back,R.id.rl_account,R.id.rl_news,R.id.rl_privacy,R.id.rl_custom,
+			R.id.rl_app_version,R.id.btn_exit,R.id.rl_pwd})
 	void onClick(View v){
 		switch (v.getId()){
 			case R.id.rl_back:
@@ -51,6 +53,10 @@ public class SettingActivity extends BaseActivity {
 			case R.id.btn_exit:
 				postEvent(new ExitEvent());
 				finish();
+				break;
+			case R.id.rl_pwd:
+				Intent intent = new Intent(SettingActivity.this,ChangePasswordActivity.class);
+				startActivity(intent);
 				break;
 		}
 	}

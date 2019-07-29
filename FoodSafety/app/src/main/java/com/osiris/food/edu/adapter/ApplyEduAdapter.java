@@ -69,6 +69,7 @@ public class ApplyEduAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 		TextView tv_title;
 
 
+
 		private MyItemClickListener myItemClickListener;
 
 		public ApplyEduHolder(View itemView, MyItemClickListener myItemClickListener) {
@@ -90,15 +91,19 @@ public class ApplyEduAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 			if (!TextUtils.isEmpty(data.getName())){
 				tv_title.setText(data.getName());
 			}
-			if (!TextUtils.isEmpty(data.getLesson_no())){
-				tv_project_id.setText("项目编号：" + data.getLesson_no());
+			if (!TextUtils.isEmpty(data.getTrain_no())){
+				tv_project_id.setText("项目编号：" + data.getTrain_no());
 			}
 			if (!TextUtils.isEmpty(data.getPrice())){
 				tv_price.setText(data.getPrice());
 			}
-			if (!TextUtils.isEmpty(data.getLevel())){
-				tv_level.setText(data.getLevel());
+
+			if (data.getOrder_num() == 0){
+				tv_apply.setText("申请");
+			}else {
+				tv_apply.setText("已申请");
 			}
+			//if (data.getLevel())
 
 		}
 	}

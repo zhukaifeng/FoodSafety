@@ -25,7 +25,9 @@ import com.osiris.food.view.widget.MyItemClickListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -113,6 +115,7 @@ public class HomeFragment extends BaseFragment {
 				break;
 			case R.id.tv_news_title:
 				if (msgData.getId()>0){
+					updateMsg();
 					Intent intent = new Intent(getActivity(), ContentDetailActivity.class);
 					intent.putExtra("id", msgData.getId());
 					startActivity(intent);
@@ -120,6 +123,32 @@ public class HomeFragment extends BaseFragment {
 
 				break;
 		}
+	}
+
+	private void updateMsg() {
+
+		String url = ApiRequestTag.API_HOST + "/api/v1/report/message";
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("message_id",String.valueOf(msgData.getId()));
+		NetRequest.requestParamWithToken(url, ApiRequestTag.REQUEST_DATA, paramMap, new NetRequestResultListener() {
+			@Override
+			public void requestSuccess(int tag, String successResult) {
+				LogUtils.d("zkf ---------" + successResult);
+				JsonParser parser = new JsonParser();
+				JsonObject json = parser.parse(successResult).getAsJsonObject();
+				if (json.get("code").getAsInt() == 200 && json.get("status").getAsString().equals("success")){
+
+				}
+			}
+
+
+			@Override
+			public void requestFailure(int tag, int code, String msg) {
+
+			}
+		});
+
+
 	}
 
 
